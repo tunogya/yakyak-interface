@@ -14,5 +14,45 @@ msgstr ""
 "Plural-Forms: \n"
 
 #: src/components/Header/index.tsx
-msgid "Cogito ergo sum"
-msgstr "Cogito ergo sum"
+msgid "About"
+msgstr "About"
+
+#: src/pages/Wallet/index.tsx
+msgid "Amount"
+msgstr "Amount"
+
+#: src/components/Header/index.tsx
+msgid "Dark"
+msgstr "Dark"
+
+#: src/components/Header/index.tsx
+msgid "Document"
+msgstr "Document"
+
+#: src/pages/Wallet/index.tsx
+msgid "From"
+msgstr "From"
+
+#: src/components/Header/index.tsx
+msgid "Language"
+msgstr "Language"
+
+#: src/components/Header/index.tsx
+msgid "Light"
+msgstr "Light"
+
+#: src/components/Header/index.tsx
+msgid "Mode"
+msgstr "Mode"
+
+#: src/pages/Wallet/index.tsx
+msgid "My balance:"
+msgstr "My balance:"
+
+#: src/pages/Wallet/index.tsx
+msgid "To"
+msgstr "To"
+
+#: src/pages/Wallet/index.tsx
+msgid "Transfer"
+msgstr "Transfer"

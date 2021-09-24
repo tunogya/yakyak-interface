@@ -1,6 +1,7 @@
-import {Button, Grid, Stack, Text} from '@chakra-ui/react'
+import {Button, Grid, IconButton, Stack, Text} from '@chakra-ui/react'
 import {useHistory} from "react-router-dom";
 import {useState} from "react";
+import {HamburgerIcon} from "@chakra-ui/icons";
 
 export const Header = () => {
   const links = [
@@ -17,7 +18,7 @@ export const Header = () => {
       </Stack>
       <Stack justifySelf={"center"} direction={"row"} background={"white"} p={1} borderRadius={"md"}>
         {links.map((link, index) => (
-          <Button key={index} colorScheme={"gray"} size={"sm"} variant={currentPath === link.path ? "solid" : "ghost"}
+          <Button key={index} colorScheme={"gray"} size={"md"} variant={currentPath === link.path ? "solid" : "ghost"}
                   onClick={() => {
                     history.push(link.path)
                     setCurrentPath(link.path)
@@ -25,8 +26,12 @@ export const Header = () => {
         ))}
       </Stack>
       <Stack justifySelf={"flex-end"} direction={"row"} alignItems={"center"}>
-        <Button variant={"outline"} colorScheme={"black"} size={"sm"}>Address</Button>
-        <Button size={"sm"}>Menu</Button>
+        <Button size={"md"} background={"white"}>Address</Button>
+        <IconButton
+          background={"white"}
+          aria-label="Search database"
+          icon={<HamburgerIcon />}
+        />
       </Stack>
     </Grid>
   )

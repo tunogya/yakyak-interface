@@ -2,16 +2,19 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { Stack } from '@chakra-ui/react'
 import Header from '../components/Header'
+import Wallet from "./Wallet";
+import Swap from './Swap'
 
 function App() {
   return (
-    <Stack spacing={0}>
-      <Stack background={'gray.200'} position={'fixed'} width={'100%'}>
+    <Stack spacing={0} background={"gray.100"} minH={"100vh"}>
+      <Stack position={'fixed'} w={'100%'}>
         <Header />
       </Stack>
       <Stack p={'120px 16px 0 16px'} alignItems={'center'}>
         <Switch>
-          <Route exact strict path="/vote" />
+          <Route exact strict path="/wallet" component={Wallet}/>
+          <Route exact strict path="/swap" component={Swap}/>
           <Route />
         </Switch>
       </Stack>

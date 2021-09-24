@@ -7,7 +7,7 @@ import Swap from './Swap'
 
 function App() {
   return (
-    <Stack spacing={0} background={"gray.100"} minH={"100vh"}>
+    <Stack spacing={0} minH={"100vh"}>
       <Stack position={'fixed'} w={'100%'}>
         <Header />
       </Stack>

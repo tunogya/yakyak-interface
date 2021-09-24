@@ -1,4 +1,15 @@
-import {Button, Grid, IconButton, Stack, Text} from '@chakra-ui/react'
+import {
+  Button,
+  Grid,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Stack,
+  Text,
+  useColorMode
+} from '@chakra-ui/react'
 import {useHistory} from "react-router-dom";
 import {useState} from "react";
 import {HamburgerIcon} from "@chakra-ui/icons";
@@ -10,13 +21,14 @@ export const Header = () => {
   ]
   const history = useHistory()
   const [currentPath, setCurrentPath] = useState(history.location.pathname)
+  const {colorMode, toggleColorMode} = useColorMode()
 
   return (
     <Grid templateColumns="repeat(3, 1fr)" p={4} gap={6} alignItems={"center"}>
       <Stack justifySelf={"flex-start"}>
-        <Text>Create React Dapp</Text>
+        <Text fontWeight={"bold"} fontSize={"md"}>Create React Dapp</Text>
       </Stack>
-      <Stack justifySelf={"center"} direction={"row"} background={"white"} p={1} borderRadius={"md"}>
+      <Stack justifySelf={"center"} direction={"row"} p={1} borderRadius={"md"}>
         {links.map((link, index) => (
           <Button key={index} colorScheme={"gray"} size={"md"} variant={currentPath === link.path ? "solid" : "ghost"}
                   onClick={() => {
@@ -26,12 +38,28 @@ export const Header = () => {
         ))}
       </Stack>
       <Stack justifySelf={"flex-end"} direction={"row"} alignItems={"center"}>
-        <Button size={"md"} background={"white"}>Address</Button>
-        <IconButton
-          background={"white"}
-          aria-label="Search database"
-          icon={<HamburgerIcon />}
-        />
+        <Button size={"md"}>Address</Button>
+        <Menu>
+          <MenuButton
+            as={IconButton}
+            aria-label="Options"
+            icon={<HamburgerIcon/>}
+          />
+          <MenuList>
+            <MenuItem>
+              About
+            </MenuItem>
+            <MenuItem>
+              Document
+            </MenuItem>
+            <MenuItem>
+              Language
+            </MenuItem>
+            <MenuItem onClick={toggleColorMode}>
+              {colorMode === "light" ? "Dark" : "Light"} Mode
+            </MenuItem>
+          </MenuList>
+        </Menu>
       </Stack>
     </Grid>
   )

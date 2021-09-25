@@ -13,8 +13,8 @@ function App() {
       </Stack>
       <Stack p={'120px 16px 0 16px'} alignItems={'center'}>
         <Switch>
-          <Route exact strict path="/wallet" component={Wallet}/>
           <Route exact strict path="/swap" component={Swap}/>
+          <Route exact strict path="/" component={Wallet}/>
           <Route />
         </Switch>
       </Stack>

@@ -16,7 +16,7 @@ import {HamburgerIcon} from "@chakra-ui/icons";
 
 export const Header = () => {
   const links = [
-    {path: "/wallet", label: "Wallet"},
+    {path: "/", label: "Wallet"},
     {path: "/swap", label: "Swap"},
   ]
   const history = useHistory()

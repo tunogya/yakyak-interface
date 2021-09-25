@@ -13,7 +13,6 @@ import {
 import {useHistory} from "react-router-dom";
 import {useState} from "react";
 import {HamburgerIcon} from "@chakra-ui/icons";
-import {t, Trans} from "@lingui/macro";
 
 export const Header = () => {
   const links = [
@@ -48,16 +47,16 @@ export const Header = () => {
           />
           <MenuList>
             <MenuItem>
-              <Trans>About</Trans>
+             About
             </MenuItem>
             <MenuItem>
-              <Trans>Document</Trans>
+             Document
             </MenuItem>
             <MenuItem>
-              <Trans>Language</Trans>
+             Language
             </MenuItem>
             <MenuItem onClick={toggleColorMode}>
-              {colorMode === "light" ? t`Dark` : t`Light`} <Trans>Mode</Trans>
+              {colorMode === "light" ? "Dark" : "Light"} Mode
             </MenuItem>
           </MenuList>
         </Menu>

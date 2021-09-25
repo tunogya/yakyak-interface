@@ -1,8 +1,7 @@
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
-import {ReactNode, useEffect, useState} from 'react'
+import {ReactNode, useEffect} from 'react'
 import { SupportedLocale } from './constants/locales'
-import { detect, fromUrl, fromStorage, fromNavigator } from '@lingui/detect-locale'
 
 import {
   en,
@@ -31,24 +30,13 @@ async function dynamicActivate(locale: SupportedLocale) {
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const locale = 'en-US'
+  const locale = 'zh-CN'
   // 使用钩子函数
   // const locale = useActiveLocale()
-  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     dynamicActivate(locale)
-      .then(() => {
-        document.documentElement.setAttribute('lang', locale)
-        setLoaded(true)
-      })
-      .catch((error) => {
-        console.error('Failed to activate locale', locale, error)
-      })
   }, [locale])
-
-  // prevent the app from rendering with placeholder text before the locale is loaded
-  if (!loaded) return null
 
   return (
     <I18nProvider forceRenderOnLocaleChange={false} i18n={i18n}>

@@ -1,4 +1,5 @@
 import {Button, FormControl, FormHelperText, FormLabel, Input, Spacer, Stack} from "@chakra-ui/react";
+import {Trans} from "@lingui/macro";
 
 export const Wallet = () => {
   return (
@@ -17,7 +18,7 @@ export const Wallet = () => {
         <FormHelperText>My balance: 0</FormHelperText>
       </FormControl>
       <Spacer/>
-      <Button colorScheme={"blue"}>Transfer</Button>
+      <Button colorScheme={"blue"}><Trans>Transfer</Trans></Button>
     </Stack>
   )
 }

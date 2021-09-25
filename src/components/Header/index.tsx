@@ -13,6 +13,8 @@ import {
 import {useHistory} from "react-router-dom";
 import {useState} from "react";
 import {HamburgerIcon} from "@chakra-ui/icons";
+import {useActiveLocale} from "../../hooks/useActiveLocale";
+import {LOCALE_LABEL} from "../../constants/locales";
 
 export const Header = () => {
   const links = [
@@ -22,6 +24,7 @@ export const Header = () => {
   const history = useHistory()
   const [currentPath, setCurrentPath] = useState(history.location.pathname)
   const {colorMode, toggleColorMode} = useColorMode()
+  const {locale, toggle} = useActiveLocale()
 
   return (
     <Grid templateColumns="repeat(3, 1fr)" p={4} gap={6} alignItems={"center"}>
@@ -52,9 +55,7 @@ export const Header = () => {
             <MenuItem>
              Document
             </MenuItem>
-            <MenuItem>
-             Language
-            </MenuItem>
+            <MenuItem onClick={toggle}>{ LOCALE_LABEL[locale] }</MenuItem>
             <MenuItem onClick={toggleColorMode}>
               {colorMode === "light" ? "Dark" : "Light"} Mode
             </MenuItem>

@@ -1,13 +1,14 @@
-import { i18n } from '@lingui/core'
-import { I18nProvider } from '@lingui/react'
+import {i18n} from '@lingui/core'
+import {I18nProvider} from '@lingui/react'
 import {ReactNode, useEffect} from 'react'
-import { SupportedLocale } from './constants/locales'
+import {SupportedLocale} from './constants/locales'
 
 import {
   en,
   zh,
   PluralCategory,
 } from 'make-plural/plurals'
+import {useActiveLocale} from "./hooks/useActiveLocale";
 
 type LocalePlural = {
   [key in SupportedLocale]: (n: number | string, ord?: boolean) => PluralCategory
@@ -19,8 +20,8 @@ const plurals: LocalePlural = {
 }
 
 async function dynamicActivate(locale: SupportedLocale) {
-  const { messages } = await import(`@lingui/loader!./locales/${locale}.po`)
-  i18n.loadLocaleData(locale, { plurals: () => plurals[locale] })
+  const {messages} = await import(`@lingui/loader!./locales/${locale}.po`)
+  i18n.loadLocaleData(locale, {plurals: () => plurals[locale]})
   i18n.load(locale, messages)
   i18n.activate(locale)
 
@@ -29,10 +30,8 @@ async function dynamicActivate(locale: SupportedLocale) {
   }
 }
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const locale = 'zh-CN'
-  // 使用钩子函数
-  // const locale = useActiveLocale()
+export function LanguageProvider({children}: { children: ReactNode }) {
+  const { locale } = useActiveLocale()
 
   useEffect(() => {
     dynamicActivate(locale)

@@ -15,6 +15,7 @@ import {useState} from "react";
 import {HamburgerIcon} from "@chakra-ui/icons";
 import {useActiveLocale} from "../../hooks/useActiveLocale";
 import {LOCALE_LABEL} from "../../constants/locales";
+import {Trans} from "@lingui/macro";
 
 export const Header = () => {
   const links = [
@@ -25,6 +26,7 @@ export const Header = () => {
   const [currentPath, setCurrentPath] = useState(history.location.pathname)
   const {colorMode, toggleColorMode} = useColorMode()
   const {locale, toggle} = useActiveLocale()
+  const [user, setUser] = useState("")
 
   return (
     <Grid templateColumns="repeat(3, 1fr)" p={4} gap={6} alignItems={"center"}>
@@ -41,7 +43,12 @@ export const Header = () => {
         ))}
       </Stack>
       <Stack justifySelf={"flex-end"} direction={"row"} alignItems={"center"}>
-        <Button size={"md"}>Address</Button>
+        { user ? (
+          <Button size={"md"}>Address</Button>
+        ) : (
+          <Button size={"md"} onClick={() => setUser("user")}><Trans>Connect Wallet</Trans></Button>
+        ) }
+
         <Menu>
           <MenuButton
             as={IconButton}

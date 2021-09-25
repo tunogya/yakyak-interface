@@ -3,9 +3,9 @@ import {
   Grid,
   IconButton,
   Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
+  MenuButton, MenuDivider,
+  MenuItem, MenuItemOption,
+  MenuList, MenuOptionGroup,
   Stack,
   Text,
   useColorMode
@@ -14,7 +14,7 @@ import {useHistory} from "react-router-dom";
 import {useState} from "react";
 import {HamburgerIcon} from "@chakra-ui/icons";
 import {useActiveLocale} from "../../hooks/useActiveLocale";
-import {LOCALE_LABEL} from "../../constants/locales";
+import {LOCALE_LABEL, SUPPORTED_LOCALES} from "../../constants/locales";
 import {Trans} from "@lingui/macro";
 
 export const Header = () => {
@@ -25,7 +25,7 @@ export const Header = () => {
   const history = useHistory()
   const [currentPath, setCurrentPath] = useState(history.location.pathname)
   const {colorMode, toggleColorMode} = useColorMode()
-  const {locale, toggle} = useActiveLocale()
+  const {locale, switchLocale} = useActiveLocale()
   const [user, setUser] = useState("")
 
   return (
@@ -62,10 +62,17 @@ export const Header = () => {
             <MenuItem>
              Document
             </MenuItem>
-            <MenuItem onClick={toggle}>{ LOCALE_LABEL[locale] }</MenuItem>
             <MenuItem onClick={toggleColorMode}>
               {colorMode === "light" ? "Dark" : "Light"} Mode
             </MenuItem>
+            <MenuDivider/>
+            <MenuOptionGroup defaultValue={locale} title="language" type="radio">
+
+              {SUPPORTED_LOCALES.map((locale, index) => (
+                <MenuItemOption value={locale} key={index}
+                                onClick={() => switchLocale(locale)}>{LOCALE_LABEL[locale]}</MenuItemOption>
+              ))}
+            </MenuOptionGroup>
           </MenuList>
         </Menu>
       </Stack>

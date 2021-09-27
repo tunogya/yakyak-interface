@@ -19,7 +19,7 @@ import MetamaskIcon from '../../assets/images/metamask.png'
 import styled from "styled-components";
 import PendingView from "./PeddingView";
 import usePrevious from "../../hooks/usePrevious";
-import {on} from "cluster";
+import AccountDetails from "../AccountDetails";
 
 const IconWrapper = styled.div<{ size?: number | null }>`
   align-items: center;
@@ -212,12 +212,19 @@ export const WalletModal = () => {
         </>
       )
     }
-    console.log(account)
-    console.log(walletView)
     if (account && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <>
-          账户详情
+          <ModalOverlay/>
+          <ModalContent>
+            <ModalHeader>
+              <Trans>Account</Trans>
+            </ModalHeader>
+            <ModalCloseButton/>
+            <ModalBody>
+              <AccountDetails/>
+            </ModalBody>
+          </ModalContent>
         </>
       )
     }
@@ -243,7 +250,6 @@ export const WalletModal = () => {
                 {getOptions()}
               </Stack>
             )}
-
           </ModalBody>
         </ModalContent>
       </>

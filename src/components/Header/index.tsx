@@ -18,7 +18,7 @@ import { useState } from "react"
 import { HamburgerIcon } from "@chakra-ui/icons"
 import { useActiveLocale } from "../../hooks/useActiveLocale"
 import { LOCALE_LABEL, SUPPORTED_LOCALES } from "../../constants/locales"
-import WalletModal from "../WalletModal"
+import Web3Status from "../Web3Status"
 
 export const Header = () => {
   const links = [
@@ -54,7 +54,7 @@ export const Header = () => {
         ))}
       </Stack>
       <Stack justifySelf={"flex-end"} direction={"row"} alignItems={"center"}>
-        <WalletModal />
+        <Web3Status/>
 
         <Menu>
           <MenuButton as={IconButton} aria-label="Options" icon={<HamburgerIcon />} />

@@ -25,6 +25,8 @@ import styled from "styled-components"
 import PendingView from "./PeddingView"
 import usePrevious from "../../hooks/usePrevious"
 import AccountDetails from "../AccountDetails"
+import {Activity} from "react-feather";
+import {shortenAddress} from "../../utils";
 
 const IconWrapper = styled.div<{ size?: number | null }>`
   align-items: center;
@@ -34,6 +36,13 @@ const IconWrapper = styled.div<{ size?: number | null }>`
     height: ${({ size }) => (size ? size + "px" : "24px")};
     width: ${({ size }) => (size ? size + "px" : "24px")};
   }
+`
+
+const NetworkIcon = styled(Activity)`
+  margin-left: 0.25rem;
+  margin-right: 0.5rem;
+  width: 16px;
+  height: 16px;
 `
 
 const WALLET_VIEWS = {
@@ -90,6 +99,31 @@ export const WalletModal = () => {
           setPendingError(true)
         }
       })
+  }
+
+  const getWeb3Status = () => {
+    if (account) {
+      return (
+        <Button onClick={onOpen}>
+          <Text>{shortenAddress(account)}</Text>
+        </Button>
+      )
+    }
+
+    if (error) {
+      return (
+        <>
+          <NetworkIcon />
+          <Text>{error instanceof UnsupportedChainIdError ? <Trans>Wrong Network</Trans> : <Trans>Error</Trans>}</Text>
+        </>
+      )
+    }
+
+    return (
+      <Button onClick={onOpen}>
+        <Trans>Connect Wallet</Trans>
+      </Button>
+    )
   }
 
   const getOptions = () => {
@@ -255,9 +289,7 @@ export const WalletModal = () => {
 
   return (
     <>
-      <Button size={"md"} onClick={onOpen}>
-        <Trans>Connect Wallet</Trans>
-      </Button>
+      {getWeb3Status()}
       <Modal isOpen={isOpen} onClose={onClose}>
         {getModalContent()}
       </Modal>

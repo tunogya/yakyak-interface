@@ -61,7 +61,7 @@ export const Header = () => {
               {colorMode === "light" ? "Dark" : "Light"} Mode
             </MenuItem>
             <MenuDivider/>
-            <MenuOptionGroup defaultValue={locale} title="language" type="radio">
+            <MenuOptionGroup defaultValue={locale} type="radio">
 
               {SUPPORTED_LOCALES.map((locale, index) => (
                 <MenuItemOption value={locale} key={index}

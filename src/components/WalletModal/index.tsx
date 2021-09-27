@@ -1,6 +1,6 @@
 import {Trans} from "@lingui/macro";
 import {
-  Button,
+  Button, Link,
   Modal,
   ModalBody, ModalCloseButton,
   ModalContent,
@@ -14,9 +14,12 @@ import {SUPPORTED_WALLETS} from '../../constants/wallet'
 import {injected, portis} from "../../connectors";
 import {WalletConnectConnector} from "@web3-react/walletconnect-connector";
 import {AbstractConnector} from "@web3-react/abstract-connector";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import MetamaskIcon from '../../assets/images/metamask.png'
 import styled from "styled-components";
+import PendingView from "./PeddingView";
+import usePrevious from "../../hooks/usePrevious";
+import {on} from "cluster";
 
 const IconWrapper = styled.div<{ size?: number | null }>`
   align-items: center;
@@ -41,8 +44,21 @@ export const WalletModal = () => {
   const [pendingWallet, setPendingWallet] = useState<AbstractConnector | undefined>()
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingError, setPendingError] = useState<boolean>()
+  const previousAccount = usePrevious(account)
+  const activePrevious = usePrevious(active)
+  const connectorPrevious = usePrevious(connector)
 
-  console.log(account)
+  useEffect(() => {
+    if (account && !previousAccount && isOpen) {
+      onClose()
+    }
+  }, [account, previousAccount, onOpen])
+
+  useEffect(() => {
+    if (isOpen && ((active && !activePrevious) || (connector && connector !== connectorPrevious && !error))) {
+      setWalletView(WALLET_VIEWS.ACCOUNT)
+    }
+  }, [setWalletView, active, error, connector, isOpen, activePrevious, connectorPrevious])
 
   const tryActivation = async (connector: AbstractConnector | undefined) => {
     let name = ''
@@ -64,15 +80,16 @@ export const WalletModal = () => {
     connector &&
     activate(connector, undefined, true).catch((error) => {
       if (error instanceof UnsupportedChainIdError) {
-        activate(connector) // a little janky...can't use setError because the connector isn't set
+        activate(connector)
       } else {
         setPendingError(true)
       }
     })
   }
 
-  function getOptions() {
+  const getOptions = () => {
     const isMetamask = window.ethereum && window.ethereum.isMetaMask
+
     return Object.keys(SUPPORTED_WALLETS).map((key) => {
       const option = SUPPORTED_WALLETS[key]
       // check for mobile options
@@ -118,18 +135,19 @@ export const WalletModal = () => {
                 id={`connect-${key}`}
                 key={key}
                 isFullWidth={true}
-                header={<Trans>Install Metamask</Trans>}
-                link={'https://metamask.io/'}
-                icon={MetamaskIcon}
                 size={"lg"}
               >
-                <Stack direction={"row"} w={"100%"} alignItems={"center"}>
-                  <Text>{option.name}</Text>
-                  <Spacer/>
-                  <IconWrapper>
-                    <img src={option.iconURL} alt={'Icon'}/>
-                  </IconWrapper>
-                </Stack>
+                <Link href={'https://metamask.io/'} isExternal w={"100%"}>
+                  <Stack direction={"row"} w={"100%"} alignItems={"center"}>
+                    <Text>
+                      <Trans>Install Metamask</Trans>
+                    </Text>
+                    <Spacer/>
+                    <IconWrapper>
+                      <img src={MetamaskIcon} alt={'Icon'}/>
+                    </IconWrapper>
+                  </Stack>
+                </Link>
               </Button>
             )
           } else {
@@ -162,11 +180,10 @@ export const WalletModal = () => {
             key={key}
             active={option.connector === connector}
             link={option.href}
-            header={option.name}
             icon={option.iconURL}
           >
             <Stack direction={"row"} w={"100%"} alignItems={"center"}>
-              <Text>{option.name}</Text>
+              <Text color={option.connector === connector ? option.color : "black"}>{option.name}</Text>
               <Spacer/>
               <IconWrapper>
                 <img src={option.iconURL} alt={'Icon'}/>
@@ -178,20 +195,66 @@ export const WalletModal = () => {
     })
   }
 
+  const getModalContent = () => {
+    if (error) {
+      return (
+        <>
+          <ModalOverlay/>
+          <ModalContent>
+            <ModalHeader>
+              <Trans>Error</Trans>
+            </ModalHeader>
+            <ModalCloseButton/>
+            <ModalBody>
+              {error}
+            </ModalBody>
+          </ModalContent>
+        </>
+      )
+    }
+    console.log(account)
+    console.log(walletView)
+    if (account && walletView === WALLET_VIEWS.ACCOUNT) {
+      return (
+        <>
+          账户详情
+        </>
+      )
+    }
+
+    return (
+      <>
+        <ModalOverlay/>
+        <ModalContent>
+          <ModalHeader>
+            <Trans>Connect wallet</Trans>
+          </ModalHeader>
+          <ModalCloseButton/>
+          <ModalBody>
+            {walletView === WALLET_VIEWS.PENDING ? (
+              <PendingView
+                connector={pendingWallet}
+                error={pendingError}
+                setPendingError={setPendingError}
+                tryActivation={tryActivation}
+              />
+            ) : (
+              <Stack pb={4}>
+                {getOptions()}
+              </Stack>
+            )}
+
+          </ModalBody>
+        </ModalContent>
+      </>
+    )
+  }
+
   return (
     <>
       <Button size={"md"} onClick={onOpen}><Trans>Connect Wallet</Trans></Button>
       <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay/>
-        <ModalContent>
-          <ModalHeader><Trans>Connect wallet</Trans></ModalHeader>
-          <ModalCloseButton/>
-          <ModalBody>
-            <Stack pb={4}>
-              {getOptions()}
-            </Stack>
-          </ModalBody>
-        </ModalContent>
+        {getModalContent()}
       </Modal>
     </>
   )

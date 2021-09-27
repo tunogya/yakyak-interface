@@ -24,7 +24,11 @@ const IconWrapper = styled.div<{ size?: number }>`
   }
 `
 
-const AccountDetails = () => {
+interface AccountDetailsProps {
+  openOptions: () => void
+}
+
+const AccountDetails = ({openOptions} : AccountDetailsProps) => {
   const {chainId, account, connector} = useActiveWeb3React()
   const {onCopy} = useClipboard(account ?? "")
 
@@ -90,10 +94,9 @@ const AccountDetails = () => {
           ;(connector as any).close()
         }}><Trans>Disconnect</Trans></Button>
       )}
-      <Button onClick={() => {
-        // openOptions()
-      }}
-      ><Trans>Change</Trans></Button>
+      <Button onClick={openOptions}>
+        <Trans>Change</Trans>
+      </Button>
       <Text>ENSName</Text>
       {getStatusIcon()}
       <Stack direction={"row"} alignItems={"center"}>

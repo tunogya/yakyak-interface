@@ -222,7 +222,9 @@ export const WalletModal = () => {
             </ModalHeader>
             <ModalCloseButton/>
             <ModalBody>
-              <AccountDetails/>
+              <AccountDetails
+                openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)}
+              />
             </ModalBody>
           </ModalContent>
         </>

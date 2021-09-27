@@ -1,18 +1,18 @@
-import { Web3Provider } from '@ethersproject/providers'
-import { SafeAppConnector } from '@gnosis.pm/safe-apps-web3-react'
-import { InjectedConnector } from '@web3-react/injected-connector'
-import { PortisConnector } from '@web3-react/portis-connector'
-import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
-import { WalletLinkConnector } from '@web3-react/walletlink-connector'
-import DAPP_LOGO_URL from '../assets/svg/logo.svg'
-import { ALL_SUPPORTED_CHAIN_IDS, SupportedChainId } from '../constants/chains'
-import getLibrary from '../utils/getLibrary'
-import { NetworkConnector } from './NetworkConnector'
+import { Web3Provider } from "@ethersproject/providers"
+import { SafeAppConnector } from "@gnosis.pm/safe-apps-web3-react"
+import { InjectedConnector } from "@web3-react/injected-connector"
+import { PortisConnector } from "@web3-react/portis-connector"
+import { WalletConnectConnector } from "@web3-react/walletconnect-connector"
+import { WalletLinkConnector } from "@web3-react/walletlink-connector"
+import DAPP_LOGO_URL from "../assets/svg/logo.svg"
+import { ALL_SUPPORTED_CHAIN_IDS, SupportedChainId } from "../constants/chains"
+import getLibrary from "../utils/getLibrary"
+import { NetworkConnector } from "./NetworkConnector"
 
 const INFURA_KEY = process.env.REACT_APP_INFURA_KEY
 const PORTIS_ID = process.env.REACT_APP_PORTIS_ID
 
-if (typeof INFURA_KEY === 'undefined') {
+if (typeof INFURA_KEY === "undefined") {
   throw new Error(`REACT_APP_INFURA_KEY must be a defined environment variable`)
 }
 
@@ -21,7 +21,7 @@ const NETWORK_URLS: { [key in SupportedChainId]: string } = {
   [SupportedChainId.RINKEBY]: `https://rinkeby.infura.io/v3/${INFURA_KEY}`,
   [SupportedChainId.ROPSTEN]: `https://ropsten.infura.io/v3/${INFURA_KEY}`,
   [SupportedChainId.GOERLI]: `https://goerli.infura.io/v3/${INFURA_KEY}`,
-  [SupportedChainId.KOVAN]: `https://kovan.infura.io/v3/${INFURA_KEY}`
+  [SupportedChainId.KOVAN]: `https://kovan.infura.io/v3/${INFURA_KEY}`,
 }
 
 export const network = new NetworkConnector({
@@ -48,13 +48,13 @@ export const walletconnect = new WalletConnectConnector({
 
 // mainnet only
 export const portis = new PortisConnector({
-  dAppId: PORTIS_ID ?? '',
+  dAppId: PORTIS_ID ?? "",
   networks: [1],
 })
 
 // mainnet only
 export const walletlink = new WalletLinkConnector({
   url: NETWORK_URLS[SupportedChainId.MAINNET],
-  appName: 'Create React Dapp',
+  appName: "Create React Dapp",
   appLogoUrl: DAPP_LOGO_URL,
 })

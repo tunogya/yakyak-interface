@@ -1,7 +1,7 @@
-import { extendTheme } from '@chakra-ui/react'
-import { styles } from './styles'
-import { config } from './config'
-import { borders } from './foundations/borders'
+import { extendTheme } from "@chakra-ui/react"
+import { styles } from "./styles"
+import { config } from "./config"
+import { borders } from "./foundations/borders"
 
 const theme = extendTheme({
   config,

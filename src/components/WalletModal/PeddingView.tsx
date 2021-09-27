@@ -1,15 +1,15 @@
-import {AbstractConnector} from '@web3-react/abstract-connector'
-import {SUPPORTED_WALLETS} from '../../constants/wallet'
-import {injected} from '../../connectors'
-import {Trans} from '@lingui/macro'
-import {Button, Spacer, Stack, Text} from "@chakra-ui/react";
+import { AbstractConnector } from "@web3-react/abstract-connector"
+import { SUPPORTED_WALLETS } from "../../constants/wallet"
+import { injected } from "../../connectors"
+import { Trans } from "@lingui/macro"
+import { Button, Spacer, Stack, Text } from "@chakra-ui/react"
 
 export default function PendingView({
-                                      connector,
-                                      error = false,
-                                      setPendingError,
-                                      tryActivation,
-                                    }: {
+  connector,
+  error = false,
+  setPendingError,
+  tryActivation,
+}: {
   connector?: AbstractConnector
   error?: boolean
   setPendingError: (error: boolean) => void
@@ -24,7 +24,7 @@ export default function PendingView({
           <Text>
             <Trans>Error connecting</Trans>
           </Text>
-          <Spacer/>
+          <Spacer />
           <Button
             onClick={() => {
               setPendingError(false)
@@ -40,29 +40,22 @@ export default function PendingView({
           <Trans>Initializing...</Trans>
         </Text>
       )}
-      {Object.keys(SUPPORTED_WALLETS).map((key) => {
+      {Object.keys(SUPPORTED_WALLETS).map(key => {
         const option = SUPPORTED_WALLETS[key]
         if (option.connector === connector) {
           if (option.connector === injected) {
-            if (isMetamask && option.name !== 'MetaMask') {
+            if (isMetamask && option.name !== "MetaMask") {
               return null
             }
-            if (!isMetamask && option.name === 'MetaMask') {
+            if (!isMetamask && option.name === "MetaMask") {
               return null
             }
           }
           return (
-            <Button
-              isFullWidth={true}
-              size={"lg"}
-              id={`connect-${key}`}
-              key={key}
-              icon={option.iconURL}
-              disabled
-            >
+            <Button isFullWidth={true} size={"lg"} id={`connect-${key}`} key={key} icon={option.iconURL} disabled>
               <Stack direction={"row"} w={"100%"} alignItems={"center"}>
                 <Text color={option.connector === connector ? option.color : "black"}>{option.name}</Text>
-                <Spacer/>
+                <Spacer />
               </Stack>
             </Button>
           )

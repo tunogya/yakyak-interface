@@ -1,7 +1,7 @@
-import { getAddress } from '@ethersproject/address'
-import { AddressZero } from '@ethersproject/constants'
-import { Contract } from '@ethersproject/contracts'
-import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
+import { getAddress } from "@ethersproject/address"
+import { AddressZero } from "@ethersproject/constants"
+import { Contract } from "@ethersproject/contracts"
+import { JsonRpcSigner, Web3Provider } from "@ethersproject/providers"
 
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
@@ -41,5 +41,5 @@ export function getContract(address: string, ABI: any, library: Web3Provider, ac
 }
 
 export function escapeRegExp(string: string): string {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") // $& means the whole matched string
 }

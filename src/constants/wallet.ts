@@ -1,10 +1,10 @@
-import { AbstractConnector } from '@web3-react/abstract-connector'
-import INJECTED_ICON_URL from '../assets/images/arrow-right.svg'
-import COINBASE_ICON_URL from '../assets/images/coinbaseWalletIcon.svg'
-import METAMASK_ICON_URL from '../assets/images/metamask.png'
-import PORTIS_ICON_URL from '../assets/images/portisIcon.png'
-import WALLETCONNECT_ICON_URL from '../assets/images/walletConnectIcon.svg'
-import { injected, portis, walletconnect, walletlink } from '../connectors'
+import { AbstractConnector } from "@web3-react/abstract-connector"
+import INJECTED_ICON_URL from "../assets/images/arrow-right.svg"
+import COINBASE_ICON_URL from "../assets/images/coinbaseWalletIcon.svg"
+import METAMASK_ICON_URL from "../assets/images/metamask.png"
+import PORTIS_ICON_URL from "../assets/images/portisIcon.png"
+import WALLETCONNECT_ICON_URL from "../assets/images/walletConnectIcon.svg"
+import { injected, portis, walletconnect, walletlink } from "../connectors"
 
 interface WalletInfo {
   connector?: AbstractConnector
@@ -21,54 +21,54 @@ interface WalletInfo {
 export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
   INJECTED: {
     connector: injected,
-    name: 'Injected',
+    name: "Injected",
     iconURL: INJECTED_ICON_URL,
-    description: 'Injected web3 provider.',
+    description: "Injected web3 provider.",
     href: null,
-    color: '#010101',
+    color: "#010101",
     primary: true,
   },
   METAMASK: {
     connector: injected,
-    name: 'MetaMask',
+    name: "MetaMask",
     iconURL: METAMASK_ICON_URL,
-    description: 'Easy-to-use browser extension.',
+    description: "Easy-to-use browser extension.",
     href: null,
-    color: '#E8831D',
+    color: "#E8831D",
   },
   WALLET_CONNECT: {
     connector: walletconnect,
-    name: 'WalletConnect',
+    name: "WalletConnect",
     iconURL: WALLETCONNECT_ICON_URL,
-    description: 'Connect to Trust Wallet, Rainbow Wallet and more...',
+    description: "Connect to Trust Wallet, Rainbow Wallet and more...",
     href: null,
-    color: '#4196FC',
+    color: "#4196FC",
     mobile: true,
   },
   WALLET_LINK: {
     connector: walletlink,
-    name: 'Coinbase Wallet',
+    name: "Coinbase Wallet",
     iconURL: COINBASE_ICON_URL,
-    description: 'Use Coinbase Wallet app on mobile device',
+    description: "Use Coinbase Wallet app on mobile device",
     href: null,
-    color: '#315CF5',
+    color: "#315CF5",
   },
   COINBASE_LINK: {
-    name: 'Open in Coinbase Wallet',
+    name: "Open in Coinbase Wallet",
     iconURL: COINBASE_ICON_URL,
-    description: 'Open in Coinbase Wallet app.',
-    href: 'https://go.cb-w.com/mtUDhEZPy1',
-    color: '#315CF5',
+    description: "Open in Coinbase Wallet app.",
+    href: "https://go.cb-w.com/mtUDhEZPy1",
+    color: "#315CF5",
     mobile: true,
     mobileOnly: true,
   },
   Portis: {
     connector: portis,
-    name: 'Portis',
+    name: "Portis",
     iconURL: PORTIS_ICON_URL,
-    description: 'Login using Portis hosted wallet',
+    description: "Login using Portis hosted wallet",
     href: null,
-    color: '#4A6C9B',
+    color: "#4A6C9B",
     mobile: true,
   },
 }

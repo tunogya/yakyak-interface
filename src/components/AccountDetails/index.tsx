@@ -1,26 +1,26 @@
-import {injected, portis, walletconnect, walletlink} from "../../connectors";
-import {Trans} from "@lingui/macro";
-import {SUPPORTED_WALLETS} from "../../constants/wallet";
-import {Button, IconButton, Link, Stack, Text, useClipboard} from "@chakra-ui/react";
-import {useActiveWeb3React} from "../../hooks/web3";
-import styled from "styled-components";
-import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
-import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
-import PortisIcon from '../../assets/images/portisIcon.png'
-import Identicon from '../Identicon'
-import {ExplorerDataType, getExplorerLink} from '../../utils/getExplorerLink'
-import {shortenAddress} from '../../utils'
-import {CopyIcon} from "@chakra-ui/icons";
+import { injected, portis, walletconnect, walletlink } from "../../connectors"
+import { Trans } from "@lingui/macro"
+import { SUPPORTED_WALLETS } from "../../constants/wallet"
+import { Button, IconButton, Link, Stack, Text, useClipboard } from "@chakra-ui/react"
+import { useActiveWeb3React } from "../../hooks/web3"
+import styled from "styled-components"
+import CoinbaseWalletIcon from "../../assets/images/coinbaseWalletIcon.svg"
+import WalletConnectIcon from "../../assets/images/walletConnectIcon.svg"
+import PortisIcon from "../../assets/images/portisIcon.png"
+import Identicon from "../Identicon"
+import { ExplorerDataType, getExplorerLink } from "../../utils/getExplorerLink"
+import { shortenAddress } from "../../utils"
+import { CopyIcon } from "@chakra-ui/icons"
 
 const IconWrapper = styled.div<{ size?: number }>`
-  ${({theme}) => theme.flexColumnNoWrap};
+  ${({ theme }) => theme.flexColumnNoWrap};
   align-items: center;
   justify-content: center;
   margin-right: 8px;
   & > img,
   span {
-    height: ${({size}) => (size ? size + 'px' : '32px')};
-    width: ${({size}) => (size ? size + 'px' : '32px')};
+    height: ${({ size }) => (size ? size + "px" : "32px")};
+    width: ${({ size }) => (size ? size + "px" : "32px")};
   }
 `
 
@@ -28,19 +28,19 @@ interface AccountDetailsProps {
   openOptions: () => void
 }
 
-const AccountDetails = ({openOptions} : AccountDetailsProps) => {
-  const {chainId, account, connector} = useActiveWeb3React()
-  const {onCopy} = useClipboard(account ?? "")
+const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
+  const { chainId, account, connector } = useActiveWeb3React()
+  const { onCopy } = useClipboard(account ?? "")
 
   function formatConnectorName() {
-    const {ethereum} = window
+    const { ethereum } = window
     const isMetaMask = !!(ethereum && ethereum.isMetaMask)
     const name = Object.keys(SUPPORTED_WALLETS)
       .filter(
-        (k) =>
-          SUPPORTED_WALLETS[k].connector === connector && (connector !== injected || isMetaMask === (k === 'METAMASK'))
+        k =>
+          SUPPORTED_WALLETS[k].connector === connector && (connector !== injected || isMetaMask === (k === "METAMASK"))
       )
-      .map((k) => SUPPORTED_WALLETS[k].name)[0]
+      .map(k => SUPPORTED_WALLETS[k].name)[0]
     return (
       <Stack>
         <Trans>Connected with {name}</Trans>
@@ -52,26 +52,26 @@ const AccountDetails = ({openOptions} : AccountDetailsProps) => {
     if (connector === injected) {
       return (
         <IconWrapper size={16}>
-          <Identicon/>
+          <Identicon />
         </IconWrapper>
       )
     } else if (connector === walletconnect) {
       return (
         <IconWrapper size={16}>
-          <img src={WalletConnectIcon} alt={'WalletConnect logo'}/>
+          <img src={WalletConnectIcon} alt={"WalletConnect logo"} />
         </IconWrapper>
       )
     } else if (connector === walletlink) {
       return (
         <IconWrapper size={16}>
-          <img src={CoinbaseWalletIcon} alt={'Coinbase Wallet logo'}/>
+          <img src={CoinbaseWalletIcon} alt={"Coinbase Wallet logo"} />
         </IconWrapper>
       )
     } else if (connector === portis) {
       return (
         <Stack direction={"row"} alignItems={"center"}>
           <IconWrapper size={16}>
-            <img src={PortisIcon} alt={'Portis logo'}/>
+            <img src={PortisIcon} alt={"Portis logo"} />
           </IconWrapper>
           <Button
             onClick={() => {
@@ -90,9 +90,13 @@ const AccountDetails = ({openOptions} : AccountDetailsProps) => {
     <Stack>
       {formatConnectorName()}
       {connector !== injected && connector !== walletlink && (
-        <Button onClick={() => {
-          ;(connector as any).close()
-        }}><Trans>Disconnect</Trans></Button>
+        <Button
+          onClick={() => {
+            ;(connector as any).close()
+          }}
+        >
+          <Trans>Disconnect</Trans>
+        </Button>
       )}
       <Button onClick={openOptions}>
         <Trans>Change</Trans>
@@ -101,11 +105,9 @@ const AccountDetails = ({openOptions} : AccountDetailsProps) => {
       {getStatusIcon()}
       <Stack direction={"row"} alignItems={"center"}>
         <Text>{account && shortenAddress(account)}</Text>
-        <IconButton aria-label={'copy'} icon={<CopyIcon/>} onClick={onCopy} variant={"ghost"}/>
+        <IconButton aria-label={"copy"} icon={<CopyIcon />} onClick={onCopy} variant={"ghost"} />
         {chainId && account && (
-          <Link href={getExplorerLink(chainId, account, ExplorerDataType.ADDRESS)}>
-            View on Explorer
-          </Link>
+          <Link href={getExplorerLink(chainId, account, ExplorerDataType.ADDRESS)}>View on Explorer</Link>
         )}
       </Stack>
     </Stack>

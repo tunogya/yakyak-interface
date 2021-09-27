@@ -1,7 +1,5 @@
 export const Swap = () => {
-  return (
-    <>Swap</>
-  )
+  return <>Swap</>
 }
 
 export default Swap

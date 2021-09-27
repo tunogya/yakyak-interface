@@ -55,6 +55,6 @@ export const portis = new PortisConnector({
 // mainnet only
 export const walletlink = new WalletLinkConnector({
   url: NETWORK_URLS[SupportedChainId.MAINNET],
-  appName: 'Dapp',
+  appName: 'Create React Dapp',
   appLogoUrl: DAPP_LOGO_URL,
 })

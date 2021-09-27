@@ -15,7 +15,7 @@ import {useState} from "react";
 import {HamburgerIcon} from "@chakra-ui/icons";
 import {useActiveLocale} from "../../hooks/useActiveLocale";
 import {LOCALE_LABEL, SUPPORTED_LOCALES} from "../../constants/locales";
-import WalletConnect from "../WalletConnect";
+import WalletModal from "../WalletModal";
 
 export const Header = () => {
   const links = [
@@ -42,7 +42,7 @@ export const Header = () => {
         ))}
       </Stack>
       <Stack justifySelf={"flex-end"} direction={"row"} alignItems={"center"}>
-        <WalletConnect/>
+        <WalletModal/>
 
         <Menu>
           <MenuButton

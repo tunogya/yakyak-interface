@@ -54,7 +54,7 @@ export const Header = () => {
         ))}
       </Stack>
       <Stack justifySelf={"flex-end"} direction={"row"} alignItems={"center"}>
-        <Web3Status/>
+        <Web3Status />
 
         <Menu>
           <MenuButton as={IconButton} aria-label="Options" icon={<HamburgerIcon />} />

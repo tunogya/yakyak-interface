@@ -25,8 +25,8 @@ import styled from "styled-components"
 import PendingView from "./PeddingView"
 import usePrevious from "../../hooks/usePrevious"
 import AccountDetails from "../AccountDetails"
-import {Activity} from "react-feather";
-import {shortenAddress} from "../../utils";
+import { Activity } from "react-feather"
+import { shortenAddress } from "../../utils"
 
 const IconWrapper = styled.div<{ size?: number | null }>`
   align-items: center;

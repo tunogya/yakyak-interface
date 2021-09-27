@@ -1,10 +1,10 @@
-import {AbstractConnector} from "@web3-react/abstract-connector"
-import {SUPPORTED_WALLETS} from "../../constants/wallet"
-import {injected} from "../../connectors"
-import {Trans} from "@lingui/macro"
-import {Button, Spacer, Stack, Text} from "@chakra-ui/react"
-import {RepeatIcon} from "@chakra-ui/icons";
-import styled from "styled-components";
+import { AbstractConnector } from "@web3-react/abstract-connector"
+import { SUPPORTED_WALLETS } from "../../constants/wallet"
+import { injected } from "../../connectors"
+import { Trans } from "@lingui/macro"
+import { Button, Spacer, Stack, Text } from "@chakra-ui/react"
+import { RepeatIcon } from "@chakra-ui/icons"
+import styled from "styled-components"
 
 const IconWrapper = styled.div<{ size?: number | null }>`
   align-items: center;
@@ -17,11 +17,11 @@ const IconWrapper = styled.div<{ size?: number | null }>`
 `
 
 export default function PendingView({
-                                      connector,
-                                      error = false,
-                                      setPendingError,
-                                      tryActivation,
-                                    }: {
+  connector,
+  error = false,
+  setPendingError,
+  tryActivation,
+}: {
   connector?: AbstractConnector
   error?: boolean
   setPendingError: (error: boolean) => void
@@ -52,18 +52,22 @@ export default function PendingView({
             }
           }
           return (
-            <Button isFullWidth={true} size={"lg"} id={`connect-${key}`} key={key} icon={option.iconURL}
-                    disabled={!error}
-                    onClick={() => {
-                      setPendingError(false)
-                      connector && tryActivation(connector)
-                    }}>
+            <Button
+              isFullWidth={true}
+              size={"lg"}
+              id={`connect-${key}`}
+              key={key}
+              icon={option.iconURL}
+              disabled={!error}
+              onClick={() => {
+                setPendingError(false)
+                connector && tryActivation(connector)
+              }}
+            >
               <Stack direction={"row"} w={"100%"} alignItems={"center"}>
-                {error && (
-                  <RepeatIcon color={option.color}/>
-                )}
+                {error && <RepeatIcon color={option.color} />}
                 <Text color={option.color}>{option.name}</Text>
-                <Spacer/>
+                <Spacer />
                 <IconWrapper>
                   <img src={option.iconURL} alt={"Icon"} />
                 </IconWrapper>

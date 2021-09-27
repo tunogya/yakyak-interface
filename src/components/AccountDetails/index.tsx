@@ -101,7 +101,6 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
       <Button onClick={openOptions}>
         <Trans>Change</Trans>
       </Button>
-      <Text>ENSName</Text>
       {getStatusIcon()}
       <Stack direction={"row"} alignItems={"center"}>
         <Text>{account && shortenAddress(account)}</Text>

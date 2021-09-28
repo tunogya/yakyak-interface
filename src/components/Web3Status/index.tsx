@@ -17,7 +17,7 @@ import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core"
 import { isMobile } from "react-device-detect"
 import { SUPPORTED_WALLETS } from "../../constants/wallet"
 import { fortmatic, injected, portis } from "../../connectors"
-import { OVERLAY_READY } from '../../connectors/Fortmatic'
+import { OVERLAY_READY } from "../../connectors/Fortmatic"
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector"
 import { AbstractConnector } from "@web3-react/abstract-connector"
 import { useEffect, useState } from "react"

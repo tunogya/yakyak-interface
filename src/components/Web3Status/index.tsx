@@ -60,8 +60,6 @@ export const WalletModal = () => {
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingError, setPendingError] = useState<boolean>()
   const previousAccount = usePrevious(account)
-  const activePrevious = usePrevious(active)
-  const connectorPrevious = usePrevious(connector)
 
   useEffect(() => {
     if (account && !previousAccount && isOpen) {
@@ -77,6 +75,8 @@ export const WalletModal = () => {
     }
   }, [isOpen])
 
+  const activePrevious = usePrevious(active)
+  const connectorPrevious = usePrevious(connector)
   useEffect(() => {
     if (isOpen && ((active && !activePrevious) || (connector && connector !== connectorPrevious && !error))) {
       setWalletView(WALLET_VIEWS.ACCOUNT)
@@ -159,11 +159,8 @@ export const WalletModal = () => {
             <Button
               id={`connect-${key}`}
               key={key}
-              active={option.connector && option.connector === connector}
-              link={option.href}
               isFullWidth={true}
               size={"lg"}
-              icon={option.iconURL}
               onClick={() => {
                 option.connector !== connector && !option.href && tryActivation(option.connector)
               }}
@@ -229,9 +226,6 @@ export const WalletModal = () => {
                 : !option.href && tryActivation(option.connector)
             }}
             key={key}
-            active={option.connector === connector}
-            link={option.href}
-            icon={option.iconURL}
           >
             <Stack direction={"row"} w={"100%"} alignItems={"center"}>
               <Text color={option.connector === connector ? option.color : "black"}>{option.name}</Text>

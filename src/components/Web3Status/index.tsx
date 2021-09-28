@@ -16,7 +16,8 @@ import {
 import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core"
 import { isMobile } from "react-device-detect"
 import { SUPPORTED_WALLETS } from "../../constants/wallet"
-import { injected, portis } from "../../connectors"
+import { fortmatic, injected, portis } from "../../connectors"
+import { OVERLAY_READY } from '../../connectors/Fortmatic'
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector"
 import { AbstractConnector } from "@web3-react/abstract-connector"
 import { useEffect, useState } from "react"
@@ -66,7 +67,15 @@ export const WalletModal = () => {
     if (account && !previousAccount && isOpen) {
       onClose()
     }
-  }, [account, previousAccount, onOpen])
+  }, [account, previousAccount, isOpen])
+
+  // always reset to account view
+  useEffect(() => {
+    if (isOpen) {
+      setPendingError(false)
+      setWalletView(WALLET_VIEWS.ACCOUNT)
+    }
+  }, [isOpen])
 
   useEffect(() => {
     if (isOpen && ((active && !activePrevious) || (connector && connector !== connectorPrevious && !error))) {
@@ -100,6 +109,13 @@ export const WalletModal = () => {
         }
       })
   }
+
+  // close wallet modal if fortmatic modal is active
+  useEffect(() => {
+    fortmatic.on(OVERLAY_READY, () => {
+      onClose()
+    })
+  }, [isOpen])
 
   const getWeb3Status = () => {
     if (account) {

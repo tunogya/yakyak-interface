@@ -65,7 +65,7 @@ export const WalletModal = () => {
     if (account && !previousAccount && isOpen) {
       onClose()
     }
-  }, [account, previousAccount, isOpen])
+  }, [account, previousAccount, isOpen, onClose])
 
   // always reset to account view
   useEffect(() => {
@@ -115,7 +115,7 @@ export const WalletModal = () => {
     fortmatic.on(OVERLAY_READY, () => {
       onClose()
     })
-  }, [isOpen])
+  }, [onClose])
 
   const getWeb3Status = () => {
     if (account) {

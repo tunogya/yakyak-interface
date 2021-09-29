@@ -28,6 +28,7 @@ import usePrevious from "../../hooks/usePrevious"
 import AccountDetails from "../AccountDetails"
 import { Activity } from "react-feather"
 import { shortenAddress } from "../../utils"
+import Identicon from "../Identicon";
 
 const IconWrapper = styled.div<{ size?: number | null }>`
   align-items: center;
@@ -120,7 +121,7 @@ export const WalletModal = () => {
   const getWeb3Status = () => {
     if (account) {
       return (
-        <Button onClick={onOpen}>
+        <Button onClick={onOpen} leftIcon={<Identicon/>}>
           <Text>{shortenAddress(account)}</Text>
         </Button>
       )

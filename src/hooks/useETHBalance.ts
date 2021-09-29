@@ -1,16 +1,11 @@
 import {useActiveWeb3React} from "./web3"
 import {isAddress} from "../utils"
 import {ethers} from 'ethers'
-import {atom, useRecoilState} from "recoil";
+import {useState} from "react";
 
-export const ethBalanceAtom = atom({
-  key: "eth-balance",
-  default: ""
-})
-
-export const useETHBalance = (uncheckedAddresses: string | undefined) => {
+export const useETHBalance = (uncheckedAddresses: string | null | undefined) => {
   const {library} = useActiveWeb3React()
-  const [balance, setBalance] = useRecoilState(ethBalanceAtom)
+  const [balance, setBalance] = useState("")
 
   if (!uncheckedAddresses || !isAddress(uncheckedAddresses)) {
     return undefined

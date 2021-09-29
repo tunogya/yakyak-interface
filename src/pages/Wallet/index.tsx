@@ -20,7 +20,8 @@ export const Wallet = () => {
   const [to, setTo] = useState("")
   const [amount, setAmount] = useState("")
   const parse = (val: string) => val.replace(/^\$/, "")
-  const balance = useETHBalance(account ?? "")
+  const balance = useETHBalance(account)
+  const toBalance = useETHBalance(to)
 
   return (
     <Stack w={"600px"} h={"600px"} p={6} borderRadius={"xl"} spacing={6}>
@@ -34,10 +35,15 @@ export const Wallet = () => {
         <FormLabel>
           <Trans>To</Trans>
         </FormLabel>
+        <Input variant="filled" placeholder={"Receiver address"} onChange={e => setTo(e.target.value)} />
         <FormErrorMessage>
           <Trans>address error</Trans>
         </FormErrorMessage>
-        <Input variant="filled" placeholder={"Receiver address"} onChange={e => setTo(e.target.value)} />
+        { to !== "" && isAddress(to) && (
+          <FormHelperText>
+            <Trans>Balance:</Trans> {toBalance}
+          </FormHelperText>
+        ) }
       </FormControl>
       <FormControl id="Amount">
         <FormLabel>

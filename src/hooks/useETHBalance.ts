@@ -16,5 +16,5 @@ export const useETHBalance = (uncheckedAddresses: string | undefined) => {
     }
   )
 
-  return balance
+  return balance + " ETH"
 }

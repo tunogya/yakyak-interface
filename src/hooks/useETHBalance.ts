@@ -3,7 +3,7 @@ import {isAddress} from "../utils"
 import {ethers} from 'ethers'
 import {atom, useRecoilState} from "recoil";
 
-const ethBalanceAtom = atom({
+export const ethBalanceAtom = atom({
   key: "eth-balance",
   default: ""
 })

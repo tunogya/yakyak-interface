@@ -1,6 +1,6 @@
 import {
   Button,
-  FormControl,
+  FormControl, FormErrorMessage,
   FormHelperText,
   FormLabel,
   Input,
@@ -32,6 +32,9 @@ export const Wallet = () => {
         <FormLabel>
           <Trans>To</Trans>
         </FormLabel>
+        <FormErrorMessage>
+          <Trans>address error</Trans>
+        </FormErrorMessage>
         <Input variant="filled" placeholder={"Receiver address"} onChange={e => setTo(e.target.value)} />
       </FormControl>
       <FormControl id="Amount">

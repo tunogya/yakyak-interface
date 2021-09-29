@@ -12,6 +12,7 @@ import {
 import { Trans } from "@lingui/macro"
 import { useActiveWeb3React } from "../../hooks/web3"
 import { useState } from "react"
+import {isAddress} from "../../utils";
 
 export const Wallet = () => {
   const { account } = useActiveWeb3React()
@@ -27,7 +28,7 @@ export const Wallet = () => {
         </FormLabel>
         <Input variant="filled" value={account ?? ""} isReadOnly placeholder={"Your address"} />
       </FormControl>
-      <FormControl id="To">
+      <FormControl id="To" isInvalid={to !== "" && !isAddress(to)}>
         <FormLabel>
           <Trans>To</Trans>
         </FormLabel>
@@ -51,7 +52,7 @@ export const Wallet = () => {
         </FormHelperText>
       </FormControl>
       <Spacer />
-      <Button colorScheme={"blue"} disabled={!account || !to || !amount}>
+      <Button colorScheme={"blue"} disabled={ !account || !isAddress(to)  || Number(amount) <= 0}>
         <Trans>Transfer</Trans>
       </Button>
     </Stack>

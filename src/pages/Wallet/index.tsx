@@ -12,13 +12,15 @@ import {
 import { Trans } from "@lingui/macro"
 import { useActiveWeb3React } from "../../hooks/web3"
 import { useState } from "react"
-import {isAddress} from "../../utils";
+import {isAddress} from "../../utils"
+import {useETHBalance} from "../../hooks/useETHBalance"
 
 export const Wallet = () => {
   const { account } = useActiveWeb3React()
   const [to, setTo] = useState("")
   const [amount, setAmount] = useState("")
   const parse = (val: string) => val.replace(/^\$/, "")
+  const balance = useETHBalance(account ?? "")
 
   return (
     <Stack w={"600px"} h={"600px"} p={6} borderRadius={"xl"} spacing={6}>
@@ -51,7 +53,7 @@ export const Wallet = () => {
         </NumberInput>
 
         <FormHelperText>
-          <Trans>My balance:</Trans>0
+          <Trans>My balance:</Trans> {balance}
         </FormHelperText>
       </FormControl>
       <Spacer />

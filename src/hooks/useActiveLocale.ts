@@ -15,11 +15,9 @@ export function localStorageLocale(): SupportedLocale | undefined {
   return parseLocale(window.localStorage.getItem("lang"))
 }
 
-export const initialLocale = localStorageLocale() ?? DEFAULT_LOCALE
-
-const localeAtom = atom({
+export const localeAtom = atom({
   key: "locale",
-  default: initialLocale,
+  default: localStorageLocale() ?? DEFAULT_LOCALE,
 })
 
 export function useActiveLocale() {

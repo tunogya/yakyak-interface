@@ -5,7 +5,7 @@ import {Trans} from '@lingui/macro'
 import {network} from '../../connectors'
 import {useEagerConnect, useInactiveListener} from '../../hooks/web3'
 import {NetworkContextName} from '../../constants/misc'
-import {Stack, Text} from "@chakra-ui/react";
+import {Spinner, Stack, Text} from "@chakra-ui/react";
 
 export default function Web3ReactManager({children}: { children: JSX.Element }) {
   const {active} = useWeb3React()
@@ -44,10 +44,12 @@ export default function Web3ReactManager({children}: { children: JSX.Element }) 
   // if the account context isn't active, and there's an error on the network context, it's an irrecoverable error
   if (!active && networkError) {
     return (
-      <Stack>
-        <Trans>
-          Oops! An unknown error occurred. Please refresh the page, or visit from another browser or device.
-        </Trans>
+      <Stack alignItems={"center"} justifyContent={"center"} h={"100vh"} direction={"row"}>
+        <Text>
+          <Trans>
+            Oops! An unknown error occurred. Please refresh the page, or visit from another browser or device.
+          </Trans>
+        </Text>
       </Stack>
     )
   }
@@ -55,11 +57,14 @@ export default function Web3ReactManager({children}: { children: JSX.Element }) 
   // if neither context is active, spin
   if (!active && !networkActive) {
     return showLoader ? (
-      <Text>
-        <Trans>
-          Loading
-        </Trans>
-      </Text>
+      <Stack alignItems={"center"} justifyContent={"center"} h={"100vh"} direction={"row"}>
+        <Spinner/>
+        <Text>
+          <Trans>
+            Loading
+          </Trans>
+        </Text>
+      </Stack>
     ) : null
   }
 

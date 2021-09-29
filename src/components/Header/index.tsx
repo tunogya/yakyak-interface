@@ -19,6 +19,7 @@ import { HamburgerIcon } from "@chakra-ui/icons"
 import { useActiveLocale } from "../../hooks/useActiveLocale"
 import { LOCALE_LABEL, SUPPORTED_LOCALES } from "../../constants/locales"
 import Web3Status from "../Web3Status"
+import NetworkCard from "./NetworkCard";
 
 export const Header = () => {
   const links = [
@@ -32,10 +33,11 @@ export const Header = () => {
 
   return (
     <Grid templateColumns="repeat(3, 1fr)" p={4} gap={6} alignItems={"center"}>
-      <Stack justifySelf={"flex-start"}>
+      <Stack justifySelf={"flex-start"} direction={"row"}>
         <Text fontWeight={"bold"} fontSize={"md"}>
           Create React Dapp
         </Text>
+        <NetworkCard/>
       </Stack>
       <Stack justifySelf={"center"} direction={"row"} p={1} borderRadius={"md"}>
         {links.map((link, index) => (

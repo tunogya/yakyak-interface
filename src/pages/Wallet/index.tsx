@@ -7,18 +7,19 @@ import {
   NumberInput,
   NumberInputField,
   Spacer,
-  Stack,
+  Stack, Text,
 } from "@chakra-ui/react"
-import { Trans } from "@lingui/macro"
-import { useActiveWeb3React } from "../../hooks/web3"
-import { useState } from "react"
+import {Trans} from "@lingui/macro"
+import {useActiveWeb3React} from "../../hooks/web3"
+import {useState} from "react"
 import {isAddress} from "../../utils"
 import {useETHBalance} from "../../hooks/useETHBalance"
+import {PROCESSING} from "../../constants/status";
 
 export const Wallet = () => {
-  const { account } = useActiveWeb3React()
+  const {account} = useActiveWeb3React()
   const [to, setTo] = useState("")
-  const [amount, setAmount] = useState("")
+  const [amount, setAmount] = useState("0")
   const parse = (val: string) => val.replace(/^\$/, "")
   const balance = useETHBalance(account)
   const toBalance = useETHBalance(to)
@@ -29,21 +30,29 @@ export const Wallet = () => {
         <FormLabel>
           <Trans>From</Trans>
         </FormLabel>
-        <Input variant="filled" value={account ?? ""} isReadOnly placeholder={"Your address"} />
+        <Input variant="filled" value={account ?? ""} isReadOnly placeholder={"Your address"}/>
       </FormControl>
       <FormControl id="To" isInvalid={to !== "" && !isAddress(to)}>
         <FormLabel>
           <Trans>To</Trans>
         </FormLabel>
-        <Input variant="filled" placeholder={"Receiver address"} onChange={e => setTo(e.target.value)} />
+        <Input variant="filled" placeholder={"Receiver address"} onChange={e => setTo(e.target.value)}/>
         <FormErrorMessage>
           <Trans>address error</Trans>
         </FormErrorMessage>
-        { to !== "" && isAddress(to) && (
+        {to !== "" && isAddress(to) && (
           <FormHelperText>
-            <Trans>Balance:</Trans> {toBalance}
+            <Stack direction={"row"}>
+              <Text>
+                <Trans>Balance:</Trans>
+              </Text>
+              <Text opacity={ toBalance.state === PROCESSING ? 0.8 : 1}>
+                {balance.balance?.formatAmount}
+              </Text>
+              <Text>ETH</Text>
+            </Stack>
           </FormHelperText>
-        ) }
+        )}
       </FormControl>
       <FormControl id="Amount">
         <FormLabel>
@@ -55,15 +64,23 @@ export const Wallet = () => {
           min={0}
           onChange={valueString => setAmount(parse(valueString))}
         >
-          <NumberInputField />
+          <NumberInputField/>
         </NumberInput>
 
         <FormHelperText>
-          <Trans>My balance:</Trans> {balance}
+          <Stack direction={"row"}>
+            <Text>
+              <Trans>My balance:</Trans>
+            </Text>
+            <Text opacity={ balance.state === PROCESSING ? 0.8 : 1}>
+              {balance.balance?.formatAmount}
+            </Text>
+            <Text>ETH</Text>
+          </Stack>
         </FormHelperText>
       </FormControl>
-      <Spacer />
-      <Button colorScheme={"blue"} disabled={ !account || !isAddress(to)  || Number(amount) <= 0}>
+      <Spacer/>
+      <Button colorScheme={"blue"} disabled={!account || !isAddress(to) || Number(amount) <= 0}>
         <Trans>Transfer</Trans>
       </Button>
     </Stack>

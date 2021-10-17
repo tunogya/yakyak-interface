@@ -1,20 +1,53 @@
 import {useActiveWeb3React} from "./web3"
 import {isAddress} from "../utils"
-import {ethers} from 'ethers'
-import {useState} from "react";
+import {BigNumber, ethers} from 'ethers'
+import {useEffect, useState} from "react";
+import {IDLE, IDLE_DELAY, PROCESSING} from "../constants/status";
+import useInterval from '@use-it/interval'
 
 export const useETHBalance = (uncheckedAddresses: string | null | undefined) => {
   const {library} = useActiveWeb3React()
-  const [balance, setBalance] = useState("")
+  const [balance, setBalance] = useState<{
+    value: BigNumber
+    amount: BigNumber
+    formatAmount: string
+  }>()
+  const [status, setStatus] = useState(IDLE)
 
-  if (!uncheckedAddresses || !isAddress(uncheckedAddresses)) {
-    return undefined
+  async function update() {
+    if (!uncheckedAddresses || !isAddress(uncheckedAddresses)) {
+      return undefined
+    }
+
+    try{
+      setStatus(PROCESSING)
+
+      library?.getBalance(uncheckedAddresses).then((balance) => {
+          const b = {
+            value: balance,
+            amount: balance,
+            formatAmount: ethers.utils.formatEther(balance)
+          }
+          setTimeout(function () {
+            setStatus(IDLE)
+            setBalance(b)
+          }, IDLE_DELAY)
+        }
+      )
+    } catch (e) {
+      console.log(e)
+    }
   }
 
-  library?.getBalance(uncheckedAddresses).then((balance) => {
-      setBalance(ethers.utils.formatEther(balance))
+  useEffect(()=>{
+    if (library){
+      update()
     }
-  )
+  }, [library, uncheckedAddresses])
+  useInterval(update, 5000)
 
-  return balance + " ETH"
+  return {
+    balance,
+    state: status,
+  }
 }

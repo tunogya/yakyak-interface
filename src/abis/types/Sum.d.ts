@@ -11,6 +11,7 @@ import {
   PopulatedTransaction,
   BaseContract,
   ContractTransaction,
+  Overrides,
   CallOverrides,
 } from "ethers";
 import { BytesLike } from "@ethersproject/bytes";
@@ -18,28 +19,25 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
-interface Eip2612Interface extends ethers.utils.Interface {
+interface SumInterface extends ethers.utils.Interface {
   functions: {
-    "nonces(address)": FunctionFragment;
-    "DOMAIN_SEPARATOR()": FunctionFragment;
+    "quoteExactInput(uint256,uint256)": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "nonces", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "DOMAIN_SEPARATOR",
-    values?: undefined
+    functionFragment: "quoteExactInput",
+    values: [BigNumberish, BigNumberish]
   ): string;
 
-  decodeFunctionResult(functionFragment: "nonces", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "DOMAIN_SEPARATOR",
+    functionFragment: "quoteExactInput",
     data: BytesLike
   ): Result;
 
   events: {};
 }
 
-export class Eip2612 extends BaseContract {
+export class Sum extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -80,38 +78,45 @@ export class Eip2612 extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: Eip2612Interface;
+  interface: SumInterface;
 
   functions: {
-    nonces(owner: string, overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<[string]>;
+    quoteExactInput(
+      a: BigNumberish,
+      b: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
   };
 
-  nonces(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-  DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
+  quoteExactInput(
+    a: BigNumberish,
+    b: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   callStatic: {
-    nonces(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
+    quoteExactInput(
+      a: BigNumberish,
+      b: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   filters: {};
 
   estimateGas: {
-    nonces(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<BigNumber>;
+    quoteExactInput(
+      a: BigNumberish,
+      b: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    nonces(
-      owner: string,
-      overrides?: CallOverrides
+    quoteExactInput(
+      a: BigNumberish,
+      b: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
-
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

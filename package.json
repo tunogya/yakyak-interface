@@ -9,6 +9,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prettier": "prettier --write .",
+    "abi:generate": "typechain --target ethers-v5 --out-dir src/abis/types './src/abis/*.json'",
     "i18n:extract": "lingui extract --clean",
     "i18n:compile": "lingui compile --typescript"
   },
@@ -48,6 +49,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@typechain/ethers-v5": "^7.0.1",
     "@types/jest": "^26.0.15",
     "@types/ms.macro": "^2.0.0",
     "@types/node": "^12.0.0",
@@ -83,6 +85,7 @@
     "recoil": "^0.4.1",
     "serve": "^12.0.1",
     "styled-components": "^5.3.1",
+    "typechain": "^5.1.1",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   }

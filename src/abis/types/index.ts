@@ -6,7 +6,6 @@ export type { ArgentWalletDetector } from "./ArgentWalletDetector";
 export type { Eip2612 } from "./Eip2612";
 export type { Erc20Bytes32 } from "./Erc20Bytes32";
 export type { Erc20 } from "./Erc20";
-export type { Sum } from "./Sum";
 export type { Weth } from "./Weth";
 
 export { ArgentWalletContract__factory } from "./factories/ArgentWalletContract__factory";
@@ -14,5 +13,4 @@ export { ArgentWalletDetector__factory } from "./factories/ArgentWalletDetector_
 export { Eip2612__factory } from "./factories/Eip2612__factory";
 export { Erc20Bytes32__factory } from "./factories/Erc20Bytes32__factory";
 export { Erc20__factory } from "./factories/Erc20__factory";
-export { Sum__factory } from "./factories/Sum__factory";
 export { Weth__factory } from "./factories/Weth__factory";

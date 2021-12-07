@@ -4,7 +4,6 @@ import ERC20_ABI from '../abis/erc20.json'
 import ERC20_BYTES32_ABI from '../abis/erc20_bytes32.json'
 import WETH_ABI from '../abis/weth.json'
 import EIP_2612 from '../abis/eip_2612.json'
-import Sum from "../abis/sum.json"
 
 import {
   ARGENT_WALLET_DETECTOR_ADDRESS,
@@ -57,8 +56,4 @@ export function useBytes32TokenContract(tokenAddress?: string, withSignerIfPossi
 
 export function useEIP2612Contract(tokenAddress?: string): Contract | null {
   return useContract(tokenAddress, EIP_2612, false)
-}
-
-export function useSumContract(address?: string): Contract | null {
-  return useContract(address, Sum, false)
 }

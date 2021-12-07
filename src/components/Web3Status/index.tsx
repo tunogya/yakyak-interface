@@ -16,8 +16,7 @@ import {
 import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core"
 import { isMobile } from "react-device-detect"
 import { SUPPORTED_WALLETS } from "../../constants/wallet"
-import { fortmatic, injected, portis } from "../../connectors"
-import { OVERLAY_READY } from "../../connectors/Fortmatic"
+import { injected } from "../../connectors"
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector"
 import { AbstractConnector } from "@web3-react/abstract-connector"
 import { useEffect, useState } from "react"
@@ -111,13 +110,6 @@ export const WalletModal = () => {
       })
   }
 
-  // close wallet modal if fortmatic modal is active
-  useEffect(() => {
-    fortmatic.on(OVERLAY_READY, () => {
-      onClose()
-    })
-  }, [onClose])
-
   const getWeb3Status = () => {
     if (account) {
       return (
@@ -150,11 +142,6 @@ export const WalletModal = () => {
       const option = SUPPORTED_WALLETS[key]
       // check for mobile options
       if (isMobile) {
-        //disable portis on mobile for now
-        if (option.connector === portis) {
-          return null
-        }
-
         if (!window.web3 && !window.ethereum && option.mobile) {
           return (
             <Button

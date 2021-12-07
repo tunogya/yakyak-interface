@@ -1,12 +1,10 @@
-import { injected, portis, walletconnect, walletlink } from "../../connectors"
+import { injected, walletconnect } from "../../connectors"
 import { Trans } from "@lingui/macro"
 import { SUPPORTED_WALLETS } from "../../constants/wallet"
 import { Button, IconButton, Link, Stack, Text, useClipboard } from "@chakra-ui/react"
 import { useActiveWeb3React } from "../../hooks/web3"
 import styled from "styled-components"
-import CoinbaseWalletIcon from "../../assets/images/coinbaseWalletIcon.svg"
 import WalletConnectIcon from "../../assets/images/walletConnectIcon.svg"
-import PortisIcon from "../../assets/images/portisIcon.png"
 import Identicon from "../Identicon"
 import { ExplorerDataType, getExplorerLink } from "../../utils/getExplorerLink"
 import { shortenAddress } from "../../utils"
@@ -61,27 +59,6 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
           <img src={WalletConnectIcon} alt={"WalletConnect logo"} />
         </IconWrapper>
       )
-    } else if (connector === walletlink) {
-      return (
-        <IconWrapper size={16}>
-          <img src={CoinbaseWalletIcon} alt={"Coinbase Wallet logo"} />
-        </IconWrapper>
-      )
-    } else if (connector === portis) {
-      return (
-        <Stack direction={"row"} alignItems={"center"}>
-          <IconWrapper size={16}>
-            <img src={PortisIcon} alt={"Portis logo"} />
-          </IconWrapper>
-          <Button
-            onClick={() => {
-              portis.portis.showPortis()
-            }}
-          >
-            <Trans>Show Portis</Trans>
-          </Button>
-        </Stack>
-      )
     }
     return null
   }
@@ -89,7 +66,7 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
   return (
     <Stack>
       {formatConnectorName()}
-      {connector !== injected && connector !== walletlink && (
+      {connector !== injected  && (
         <Button
           onClick={() => {
             ;(connector as any).close()

@@ -9,8 +9,7 @@ export const useETHBalance = (uncheckedAddresses: string | null | undefined) => 
   const {library} = useActiveWeb3React()
   const [balance, setBalance] = useState<{
     value: BigNumber
-    amount: BigNumber
-    formatAmount: string
+    amount: string
   }>()
   const [status, setStatus] = useState(IDLE)
 
@@ -25,8 +24,7 @@ export const useETHBalance = (uncheckedAddresses: string | null | undefined) => 
       library?.getBalance(uncheckedAddresses).then((balance) => {
           const b = {
             value: balance,
-            amount: balance,
-            formatAmount: ethers.utils.formatEther(balance)
+            amount: ethers.utils.formatEther(balance),
           }
           setTimeout(function () {
             setStatus(IDLE)
@@ -48,6 +46,6 @@ export const useETHBalance = (uncheckedAddresses: string | null | undefined) => 
 
   return {
     balance,
-    state: status,
+    status,
   }
 }

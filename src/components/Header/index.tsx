@@ -23,8 +23,7 @@ import NetworkCard from "./NetworkCard";
 
 export const Header = () => {
   const links = [
-    { path: "/", label: "Wallet" },
-    { path: "/swap", label: "Swap" },
+    { path: "/", label: "Test" },
   ]
   const history = useHistory()
   const [currentPath, setCurrentPath] = useState(history.location.pathname)
@@ -43,7 +42,6 @@ export const Header = () => {
         {links.map((link, index) => (
           <Button
             key={index}
-            colorScheme={"gray"}
             size={"md"}
             variant={currentPath === link.path ? "solid" : "ghost"}
             onClick={() => {

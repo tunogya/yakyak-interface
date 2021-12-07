@@ -11,6 +11,15 @@ import theme from "./theme"
 import { LanguageProvider } from "./i18n"
 import Blocklist from "./components/Blocklist"
 import getLibrary from "./utils/getLibrary"
+import 'focus-visible/dist/focus-visible'
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+  .js-focus-visible :focus:not([data-focus-visible-added]) {
+    outline: none;
+    box-shadow: none;
+  }
+`;
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)
 
@@ -27,6 +36,7 @@ ReactDOM.render(
     <RecoilRoot>
       <HashRouter>
         <ChakraProvider theme={theme}>
+          <GlobalStyle />
           <LanguageProvider>
             <Web3ReactProvider getLibrary={getLibrary}>
               <Web3ProviderNetwork getLibrary={getLibrary}>

@@ -67,6 +67,7 @@
     "@web3-react/walletconnect-connector": "^6.2.4",
     "@web3-react/walletlink-connector": "^6.2.5",
     "cypress": "^8.4.1",
+    "focus-visible": "^5.2.0",
     "framer-motion": "^4",
     "jest-styled-components": "^7.0.5",
     "jsbi": "^3.2.4",

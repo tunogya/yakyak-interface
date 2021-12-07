@@ -59,7 +59,7 @@ export const Header = () => {
         <Web3Status />
 
         <Menu>
-          <MenuButton as={IconButton} aria-label="Options" icon={<HamburgerIcon />} />
+          <MenuButton as={IconButton} aria-label="Options" icon={<HamburgerIcon />}/>
           <MenuList>
             <MenuItem>About</MenuItem>
             <MenuItem>Document</MenuItem>

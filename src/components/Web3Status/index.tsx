@@ -251,7 +251,7 @@ export const WalletModal = () => {
             <ModalHeader>
               <Trans>Account</Trans>
             </ModalHeader>
-            <ModalCloseButton />
+            <ModalCloseButton/>
             <ModalBody>
               <AccountDetails openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)} />
             </ModalBody>
@@ -267,7 +267,7 @@ export const WalletModal = () => {
           <ModalHeader>
             <Trans>Connect wallet</Trans>
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton/>
           <ModalBody>
             {walletView === WALLET_VIEWS.PENDING ? (
               <PendingView

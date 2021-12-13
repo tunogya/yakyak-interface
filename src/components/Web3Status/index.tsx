@@ -27,7 +27,6 @@ import usePrevious from "../../hooks/usePrevious"
 import AccountDetails from "../AccountDetails"
 import { Activity } from "react-feather"
 import { shortenAddress } from "../../utils"
-import Identicon from "../Identicon";
 
 const IconWrapper = styled.div<{ size?: number | null }>`
   align-items: center;
@@ -112,7 +111,7 @@ export const WalletModal = () => {
   const getWeb3Status = () => {
     if (account) {
       return (
-        <Button onClick={onOpen} leftIcon={<Identicon/>} variant={"outline"}>
+        <Button onClick={onOpen} variant={"outline"}>
           <Text>{shortenAddress(account)}</Text>
         </Button>
       )
@@ -147,6 +146,7 @@ export const WalletModal = () => {
               id={`connect-${key}`}
               key={key}
               isFullWidth={true}
+              variant={"outline"}
               size={"lg"}
               onClick={() => {
                 option.connector !== connector && !option.href && tryActivation(option.connector)
@@ -171,7 +171,7 @@ export const WalletModal = () => {
         if (!(window.web3 || window.ethereum)) {
           if (option.name === "MetaMask") {
             return (
-              <Button id={`connect-${key}`} key={key} isFullWidth={true} size={"lg"}>
+              <Button id={`connect-${key}`} key={key} isFullWidth={true} size={"lg"} variant={"outline"}>
                 <Link href={"https://metamask.io/"} isExternal w={"100%"}>
                   <Stack direction={"row"} w={"100%"} alignItems={"center"}>
                     <Text>
@@ -206,6 +206,7 @@ export const WalletModal = () => {
           <Button
             isFullWidth={true}
             size={"lg"}
+            variant={"outline"}
             id={`connect-${key}`}
             onClick={() => {
               option.connector === connector
@@ -232,7 +233,7 @@ export const WalletModal = () => {
       return (
         <>
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent padding={"20px"}>
             <ModalHeader>
               <Trans>Error</Trans>
             </ModalHeader>
@@ -246,7 +247,7 @@ export const WalletModal = () => {
       return (
         <>
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent padding={"20px"}>
             <ModalHeader>
               <Trans>Account</Trans>
             </ModalHeader>
@@ -262,7 +263,7 @@ export const WalletModal = () => {
     return (
       <>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent padding={"20px"}>
           <ModalHeader>
             <Trans>Connect wallet</Trans>
           </ModalHeader>
@@ -276,7 +277,7 @@ export const WalletModal = () => {
                 tryActivation={tryActivation}
               />
             ) : (
-              <Stack pb={4}>{getOptions()}</Stack>
+              <Stack spacing={"20px"}>{getOptions()}</Stack>
             )}
           </ModalBody>
         </ModalContent>

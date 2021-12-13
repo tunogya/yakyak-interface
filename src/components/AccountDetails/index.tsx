@@ -1,26 +1,11 @@
-import { injected, walletconnect } from "../../connectors"
+import { injected } from "../../connectors"
 import { Trans } from "@lingui/macro"
 import { SUPPORTED_WALLETS } from "../../constants/wallet"
-import { Button, IconButton, Link, Stack, Text, useClipboard } from "@chakra-ui/react"
+import {Button, IconButton, Link, Spacer, Stack, Text, useClipboard} from "@chakra-ui/react"
 import { useActiveWeb3React } from "../../hooks/web3"
-import styled from "styled-components"
-import WalletConnectIcon from "../../assets/images/walletConnectIcon.svg"
-import Identicon from "../Identicon"
 import { ExplorerDataType, getExplorerLink } from "../../utils/getExplorerLink"
 import { shortenAddress } from "../../utils"
 import { CopyIcon } from "@chakra-ui/icons"
-
-const IconWrapper = styled.div<{ size?: number }>`
-  ${({ theme }) => theme.flexColumnNoWrap};
-  align-items: center;
-  justify-content: center;
-  margin-right: 8px;
-  & > img,
-  span {
-    height: ${({ size }) => (size ? size + "px" : "32px")};
-    width: ${({ size }) => (size ? size + "px" : "32px")};
-  }
-`
 
 interface AccountDetailsProps {
   openOptions: () => void
@@ -46,25 +31,8 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
     )
   }
 
-  function getStatusIcon() {
-    if (connector === injected) {
-      return (
-        <IconWrapper size={16}>
-          <Identicon />
-        </IconWrapper>
-      )
-    } else if (connector === walletconnect) {
-      return (
-        <IconWrapper size={16}>
-          <img src={WalletConnectIcon} alt={"WalletConnect logo"} />
-        </IconWrapper>
-      )
-    }
-    return null
-  }
-
   return (
-    <Stack>
+    <Stack spacing={"20px"}>
       {formatConnectorName()}
       {connector !== injected  && (
         <Button
@@ -75,17 +43,18 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
           <Trans>Disconnect</Trans>
         </Button>
       )}
+      <Stack direction={"row"} alignItems={"center"} justifyItems={"center"}>
+        <Text>{account && shortenAddress(account)}</Text>
+        <IconButton aria-label={"copy"} icon={<CopyIcon />} onClick={onCopy} variant={"ghost"} />
+        <Spacer/>
+        {chainId && account && (
+          <Link isExternal href={getExplorerLink(chainId, account, ExplorerDataType.ADDRESS)}>View on Explorer</Link>
+        )}
+      </Stack>
       <Button onClick={openOptions}>
         <Trans>Change</Trans>
       </Button>
-      {getStatusIcon()}
-      <Stack direction={"row"} alignItems={"center"}>
-        <Text>{account && shortenAddress(account)}</Text>
-        <IconButton aria-label={"copy"} icon={<CopyIcon />} onClick={onCopy} variant={"ghost"} />
-        {chainId && account && (
-          <Link href={getExplorerLink(chainId, account, ExplorerDataType.ADDRESS)}>View on Explorer</Link>
-        )}
-      </Stack>
+
     </Stack>
   )
 }

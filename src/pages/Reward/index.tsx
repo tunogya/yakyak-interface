@@ -7,7 +7,7 @@ import {useETHBalance} from "../../hooks/useETHBalance"
 
 export const Wallet = () => {
   const {account, chainId} = useActiveWeb3React()
-  const {balance} = useETHBalance(account)
+  const balance = useETHBalance(account)
 
   return (
     <Stack w={"container.md"} h={"full"} p={6} borderRadius={"xl"} spacing={6}>

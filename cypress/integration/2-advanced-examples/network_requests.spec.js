@@ -61,7 +61,7 @@ context('Network Requests', () => {
         // make a new post on behalf of the user
         cy.request('POST', 'https://jsonplaceholder.cypress.io/posts', {
           userId: user.id,
-          title: 'Cypress Test Runner',
+          title: 'Cypress Reward Runner',
           body: 'Fast, easy and reliable testing for anything that runs in a browser.',
         })
       })
@@ -70,7 +70,7 @@ context('Network Requests', () => {
       .then(response => {
         expect(response).property('status').to.equal(201) // new entity created
         expect(response).property('body').to.contain({
-          title: 'Cypress Test Runner',
+          title: 'Cypress Reward Runner',
         })
 
         // we don't know the exact post id - only that it will be > 100
@@ -98,7 +98,7 @@ context('Network Requests', () => {
         //  otherwise "this" points at a wrong or undefined object!
         cy.request('POST', 'https://jsonplaceholder.cypress.io/posts', {
           userId: this.user.id,
-          title: 'Cypress Test Runner',
+          title: 'Cypress Reward Runner',
           body: 'Fast, easy and reliable testing for anything that runs in a browser.',
         })
           .its('body')

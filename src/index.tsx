@@ -19,6 +19,9 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
     box-shadow: none;
   }
+  .body {
+    font-family: 'Kaushan Script', cursive;
+  }
 `;
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)

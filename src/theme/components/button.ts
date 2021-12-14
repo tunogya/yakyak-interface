@@ -5,7 +5,6 @@ export const Button = {
   },
   variants: {
     outline: {
-      _focus: "none",
       _hover: {
         bg: "none",
         opacity: 0.8,
@@ -17,7 +16,6 @@ export const Button = {
     },
     solid: {},
     ghost: {
-      _focus: "none",
       _hover: {
         bg: "none",
         opacity: 0.8,

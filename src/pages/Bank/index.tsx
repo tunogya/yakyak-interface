@@ -1,7 +1,5 @@
 const Bank = () => {
-  return (
-    <></>
-  )
+  return <></>
 }
 
 export default Bank

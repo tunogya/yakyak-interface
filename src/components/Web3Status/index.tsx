@@ -4,7 +4,6 @@ import {
   Link,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
@@ -85,7 +84,7 @@ export const WalletModal = () => {
   const tryActivation = async (connector: AbstractConnector | undefined) => {
     Object.keys(SUPPORTED_WALLETS).map(key => {
       if (connector === SUPPORTED_WALLETS[key].connector) {
-        return (SUPPORTED_WALLETS[key].name)
+        return SUPPORTED_WALLETS[key].name
       }
       return true
     })
@@ -234,10 +233,9 @@ export const WalletModal = () => {
         <>
           <ModalOverlay />
           <ModalContent padding={"20px"}>
-            <ModalHeader>
+            <ModalHeader fontFamily={"Noto Sans"} fontStyle={"italic"}>
               <Trans>Error</Trans>
             </ModalHeader>
-            <ModalCloseButton />
             <ModalBody>{error}</ModalBody>
           </ModalContent>
         </>
@@ -248,10 +246,9 @@ export const WalletModal = () => {
         <>
           <ModalOverlay />
           <ModalContent padding={"20px"}>
-            <ModalHeader>
+            <ModalHeader fontFamily={"Noto Sans"} fontStyle={"italic"}>
               <Trans>Account</Trans>
             </ModalHeader>
-            <ModalCloseButton/>
             <ModalBody>
               <AccountDetails openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)} />
             </ModalBody>
@@ -264,10 +261,9 @@ export const WalletModal = () => {
       <>
         <ModalOverlay />
         <ModalContent padding={"20px"}>
-          <ModalHeader>
-            <Trans>Connect wallet</Trans>
+          <ModalHeader fontFamily={"Noto Sans"} fontStyle={"italic"}>
+            <Trans>Connect Wallet</Trans>
           </ModalHeader>
-          <ModalCloseButton/>
           <ModalBody>
             {walletView === WALLET_VIEWS.PENDING ? (
               <PendingView

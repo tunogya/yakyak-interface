@@ -1,19 +1,15 @@
 import { injected } from "../../connectors"
 import { Trans } from "@lingui/macro"
 import { SUPPORTED_WALLETS } from "../../constants/wallet"
-import {Button, IconButton, Link, Spacer, Stack, Text, useClipboard} from "@chakra-ui/react"
+import { Button, Stack, Text } from "@chakra-ui/react"
 import { useActiveWeb3React } from "../../hooks/web3"
-import { ExplorerDataType, getExplorerLink } from "../../utils/getExplorerLink"
-import { shortenAddress } from "../../utils"
-import { CopyIcon } from "@chakra-ui/icons"
 
 interface AccountDetailsProps {
   openOptions: () => void
 }
 
 const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
-  const { chainId, account, connector } = useActiveWeb3React()
-  const { onCopy } = useClipboard(account ?? "")
+  const { connector } = useActiveWeb3React()
 
   function formatConnectorName() {
     const { ethereum } = window
@@ -25,8 +21,13 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
       )
       .map(k => SUPPORTED_WALLETS[k].name)[0]
     return (
-      <Stack>
-        <Trans>Connected with {name}</Trans>
+      <Stack direction={"row"}>
+        <Text>
+          <Trans>Connected with</Trans>
+        </Text>
+        <Text fontWeight={"bold"}>
+          <Trans>{name}</Trans>
+        </Text>
       </Stack>
     )
   }
@@ -34,27 +35,22 @@ const AccountDetails = ({ openOptions }: AccountDetailsProps) => {
   return (
     <Stack spacing={"20px"}>
       {formatConnectorName()}
-      {connector !== injected  && (
-        <Button
-          onClick={() => {
-            ;(connector as any).close()
-          }}
-        >
-          <Trans>Disconnect</Trans>
-        </Button>
-      )}
-      <Stack direction={"row"} alignItems={"center"} justifyItems={"center"}>
-        <Text>{account && shortenAddress(account)}</Text>
-        <IconButton aria-label={"copy"} icon={<CopyIcon />} onClick={onCopy} variant={"ghost"} />
-        <Spacer/>
-        {chainId && account && (
-          <Link isExternal href={getExplorerLink(chainId, account, ExplorerDataType.ADDRESS)}>View on Explorer</Link>
+      <Stack direction={"row"} spacing={"20px"}>
+        {connector !== injected && (
+          <Button
+            isFullWidth
+            variant={"ghost"}
+            onClick={() => {
+              ;(connector as any).close()
+            }}
+          >
+            <Trans>Disconnect</Trans>
+          </Button>
         )}
+        <Button onClick={openOptions} isFullWidth variant={"outline"}>
+          <Trans>Change</Trans>
+        </Button>
       </Stack>
-      <Button onClick={openOptions}>
-        <Trans>Change</Trans>
-      </Button>
-
     </Stack>
   )
 }

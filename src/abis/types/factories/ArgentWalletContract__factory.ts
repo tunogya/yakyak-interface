@@ -2,12 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type {
-  ArgentWalletContract,
-  ArgentWalletContractInterface,
-} from "../ArgentWalletContract";
+import { Contract, Signer, utils } from "ethers"
+import { Provider } from "@ethersproject/providers"
+import type { ArgentWalletContract, ArgentWalletContractInterface } from "../ArgentWalletContract"
 
 const _abi = [
   {
@@ -69,21 +66,14 @@ const _abi = [
     stateMutability: "view",
     type: "function",
   },
-];
+]
 
 export class ArgentWalletContract__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): ArgentWalletContractInterface {
-    return new utils.Interface(_abi) as ArgentWalletContractInterface;
+    return new utils.Interface(_abi) as ArgentWalletContractInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ArgentWalletContract {
-    return new Contract(
-      address,
-      _abi,
-      signerOrProvider
-    ) as ArgentWalletContract;
+  static connect(address: string, signerOrProvider: Signer | Provider): ArgentWalletContract {
+    return new Contract(address, _abi, signerOrProvider) as ArgentWalletContract
   }
 }

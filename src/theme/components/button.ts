@@ -1,6 +1,7 @@
 export const Button = {
   baseStyle: {
     borderRadius: "full",
+    fontFamily: "Noto Sans",
   },
   variants: {
     outline: {
@@ -12,10 +13,9 @@ export const Button = {
       _active: {
         bg: "none",
         opacity: 0.5,
-      }
+      },
     },
-    solid: {
-    },
+    solid: {},
     ghost: {
       _focus: "none",
       _hover: {
@@ -25,7 +25,7 @@ export const Button = {
       _active: {
         bg: "none",
         opacity: 0.5,
-      }
+      },
     },
   },
 }

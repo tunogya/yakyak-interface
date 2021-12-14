@@ -1,5 +1,3 @@
 export const colors = {
-  wild: {
-    
-  }
+  wild: {},
 }

@@ -1,7 +1,5 @@
 const Ranch = () => {
-  return (
-    <></>
-  )
+  return <></>
 }
 
 export default Ranch

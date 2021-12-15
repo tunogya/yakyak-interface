@@ -1,12 +1,9 @@
-import { SupportedChainId } from './chains'
+import {Token} from "../api/token";
+import {SupportedChainId} from "./chains";
+import {
+  YAKYAK_REWARDS_ADDRESS,
+} from "./addresses";
 
-type AddressMap = { [chainId: number]: string }
-
-export const YAKYAK_REWARDS_ADDRESS: AddressMap = {
-  [SupportedChainId.RINKEBY]: '0xC9F51064022A011152B7dA6dDE44def02b5C157C',
+export const YAKYAK: { [chainId: number]: Token } = {
+  [SupportedChainId.RINKEBY]: new Token(SupportedChainId.RINKEBY, YAKYAK_REWARDS_ADDRESS[4], 18, "YakYak® Rewards", "YakYak®"),
 }
-
-export const YAKYAK_BANK_ADDRESS: AddressMap = {
-  [SupportedChainId.RINKEBY]: '0x9713B119aa127bBDbA8d9AbEb51F3fFAEC8cA76d',
-}
-

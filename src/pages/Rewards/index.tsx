@@ -1,15 +1,14 @@
 import { Button, Spacer, Stack, Text } from "@chakra-ui/react"
 import { useActiveWeb3React } from "../../hooks/web3"
-import useToken from "../../hooks/useToken";
-import {YAKYAK_REWARDS_ADDRESS} from "../../constants/addresses";
+import useYakYakBalance from "../../hooks/useYakYakBalance";
 import {useEffect} from "react";
 
 export const Rewards = () => {
-  const { account, chainId } = useActiveWeb3React()
-  const token = useToken(YAKYAK_REWARDS_ADDRESS[chainId ?? 4])
+  const { account } = useActiveWeb3React()
+  const token = useYakYakBalance(account)
 
   useEffect(()=>{
-    token.fetchBalance(account)
+    token.fetchBalance()
   }, [account, token])
 
   return (

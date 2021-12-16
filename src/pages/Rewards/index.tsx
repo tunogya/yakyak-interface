@@ -1,4 +1,4 @@
-import { Stack } from "@chakra-ui/react"
+import {Stack} from "@chakra-ui/react"
 
 export const Rewards = () => {
   return (

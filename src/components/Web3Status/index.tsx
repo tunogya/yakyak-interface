@@ -26,7 +26,7 @@ import usePrevious from "../../hooks/usePrevious"
 import AccountDetails from "../AccountDetails"
 import {Activity} from "react-feather"
 import {shortenAddress} from "../../utils"
-import useYakYakBalance from "../../hooks/useYakYakBalance";
+import useYakYak from "../../hooks/useYakYak";
 
 const IconWrapper = styled.div<{ size?: number | null }>`
   align-items: center;
@@ -60,10 +60,10 @@ export const WalletModal = () => {
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingError, setPendingError] = useState<boolean>()
   const previousAccount = usePrevious(account)
-  const token = useYakYakBalance(account)
+  const token = useYakYak(account)
 
   useEffect(()=>{
-    token.fetchBalance()
+    token.fetch()
   }, [account, token])
 
   useEffect(() => {
@@ -117,11 +117,11 @@ export const WalletModal = () => {
   const getWeb3Status = () => {
     if (account) {
       return (
-        <Stack direction={"row"} alignItems={"center"} borderRadius={"full"} pl={"16px"}>
+        <Stack direction={"row"} alignItems={"center"} borderRadius={"full"} pl={"16px"} bg={"gray.100"}>
           { token && token.balance && (
             <Text>{ token.balance } YakYak©</Text>
           ) }
-          <Button onClick={onOpen}>
+          <Button onClick={onOpen} variant={"outline"} bg={"white"}>
             <Text>{shortenAddress(account)}</Text>
           </Button>
         </Stack>

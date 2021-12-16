@@ -6,11 +6,11 @@ export const Button = {
   variants: {
     outline: {
       _hover: {
-        bg: "none",
+        bg: "white",
         opacity: 0.8,
       },
       _active: {
-        bg: "none",
+        bg: "white",
         opacity: 0.5,
       },
     },

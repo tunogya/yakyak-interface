@@ -10,7 +10,7 @@ import Ranch from "./Ranch"
 function App() {
   return (
     <Web3ReactManager>
-      <Stack spacing={0} minH={"100vh"}>
+      <Stack spacing={0} h={"full"}>
         <Stack position={"fixed"} w={"100%"}>
           <Header />
         </Stack>

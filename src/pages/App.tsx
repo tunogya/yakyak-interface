@@ -14,7 +14,7 @@ function App() {
         <Stack position={"fixed"} w={"100%"}>
           <Header />
         </Stack>
-        <Stack p={"120px 16px 0 16px"} alignItems={"center"}>
+        <Stack p={"72px 0 0 0"} alignItems={"center"}>
           <Routes>
             <Route path="/" element={<Rewards />} />
             <Route path="/bank" element={<Bank />} />

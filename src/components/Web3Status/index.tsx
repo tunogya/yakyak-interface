@@ -117,7 +117,7 @@ export const WalletModal = () => {
   const getWeb3Status = () => {
     if (account) {
       return (
-        <Stack direction={"row"} alignItems={"center"} borderRadius={"full"} pl={"16px"} bg={"gray.100"}>
+        <Stack direction={"row"} alignItems={"center"} fontWeight={"bold"} borderRadius={"full"} pl={"16px"} bg={"gray.100"}>
           { token && token.balance && (
             <Text>{ token.balance } YakYak©</Text>
           ) }

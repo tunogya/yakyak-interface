@@ -15,7 +15,7 @@ export const Header = () => {
   const [currentPath, setCurrentPath] = useState(location.pathname)
 
   return (
-    <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} p={4} bg={"gray.50"}>
+    <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} p={4}>
       <Stack direction={"row"} alignItems={"center"}>
         <Button
           variant={"ghost"}

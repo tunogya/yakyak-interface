@@ -1,5 +1,6 @@
 export const Heading = {
   baseStyle: {
-    fontFamily: "OPPOSans",
+    fontFamily: "Movavi Grotesque Black",
+    fontStyle: 'normal',
   },
 }

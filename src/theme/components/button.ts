@@ -1,7 +1,7 @@
 export const Button = {
   baseStyle: {
     borderRadius: "full",
-    fontFamily: "Noto Sans",
+    fontFamily: "Nunito",
   },
   variants: {
     outline: {

@@ -19,8 +19,15 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
     box-shadow: none;
   }
-  .body {
-    font-family: 'Kaushan Script', cursive;
+  @font-face {
+    font-family: 'Movavi Grotesque Black';
+    font-style: normal;
+    src: url("./assets/fonts/movavi-grotesque.black.ttf");
+  }
+  @font-face {
+    font-family: 'Movavi Grotesque Black';
+    font-style: italic;
+    src: url("./assets/fonts/movavi-grotesque.black-italic.ttf");
   }
 `
 

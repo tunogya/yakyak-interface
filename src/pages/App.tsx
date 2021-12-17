@@ -11,7 +11,7 @@ function App() {
   return (
     <Web3ReactManager>
       <Stack spacing={0} h={"full"}>
-        <Stack position={"fixed"} w={"100%"}>
+        <Stack position={"fixed"} w={"100%"} zIndex={"docked"}>
           <Header />
         </Stack>
         <Stack p={"72px 0 0 0"} alignItems={"center"}>

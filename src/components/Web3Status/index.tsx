@@ -60,11 +60,6 @@ export const WalletModal = () => {
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingError, setPendingError] = useState<boolean>()
   const previousAccount = usePrevious(account)
-  const token = useYakYak(account)
-
-  useEffect(()=>{
-    token.fetch()
-  }, [account, token])
 
   useEffect(() => {
     if (account && !previousAccount && isOpen) {
@@ -117,14 +112,9 @@ export const WalletModal = () => {
   const getWeb3Status = () => {
     if (account) {
       return (
-        <Stack direction={"row"} alignItems={"center"} fontWeight={"bold"} borderRadius={"full"} pl={"16px"} bg={"gray.100"}>
-          { token && token.balance && (
-            <Text>{ token.balance } YakYak©</Text>
-          ) }
-          <Button onClick={onOpen} variant={"outline"} bg={"white"}>
-            <Text>{shortenAddress(account)}</Text>
-          </Button>
-        </Stack>
+        <Button onClick={onOpen}>
+          <Text>{shortenAddress(account)}</Text>
+        </Button>
       )
     }
 
@@ -182,7 +172,7 @@ export const WalletModal = () => {
         if (!(window.web3 || window.ethereum)) {
           if (option.name === "MetaMask") {
             return (
-              <Button id={`connect-${key}`} key={key} isFullWidth={true} size={"lg"} variant={"outline"}>
+              <Button id={`connect-${key}`} key={key} isFullWidth={true} size={"lg"}>
                 <Link href={"https://metamask.io/"} isExternal w={"100%"}>
                   <Stack direction={"row"} w={"100%"} alignItems={"center"}>
                     <Text>

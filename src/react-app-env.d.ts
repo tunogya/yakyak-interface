@@ -1,8 +1,8 @@
 /// <reference types="react-scripts" />
-
-declare module "@metamask/jazzicon" {
-  export default function (diameter: number, seed: number): HTMLElement
-}
+declare module "*.ttf";
+declare module "*.svg";
+declare module "*.png";
+declare module "*.jpg";
 
 interface Window {
   ethereum?: {

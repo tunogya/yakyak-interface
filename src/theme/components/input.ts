@@ -4,6 +4,13 @@ export const Input = {
     fontFamily: "Noto Sans",
   },
   variants: {
-
+    filled: {
+      _hover: {
+        borderColor: "blue.500",
+      },
+      _focus: {
+        bg: "blue.500",
+      }
+    }
   },
 }

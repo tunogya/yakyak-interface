@@ -5,25 +5,21 @@ export const Button = {
   },
   variants: {
     outline: {
-      _hover: {
-        bg: "white",
-        opacity: 0.8,
-      },
-      _active: {
-        bg: "white",
-        opacity: 0.5,
-      },
     },
-    solid: {},
-    ghost: {
-      _hover: {
-        bg: "none",
-        opacity: 0.8,
-      },
+    solid: {
+      bg: "blue.500",
+      color: "white",
       _active: {
-        bg: "none",
-        opacity: 0.5,
+        bg: "blue.600",
       },
+      _hover: {
+        bg: "blue.400",
+      },
+      _invalid: {
+        opacity: 0.5,
+      }
+    },
+    ghost: {
     },
   },
 }

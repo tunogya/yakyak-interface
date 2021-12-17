@@ -13,6 +13,7 @@ import Blocklist from "./components/Blocklist"
 import getLibrary from "./utils/getLibrary"
 import "focus-visible/dist/focus-visible"
 import { createGlobalStyle } from "styled-components"
+import MovaviGrotesque from "./assets/font/movavi-grotesque.black.ttf"
 
 const GlobalStyle = createGlobalStyle`
   .js-focus-visible :focus:not([data-focus-visible-added]) {
@@ -20,14 +21,8 @@ const GlobalStyle = createGlobalStyle`
     box-shadow: none;
   }
   @font-face {
-    font-family: 'Movavi Grotesque Black';
-    font-style: normal;
-    src: url("./assets/fonts/movavi-grotesque.black.ttf");
-  }
-  @font-face {
-    font-family: 'Movavi Grotesque Black';
-    font-style: italic;
-    src: url("./assets/fonts/movavi-grotesque.black-italic.ttf");
+    font-family: 'Movavi Grotesque';
+    src: url(${MovaviGrotesque}) format('woff2');
   }
 `
 

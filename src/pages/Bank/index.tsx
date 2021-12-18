@@ -2,6 +2,11 @@ import {Heading, Stack, Text, Button, NumberInput, NumberInputField} from "@chak
 import React, {FC} from "react";
 
 const Bank = () => {
+  const format = (val: string) => val + ' YakYak®'
+  const parse = (val: string) => val.replace(/[a-zA-Z\s]+/g, '')
+
+  const [value, setValue] = React.useState('0')
+
   return (
     <Stack w={"full"} h={"full"}>
       <Stack h={"72px"} w={"full"} bg={"blue.300"} alignItems={"center"} justifyContent={"center"}>
@@ -12,7 +17,13 @@ const Bank = () => {
           <Stack spacing={8}>
             <BankFormTitle id={"01"} title={"Deposit funds to the bank"}/>
             <Stack direction={"row"} spacing={4}>
-              <NumberInput variant={"filled"} w={"300px"} min={0}>
+              <NumberInput variant={"filled"} w={"300px"} min={0}
+                           onChange={(valueString) => setValue(parse(valueString))}
+                           onFocus={(e)=>{
+                             e.target.setSelectionRange(0, value.length)
+                           }}
+                           value={format(value)}
+              >
                 <NumberInputField/>
               </NumberInput>
               <Button w={"120px"}>

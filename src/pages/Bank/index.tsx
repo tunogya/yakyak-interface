@@ -1,4 +1,4 @@
-import {Heading, Stack, Text, Input} from "@chakra-ui/react";
+import {Heading, Stack, Text, Button, NumberInput, NumberInputField} from "@chakra-ui/react";
 import React, {FC} from "react";
 
 const Bank = () => {
@@ -11,7 +11,14 @@ const Bank = () => {
         <Stack spacing={16}>
           <Stack spacing={8}>
             <BankFormTitle id={"01"} title={"Deposit funds to the bank"}/>
-            <Input variant={"filled"}/>
+            <Stack direction={"row"} spacing={4}>
+              <NumberInput variant={"filled"} w={"300px"} min={0}>
+                <NumberInputField/>
+              </NumberInput>
+              <Button w={"120px"}>
+                Deposit
+              </Button>
+            </Stack>
           </Stack>
 
 

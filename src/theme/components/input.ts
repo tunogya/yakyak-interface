@@ -1,15 +1,19 @@
 export const Input = {
   baseStyle: {
-    borderRadius: "full",
-    fontFamily: "Noto Sans",
+    fontFamily: "Nunito",
   },
   variants: {
     filled: {
-      _hover: {
-        borderColor: "blue.500",
-      },
-      _focus: {
-        bg: "blue.500",
+      field:{
+        borderRadius: "20px",
+        bg: "blue.300",
+        _hover: {
+          borderColor: "blue.500",
+          bg: "blue.300",
+        },
+        _focus: {
+          bg: "blue.500",
+        }
       }
     }
   },

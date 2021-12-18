@@ -6,6 +6,7 @@ import { Button } from "./components/button"
 import { Text } from "./components/text"
 import { Heading } from "./components/heading"
 import { colors } from "./foundations/colors"
+import {Input} from "./components/input";
 
 const theme = extendTheme({
   config,
@@ -16,6 +17,7 @@ const theme = extendTheme({
     Button,
     Text,
     Heading,
+    Input,
   },
 })
 

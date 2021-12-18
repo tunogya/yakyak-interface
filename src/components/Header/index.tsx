@@ -19,10 +19,7 @@ export const Header = () => {
       <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} p={4} w={"1440px"}>
         <Stack direction={"row"} alignItems={"center"} spacing={16}>
           <Stack id={"logo"}>
-            <Heading cursor={"pointer"} fontSize={"md"} onClick={() => {
-              navigate("/")
-              setCurrentPath("/")
-            }} fontWeight={"bold"} fontStyle={"italic"}>
+            <Heading fontSize={"md"} fontWeight={"bold"} fontStyle={"italic"}>
               YakYak® Club
             </Heading>
           </Stack>
@@ -33,7 +30,7 @@ export const Header = () => {
                 size={"md"}
                 fontStyle={"italic"}
                 fontWeight={"800"}
-                color={currentPath === link.path ? "black" : "gray"}
+                color={currentPath === link.path ? "blue.700" : "gray"}
                 onClick={() => {
                   navigate(link.path)
                   setCurrentPath(link.path)

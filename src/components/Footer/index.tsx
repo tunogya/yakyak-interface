@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <Stack w={"full"} h={"300px"} bg={"blue.700"} px={32} py={12} direction={"row"} color={"white"} justifyContent={"space-between"}>
       <Stack spacing={4} w={"300px"}>
-        <Heading fontStyle={"italic"} fontSize={"xl"}>YakYak©</Heading>
+        <Heading fontStyle={"italic"} fontSize={"xl"}>YakYak®</Heading>
         <Heading fontSize={"md"}>Wakanda Labs</Heading>
         <Spacer/>
         <Stack direction={"row"} alignItems={"center"} spacing={4}>

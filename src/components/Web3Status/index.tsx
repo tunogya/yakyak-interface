@@ -26,7 +26,6 @@ import usePrevious from "../../hooks/usePrevious"
 import AccountDetails from "../AccountDetails"
 import {Activity} from "react-feather"
 import {shortenAddress} from "../../utils"
-import useYakYak from "../../hooks/useYakYak";
 
 const IconWrapper = styled.div<{ size?: number | null }>`
   align-items: center;

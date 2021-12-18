@@ -1,1 +1,1 @@
-# YakYak Club
+# YakYak® Club

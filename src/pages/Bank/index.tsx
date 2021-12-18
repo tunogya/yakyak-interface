@@ -15,26 +15,47 @@ const Bank = () => {
       <Stack direction={"row"} px={32} py={8} justifyContent={"space-between"}>
         <Stack spacing={16}>
           <Stack spacing={8}>
-            <BankFormTitle id={"01"} title={"Deposit funds to the bank"}/>
-            <Stack direction={"row"} spacing={4}>
-              <NumberInput variant={"filled"} w={"300px"} min={0}
-                           onChange={(valueString) => setValue(parse(valueString))}
-                           onFocus={(e)=>{
-                             e.target.setSelectionRange(0, value.length)
-                           }}
-                           value={format(value)}
-              >
-                <NumberInputField/>
-              </NumberInput>
-              <Button w={"120px"}>
-                Deposit
-              </Button>
-            </Stack>
+            <BankFormTitle id={"00"} title={"Deposit funds to the bank (Option)"}/>
+            <NumberInput variant={"filled"} min={0}
+                         onChange={(valueString) => setValue(parse(valueString))}
+                         onFocus={(e) => {
+                           e.target.setSelectionRange(0, value.length)
+                         }}
+                         value={format(value)}
+            >
+              <NumberInputField/>
+            </NumberInput>
+            <Button variant={"outline"}>
+              Deposit
+            </Button>
+          </Stack>
+
+          <Stack spacing={8}>
+            <BankFormTitle id={"01"} title={"Set cheque id"}/>
+            <NumberInput variant={"filled"} min={0}>
+              <NumberInputField/>
+            </NumberInput>
+            <Button variant={"outline"}>
+              Check invalid
+            </Button>
+          </Stack>
+
+          <Stack spacing={8}>
+            <BankFormTitle id={"02"} title={"Set cheque amount"}/>
+            <NumberInput variant={"filled"} min={0}>
+              <NumberInputField/>
+            </NumberInput>
+          </Stack>
+
+          <Stack spacing={8}>
+            <BankFormTitle id={"03"} title={"Sign cheque"}/>
+            <Button>
+              Sign
+            </Button>
           </Stack>
 
 
 
-          <BankFormTitle id={"02"} title={"Sign cheque"}/>
 
 
         </Stack>

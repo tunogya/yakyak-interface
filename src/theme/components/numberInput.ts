@@ -14,7 +14,8 @@ export const NumberInput = {
           bg: "blue.300",
         },
         _focus: {
-          bg: "blue.500",
+          bg: "blue.200",
+          borderColor: "blue.200",
         }
       }
     }

@@ -14,8 +14,8 @@ export const Input = {
           bg: "blue.300",
         },
         _focus: {
-          bg: "blue.200",
-          borderColor: "blue.200",
+          bg: "white",
+          borderColor: "blue.500",
         }
       }
     }

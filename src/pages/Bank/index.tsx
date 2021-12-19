@@ -13,7 +13,7 @@ const Bank = () => {
       <Stack h={"72px"} w={"full"} bg={"blue.300"} alignItems={"center"} justifyContent={"center"}>
         <Heading fontSize={"2xl"}>YakYak® Bank</Heading>
       </Stack>
-      <Stack direction={"row"} px={32} py={8} justifyContent={"space-between"}>
+      <Stack direction={"row"} p={[2, 4, 8, 16]} justifyContent={"space-between"} spacing={[2, 4, 8, 16]}>
         <Stack spacing={16}>
           <Stack spacing={8}>
             <BankFormTitle id={"00"} title={"Deposit funds to the bank (Option)"}/>

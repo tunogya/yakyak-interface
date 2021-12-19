@@ -1,4 +1,4 @@
-import { Heading, Stack, Text} from "@chakra-ui/react"
+import {Heading, Stack, Text} from "@chakra-ui/react"
 import {useNavigate, useLocation} from "react-router-dom"
 import {useState} from "react"
 import Web3Status from "../Web3Status"
@@ -16,14 +16,14 @@ export const Header = () => {
 
   return (
     <Stack w={"full"} alignItems={"center"} bg={"white"}>
-      <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} p={4} w={"1440px"}>
-        <Stack direction={"row"} alignItems={"center"} spacing={16}>
+      <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} py={4} px={[2, 2, 4, 4]} w={"full"}>
+        <Stack direction={"row"} alignItems={"center"} spacing={[2, 4, 8, 16]}>
           <Stack id={"logo"}>
-            <Heading fontSize={"md"} fontWeight={"bold"} fontStyle={"italic"}>
+            <Heading fontSize={"md"} fontWeight={"bold"} fontStyle={"italic"} whiteSpace={"nowrap"}>
               YakYak® Club
             </Heading>
           </Stack>
-          <Stack direction={"row"} spacing={8} id={"menu"}>
+          <Stack direction={"row"} spacing={[1, 2, 4, 8]} id={"menu"}>
             {links.map((link, index) => (
               <Text
                 key={index}

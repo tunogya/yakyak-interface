@@ -4,14 +4,14 @@ import React from "react";
 
 export const Rewards = () => {
   return (
-    <Stack w={"full"} spacing={0}>
-      <Stack bg={"blue.300"} p={32} justifyContent={"space-between"} spacing={16}>
-        <Stack spacing={4}>
+    <Stack w={"full"} spacing={[2, 4, 4, 8]}>
+      <Stack bg={"blue.300"} p={[4, 8, 16, 32]} justifyContent={"space-between"} spacing={[4, 8, 8, 16]}>
+        <Stack spacing={[2, 2, 4, 4]}>
           <Stack direction={"row"}>
-            <Heading color={"blue.700"} fontSize={"5xl"}>YakYak®</Heading>
-            <Heading color={"blue.500"} fontSize={"5xl"}>Rewards</Heading>
+            <Heading color={"blue.700"} fontSize={["2xl", "3xl", "4xl", "5xl"]}>YakYak®</Heading>
+            <Heading color={"blue.500"} fontSize={["2xl", "3xl", "4xl", "5xl"]}>Rewards</Heading>
           </Stack>
-          <Heading color={"blue.700"} fontSize={"5xl"}>Now available on Ethereum!</Heading>
+          <Heading color={"blue.700"} fontSize={["2xl", "3xl", "4xl", "5xl"]}>Now available on Ethereum!</Heading>
         </Stack>
 
         <Text>Use blockchain technology to protect your membership rewards</Text>
@@ -20,20 +20,18 @@ export const Rewards = () => {
           Add YakYak® to Wallet
         </Button>
       </Stack>
-      <Stack p={8}>
-        <Stack bg={"blue.300"} h={"600px"} m={8} borderRadius={"3xl"} p={8}>
+      <Stack px={[2, 4, 4, 8]}>
+        <Stack bg={"blue.300"} h={"600px"} borderRadius={"3xl"} p={[2, 4, 4, 8]}>
           <Text>Rewards</Text>
         </Stack>
       </Stack>
-      <Stack px={20}>
-        <Heading textAlign={"center"}>YakYak® Rewards</Heading>
-      </Stack>
-      <Stack p={8}>
-        <Stack bg={"blue.300"} h={"600px"} m={8} borderRadius={"3xl"} p={8}>
+      <Heading textAlign={"center"} fontSize={["2xl", "3xl", "4xl", "5xl"]}>YakYak® Rewards</Heading>
+      <Stack px={[2, 4, 4, 8]}>
+        <Stack bg={"blue.300"} h={"600px"} borderRadius={"3xl"} p={[2, 4, 4, 8]}>
           <Text>Rewards</Text>
         </Stack>
       </Stack>
-      <Footer />
+      <Footer/>
     </Stack>
   )
 }

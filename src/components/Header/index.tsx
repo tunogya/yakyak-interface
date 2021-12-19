@@ -43,7 +43,7 @@ export const Header = () => {
           </Stack>
         </Stack>
         <Stack direction={"row"} alignItems={"center"}>
-          <NetworkCard/>
+          {/*<NetworkCard/>*/}
           <Web3Status/>
         </Stack>
       </Stack>

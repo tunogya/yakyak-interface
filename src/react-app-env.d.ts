@@ -7,9 +7,15 @@ declare module "*.jpg";
 interface Window {
   ethereum?: {
     isMetaMask?: true
+    isConnected: () => boolean
+    request: <T extends unknown>(args: RequestArguments) => Promise<T>
     on?: (...args: any[]) => void
     removeListener?: (...args: any[]) => void
     autoRefreshOnNetworkChange?: boolean
+
+    _metamask: {
+      isUnlocked: () => Promise<boolean>
+    }
   }
   web3?: Record<string, unknown>
 }

@@ -1,8 +1,41 @@
 import {Button, Heading, Stack, Text} from "@chakra-ui/react"
 import Footer from "../../components/Footer";
 import React from "react";
+import {YAKYAK_REWARDS_ADDRESS} from "../../constants/addresses";
+import {useActiveWeb3React} from "../../hooks/web3";
 
 export const Rewards = () => {
+  const {ethereum} = window
+  const {chainId} = useActiveWeb3React()
+
+  const handleWatchAssets = () => {
+    if (!ethereum || !ethereum.on){
+      return
+    }
+
+    ethereum.request({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20',
+        options: {
+          address: YAKYAK_REWARDS_ADDRESS[chainId ?? 1],
+          symbol: 'YakYak®',
+          decimals: 18,
+          image: 'https://bafybeigjv267r2ghgjluuxtzskkzuqbpjlev2tsefaxs2rbywi2bdqz3ou.ipfs.dweb.link/yakyak.svg',
+        },
+      }
+    })
+      .then((success) => {
+        if (success) {
+          console.log('YakYak® successfully added to wallet!')
+        } else {
+          throw new Error('Something went wrong.')
+        }
+      })
+      .catch(console.error)
+  }
+
+
   return (
     <Stack w={"full"} spacing={[2, 4, 4, 8]}>
       <Stack bg={"blue.300"} p={[4, 8, 16, 32]} justifyContent={"space-between"} spacing={[4, 8, 8, 16]}>
@@ -16,7 +49,7 @@ export const Rewards = () => {
 
         <Text>Use blockchain technology to protect your membership rewards</Text>
 
-        <Button w={"240px"}>
+        <Button w={"240px"} onClick={handleWatchAssets}>
           Add YakYak® to Wallet
         </Button>
       </Stack>

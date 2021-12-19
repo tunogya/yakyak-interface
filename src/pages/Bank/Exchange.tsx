@@ -1,4 +1,4 @@
-import {Divider, Heading, Spacer, Stack, Text} from "@chakra-ui/react";
+import {Heading, Spacer, Stack, Text} from "@chakra-ui/react";
 import React from "react";
 
 const Exchange = () => {

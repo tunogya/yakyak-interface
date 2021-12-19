@@ -15,8 +15,8 @@ export const Button = {
       _hover: {
         bg: "blue.400",
       },
-      _invalid: {
-        opacity: 0.5,
+      _disabled: {
+        bg: "blue.600",
       }
     },
     ghost: {

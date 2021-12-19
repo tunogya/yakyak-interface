@@ -1,9 +1,10 @@
 import {Heading, Stack, Text, Button, NumberInput, NumberInputField} from "@chakra-ui/react";
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 
 const Bank = () => {
   const format = (val: string) => val + ' YakYak®'
   const parse = (val: string) => val.replace(/[a-zA-Z\s]+/g, '')
+  const [approved, setApproved] = useState(false)
 
   const [value, setValue] = React.useState('0')
 
@@ -25,9 +26,15 @@ const Bank = () => {
             >
               <NumberInputField/>
             </NumberInput>
-            <Button variant={"outline"}>
-              Deposit
-            </Button>
+              { !approved ? (
+                <Button isFullWidth variant={"outline"}>
+                  Approve First
+                </Button>
+              ) : (
+                <Button isFullWidth>
+                  Deposit
+                </Button>
+              ) }
           </Stack>
 
           <Stack spacing={8}>
@@ -35,9 +42,6 @@ const Bank = () => {
             <NumberInput variant={"filled"} min={0}>
               <NumberInputField/>
             </NumberInput>
-            <Button variant={"outline"}>
-              Check invalid
-            </Button>
           </Stack>
 
           <Stack spacing={8}>

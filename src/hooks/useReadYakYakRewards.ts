@@ -6,10 +6,10 @@ import {useActiveWeb3React} from "./web3";
 import {formatNumber, parseToBigNumber} from "../utils/bignumberUtil";
 import useInterval from "@use-it/interval";
 
-const useYakYak = (address: string | undefined | null) => {
+const useReadYakYakRewards = (address: string | undefined | null) => {
   const { chainId } = useActiveWeb3React()
   const validated = isAddress(address)
-  const contract = useYakYakRewardContract(YAKYAK_REWARDS_ADDRESS[chainId ?? 4], true)
+  const contract = useYakYakRewardContract(YAKYAK_REWARDS_ADDRESS[chainId ?? 4])
   const [balance, setBalance] = useState<undefined | string>()
   const [totalSupply, setTotalSupply] = useState<undefined | string>()
   const [paused, setPaused] = useState<boolean | undefined>()
@@ -39,4 +39,4 @@ const useYakYak = (address: string | undefined | null) => {
   }
 }
 
-export default useYakYak
+export default useReadYakYakRewards

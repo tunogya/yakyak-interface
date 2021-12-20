@@ -6,10 +6,10 @@ import {useEffect, useState} from "react";
 import {formatNumber, parseToBigNumber} from "../utils/bignumberUtil";
 import useInterval from "@use-it/interval";
 
-const useBank = (address: string | undefined | null) => {
+const useReadBank = (address: string | undefined | null) => {
   const { chainId } = useActiveWeb3React()
   const validated = isAddress(address)
-  const contract = useYakYakBankContract(YAKYAK_BANK_ADDRESS[chainId ?? 1], true)
+  const contract = useYakYakBankContract(YAKYAK_BANK_ADDRESS[chainId ?? 1])
   const [balance, setBalance] = useState<undefined | string>()
 
   const fetch = async () => {
@@ -30,4 +30,4 @@ const useBank = (address: string | undefined | null) => {
   }
 }
 
-export default useBank
+export default useReadBank

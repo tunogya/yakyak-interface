@@ -9,7 +9,6 @@ import {ERROR, IDLE, PROCESSING, SUCCESS} from "../../constants/misc";
 const Deposit = () => {
   const format = (val: string) => val + ' YakYak®'
   const parse = (val: string) => val.replace(/[a-zA-Z\s]+/g, '')
-  const [approved, setApproved] = useState(false)
   const [approveStatus, setApproveStatus] = useState(IDLE)
   const [depositStatus, setDepositStatus] = useState(IDLE)
   const { chainId } = useActiveWeb3React()
@@ -32,7 +31,6 @@ const Deposit = () => {
           break
         case 1:
           setApproveStatus(SUCCESS)
-          setApproved(true)
           break
       }
     } catch (e) {

@@ -7,5 +7,5 @@ export const YAKYAK_REWARDS_ADDRESS: AddressMap = {
 }
 
 export const YAKYAK_BANK_ADDRESS: AddressMap = {
-  [SupportedChainId.RINKEBY]: "0x94d1Fee75Deca9e681c06B04800D20D28A1B5b6e",
+  [SupportedChainId.RINKEBY]: "0xDd10B82262C6Cd24c5b018D39920Beee5575560f",
 }

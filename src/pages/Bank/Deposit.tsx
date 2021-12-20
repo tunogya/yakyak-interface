@@ -11,12 +11,11 @@ const Deposit = () => {
   const parse = (val: string) => val.replace(/[a-zA-Z\s]+/g, '')
   const [approveStatus, setApproveStatus] = useState(IDLE)
   const [depositStatus, setDepositStatus] = useState(IDLE)
-  const { chainId } = useActiveWeb3React()
+  const { chainId, library, account } = useActiveWeb3React()
   const yakYakRewards = useYakYakRewardContract(YAKYAK_REWARDS_ADDRESS[chainId ?? 1], true)
   const yakYakBank = useYakYakBankContract(YAKYAK_BANK_ADDRESS[chainId ?? 1], true)
-
+  const [amount, setAmount] = useState('0')
   const [approveAmount, setApproveAmount] = useState('0')
-  const [cheque, setCheque] = useState('0')
 
   const handleApprove = async () => {
     if (!yakYakRewards || approveAmount === "0") { return }
@@ -44,6 +43,60 @@ const Deposit = () => {
       setTimeout(()=>{
         setApproveStatus(IDLE)
       }, IDLE_DELAY)
+    }
+  }
+
+  const handleSign = async () => {
+    if (!chainId) return
+    const domain = [
+      { name: "name", type: "string" },
+      { name: "version", type: "string" },
+      { name: "chainId", type: "uint256" },
+      { name: "verifyingContract", type: "address" },
+      { name: "salt", type: "bytes32" },
+    ]
+    const cheque = [
+      { name: "id", type: "uint256" },
+      { name: "amount", type: "uint256" },
+    ]
+    const domainData = {
+      name: "YakYak® Bank",
+      version: "1",
+      chainId:  parseInt(String(chainId), 16),
+      verifyingContract: YAKYAK_BANK_ADDRESS[chainId],
+      salt: "0xf2d857f4a3edcb9b78b4d503bfe733db1e3f6cdc2b7971ee739626c97e86a558"
+    }
+    const message = {
+      id: new Date().getTime(),
+      amount: parseToBigNumber(amount).shiftedBy(18).toFixed(0),
+    }
+    const data = JSON.stringify({
+      types: {
+        EIP712Domain: domain,
+        Cheque: cheque,
+      },
+      domain: domainData,
+      primaryType: "Cheque",
+      message: message
+    })
+
+    try {
+      // @ts-ignore
+      await library.provider.sendAsync({
+        method: "eth_signTypedData_v3",
+        params: [account, data],
+      }, function (error, response) {
+        if (error){
+          return console.log(error)
+        }
+        const signature = response.result.substring(2);
+        const r = "0x" + signature.substring(0, 64);
+        const s = "0x" + signature.substring(64, 128);
+        const v = parseInt(signature.substring(128, 130), 16);
+        console.log(r, s, v)
+      })
+    }catch (e){
+      console.log(e)
     }
   }
 
@@ -95,23 +148,21 @@ const Deposit = () => {
         </Stack>
       </Stack>
 
-      <Stack spacing={8}>
-        <BankFormTitle id={"01"} title={"Set cheque id"}/>
-        <NumberInput variant={"filled"} min={0}>
+      <Stack spacing={[2, 4, 4, 8]}>
+        <BankFormTitle id={"01"} title={"Set cheque amount"}/>
+        <NumberInput variant={"filled"} min={0}
+                     onFocus={(e) => {
+                       e.target.setSelectionRange(0, amount.length)
+                     }}
+                     value={format(amount)}
+                     onChange={(valueString) => setAmount(parse(valueString))}>
           <NumberInputField/>
         </NumberInput>
       </Stack>
 
       <Stack spacing={[2, 4, 4, 8]}>
-        <BankFormTitle id={"02"} title={"Set cheque amount"}/>
-        <NumberInput variant={"filled"} min={0}>
-          <NumberInputField/>
-        </NumberInput>
-      </Stack>
-
-      <Stack spacing={[2, 4, 4, 8]}>
-        <BankFormTitle id={"03"} title={"Sign cheque"}/>
-        <Button>
+        <BankFormTitle id={"02"} title={"Sign cheque"}/>
+        <Button onClick={handleSign}>
           Sign
         </Button>
       </Stack>

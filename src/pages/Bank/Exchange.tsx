@@ -49,6 +49,8 @@ const Exchange = () => {
     }
   }
 
+
+
   return (
     <Stack bg={"blue.300"} w={"400px"} h={"600px"} p={[2, 4, 4, 8]} borderRadius={"20px"} spacing={[2, 4, 8, 8]}>
       <Stack spacing={4}>

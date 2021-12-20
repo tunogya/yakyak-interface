@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {useActiveWeb3React} from "../../hooks/web3";
 import useReadYakYakRewards from "../../hooks/useReadYakYakRewards";
 import useReadBank from "../../hooks/useReadBank";
-import {ERROR, IDLE, PROCESSING, SUCCESS} from "../../constants/misc";
+import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/misc";
 import {useYakYakBankContract} from "../../hooks/useContract";
 import {YAKYAK_BANK_ADDRESS} from "../../constants/addresses";
 import {parseToBigNumber} from "../../utils/bignumberUtil";
@@ -30,15 +30,22 @@ const Exchange = () => {
       switch (res.status) {
         case 0:
           setWithdrawStatus(ERROR)
+          setTimeout(()=>{
+            setWithdrawStatus(IDLE)
+          }, IDLE_DELAY)
           break
         case 1:
           setWithdrawStatus(SUCCESS)
+          setTimeout(()=>{
+            setWithdrawStatus(IDLE)
+          }, IDLE_DELAY)
           break
       }
     } catch (e) {
       setWithdrawStatus(ERROR)
-    } finally {
-      setWithdrawStatus(IDLE)
+      setTimeout(()=>{
+        setWithdrawStatus(IDLE)
+      }, IDLE_DELAY)
     }
   }
 

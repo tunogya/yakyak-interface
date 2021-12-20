@@ -4,7 +4,7 @@ import {useYakYakBankContract, useYakYakRewardContract} from "../../hooks/useCon
 import {YAKYAK_BANK_ADDRESS, YAKYAK_REWARDS_ADDRESS} from "../../constants/addresses";
 import {useActiveWeb3React} from "../../hooks/web3";
 import {parseToBigNumber} from "../../utils/bignumberUtil";
-import {ERROR, IDLE, PROCESSING, SUCCESS} from "../../constants/misc";
+import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/misc";
 
 const Deposit = () => {
   const format = (val: string) => val + ' YakYak®'
@@ -28,15 +28,22 @@ const Deposit = () => {
       switch (res.status) {
         case 0:
           setApproveStatus(ERROR)
+          setTimeout(()=>{
+            setApproveStatus(IDLE)
+          }, IDLE_DELAY)
           break
         case 1:
           setApproveStatus(SUCCESS)
+          setTimeout(()=>{
+            setApproveStatus(IDLE)
+          }, IDLE_DELAY)
           break
       }
     } catch (e) {
       setApproveStatus(ERROR)
-    } finally {
-      setApproveStatus(IDLE)
+      setTimeout(()=>{
+        setApproveStatus(IDLE)
+      }, IDLE_DELAY)
     }
   }
 

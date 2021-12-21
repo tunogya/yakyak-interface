@@ -1,9 +1,9 @@
 import React, {FC, useState} from "react";
-import {Button, Heading, NumberInput, NumberInputField, Stack} from "@chakra-ui/react";
+import {Badge, Button, Heading, NumberInput, NumberInputField, Stack, Text} from "@chakra-ui/react";
 import {useYakYakBankContract, useYakYakRewardContract} from "../../hooks/useContract";
 import {YAKYAK_BANK_ADDRESS, YAKYAK_REWARDS_ADDRESS} from "../../constants/addresses";
 import {useActiveWeb3React} from "../../hooks/web3";
-import {parseToBigNumber} from "../../utils/bignumberUtil";
+import {formatNumber, parseToBigNumber} from "../../utils/bignumberUtil";
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/misc";
 
 const Deposit = () => {
@@ -16,6 +16,12 @@ const Deposit = () => {
   const yakYakBank = useYakYakBankContract(YAKYAK_BANK_ADDRESS[chainId ?? 1], true)
   const [amount, setAmount] = useState('0')
   const [approveAmount, setApproveAmount] = useState('0')
+  const [cheque, setCheque] = useState<{
+    message: {[key: string]: string | number},
+    r: string,
+    s: string,
+    v: number
+  }>()
 
   const handleApprove = async () => {
     if (!yakYakRewards || approveAmount === "0") { return }
@@ -66,7 +72,7 @@ const Deposit = () => {
       verifyingContract: YAKYAK_BANK_ADDRESS[chainId],
       salt: "0xf2d857f4a3edcb9b78b4d503bfe733db1e3f6cdc2b7971ee739626c97e86a558"
     }
-    const message = {
+    const message: {[key: string]: string | number} = {
       id: new Date().getTime(),
       amount: parseToBigNumber(amount).shiftedBy(18).toFixed(0),
     }
@@ -82,18 +88,25 @@ const Deposit = () => {
 
     try {
       // @ts-ignore
-      await library.provider.sendAsync({
+      library.provider.sendAsync({
         method: "eth_signTypedData_v3",
         params: [account, data],
       }, function (error, response) {
-        if (error){
-          return console.log(error)
+        if (error) {
+          return console.log(error);
         }
         const signature = response.result.substring(2);
         const r = "0x" + signature.substring(0, 64);
         const s = "0x" + signature.substring(64, 128);
         const v = parseInt(signature.substring(128, 130), 16);
-        console.log(r, s, v)
+        if (message) {
+          setCheque({
+            message: message,
+            r: r,
+            s: s,
+            v: v,
+          })
+        }
       })
     }catch (e){
       console.log(e)
@@ -120,11 +133,10 @@ const Deposit = () => {
     } finally {
       setDepositStatus(IDLE)
     }
-
   }
 
   return (
-    <Stack spacing={[2, 4, 4, 8]}>
+    <Stack spacing={[2, 4, 4, 8]} w={"600px"}>
       <Stack spacing={[2, 4, 4, 8]}>
         <BankFormTitle id={"00"} title={"Deposit funds to the bank (Option)"}/>
         <NumberInput variant={"filled"} min={0}
@@ -167,10 +179,15 @@ const Deposit = () => {
         </Button>
       </Stack>
 
-
-
-
-
+      {(cheque) && (
+        <Stack p={[2 ,2, 4, 4]} bg={"blue.300"} borderRadius={"20px"} fontWeight={"bold"}>
+          <Text><Badge>id</Badge> {cheque.message.id}</Text>
+          <Text><Badge>amount</Badge> {formatNumber(parseToBigNumber(cheque.message.amount).shiftedBy(-18))} YakYak®</Text>
+          <Text><Badge>r</Badge> {cheque.r}</Text>
+          <Text><Badge>s</Badge> {cheque.s}</Text>
+          <Text><Badge>v</Badge> {cheque.v}</Text>
+        </Stack>
+      )}
     </Stack>
   )
 }

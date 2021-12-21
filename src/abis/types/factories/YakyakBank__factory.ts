@@ -14,11 +14,6 @@ const _abi = [
         name: "tokenAddress_",
         type: "address",
       },
-      {
-        internalType: "bytes32",
-        name: "salt_",
-        type: "bytes32",
-      },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
@@ -91,19 +86,6 @@ const _abi = [
     ],
     name: "Withdraw",
     type: "event",
-  },
-  {
-    inputs: [],
-    name: "DOMAIN_SEPARATOR",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
   },
   {
     inputs: [],
@@ -191,39 +173,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "getEIP712Domain",
-    outputs: [
-      {
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "version",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "chainid",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "verifyingContract",
-        type: "address",
-      },
-      {
-        internalType: "bytes32",
-        name: "salt",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "address",
@@ -254,37 +203,6 @@ const _abi = [
         internalType: "struct IYakYakBank.ORDER",
         name: "",
         type: "tuple",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        components: [
-          {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "amount",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct IYakYakBank.CHEQUE",
-        name: "cheque",
-        type: "tuple",
-      },
-    ],
-    name: "hashCheque",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
       },
     ],
     stateMutability: "view",

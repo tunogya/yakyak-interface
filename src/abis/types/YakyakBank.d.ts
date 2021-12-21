@@ -21,22 +21,15 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface YakyakBankInterface extends ethers.utils.Interface {
   functions: {
-    "DOMAIN_SEPARATOR()": FunctionFragment;
     "_token()": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "cash((uint256,uint256),bytes32,bytes32,uint8)": FunctionFragment;
     "deposit(uint256)": FunctionFragment;
-    "getEIP712Domain()": FunctionFragment;
     "getOrder(address,uint256)": FunctionFragment;
-    "hashCheque((uint256,uint256))": FunctionFragment;
     "verify((uint256,uint256),bytes32,bytes32,uint8)": FunctionFragment;
     "withdraw(address,uint256)": FunctionFragment;
   };
 
-  encodeFunctionData(
-    functionFragment: "DOMAIN_SEPARATOR",
-    values?: undefined
-  ): string;
   encodeFunctionData(functionFragment: "_token", values?: undefined): string;
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(
@@ -53,16 +46,8 @@ interface YakyakBankInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "getEIP712Domain",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "getOrder",
     values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "hashCheque",
-    values: [{ id: BigNumberish; amount: BigNumberish }]
   ): string;
   encodeFunctionData(
     functionFragment: "verify",
@@ -78,20 +63,11 @@ interface YakyakBankInterface extends ethers.utils.Interface {
     values: [string, BigNumberish]
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "DOMAIN_SEPARATOR",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "_token", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "cash", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getEIP712Domain",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "getOrder", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "hashCheque", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "verify", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
@@ -167,8 +143,6 @@ export class YakyakBank extends BaseContract {
   interface: YakyakBankInterface;
 
   functions: {
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<[string]>;
-
     _token(overrides?: CallOverrides): Promise<[string]>;
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -186,28 +160,11 @@ export class YakyakBank extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    getEIP712Domain(
-      overrides?: CallOverrides
-    ): Promise<
-      [string, string, BigNumber, string, string] & {
-        name: string;
-        version: string;
-        chainid: BigNumber;
-        verifyingContract: string;
-        salt: string;
-      }
-    >;
-
     getOrder(
       account: string,
       id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[[BigNumber, string] & { amount: BigNumber; casher: string }]>;
-
-    hashCheque(
-      cheque: { id: BigNumberish; amount: BigNumberish },
-      overrides?: CallOverrides
-    ): Promise<[string]>;
 
     verify(
       cheque: { id: BigNumberish; amount: BigNumberish },
@@ -223,8 +180,6 @@ export class YakyakBank extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
-
-  DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
 
   _token(overrides?: CallOverrides): Promise<string>;
 
@@ -243,28 +198,11 @@ export class YakyakBank extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  getEIP712Domain(
-    overrides?: CallOverrides
-  ): Promise<
-    [string, string, BigNumber, string, string] & {
-      name: string;
-      version: string;
-      chainid: BigNumber;
-      verifyingContract: string;
-      salt: string;
-    }
-  >;
-
   getOrder(
     account: string,
     id: BigNumberish,
     overrides?: CallOverrides
   ): Promise<[BigNumber, string] & { amount: BigNumber; casher: string }>;
-
-  hashCheque(
-    cheque: { id: BigNumberish; amount: BigNumberish },
-    overrides?: CallOverrides
-  ): Promise<string>;
 
   verify(
     cheque: { id: BigNumberish; amount: BigNumberish },
@@ -281,8 +219,6 @@ export class YakyakBank extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
-
     _token(overrides?: CallOverrides): Promise<string>;
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
@@ -297,28 +233,11 @@ export class YakyakBank extends BaseContract {
 
     deposit(amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    getEIP712Domain(
-      overrides?: CallOverrides
-    ): Promise<
-      [string, string, BigNumber, string, string] & {
-        name: string;
-        version: string;
-        chainid: BigNumber;
-        verifyingContract: string;
-        salt: string;
-      }
-    >;
-
     getOrder(
       account: string,
       id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber, string] & { amount: BigNumber; casher: string }>;
-
-    hashCheque(
-      cheque: { id: BigNumberish; amount: BigNumberish },
-      overrides?: CallOverrides
-    ): Promise<string>;
 
     verify(
       cheque: { id: BigNumberish; amount: BigNumberish },
@@ -390,8 +309,6 @@ export class YakyakBank extends BaseContract {
   };
 
   estimateGas: {
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<BigNumber>;
-
     _token(overrides?: CallOverrides): Promise<BigNumber>;
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
@@ -409,16 +326,9 @@ export class YakyakBank extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    getEIP712Domain(overrides?: CallOverrides): Promise<BigNumber>;
-
     getOrder(
       account: string,
       id: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    hashCheque(
-      cheque: { id: BigNumberish; amount: BigNumberish },
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -438,8 +348,6 @@ export class YakyakBank extends BaseContract {
   };
 
   populateTransaction: {
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     _token(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     balanceOf(
@@ -460,16 +368,9 @@ export class YakyakBank extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    getEIP712Domain(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     getOrder(
       account: string,
       id: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    hashCheque(
-      cheque: { id: BigNumberish; amount: BigNumberish },
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

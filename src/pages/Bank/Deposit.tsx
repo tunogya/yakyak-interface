@@ -1,9 +1,9 @@
 import React, {FC, useState} from "react";
-import {Badge, Button, Heading, NumberInput, NumberInputField, Stack, Text} from "@chakra-ui/react";
+import {Button, Code, Heading, NumberInput, NumberInputField, Stack, Text} from "@chakra-ui/react";
 import {useYakYakBankContract, useYakYakRewardContract} from "../../hooks/useContract";
 import {YAKYAK_BANK_ADDRESS, YAKYAK_REWARDS_ADDRESS} from "../../constants/addresses";
 import {useActiveWeb3React} from "../../hooks/web3";
-import {formatNumber, parseToBigNumber} from "../../utils/bignumberUtil";
+import {parseToBigNumber} from "../../utils/bignumberUtil";
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/misc";
 
 const Deposit = () => {
@@ -17,11 +17,12 @@ const Deposit = () => {
   const [amount, setAmount] = useState('0')
   const [approveAmount, setApproveAmount] = useState('0')
   const [cheque, setCheque] = useState<{
-    message: {[key: string]: string | number},
+    cheque: {[key: string]: string | number},
     r: string,
     s: string,
     v: number
   }>()
+  const [verifyResult, setVerifyResult] = useState('')
 
   const handleApprove = async () => {
     if (!yakYakRewards || approveAmount === "0") { return }
@@ -54,34 +55,29 @@ const Deposit = () => {
 
   const handleSign = async () => {
     if (!chainId) return
-    const domain = [
-      { name: "name", type: "string" },
-      { name: "version", type: "string" },
-      { name: "chainId", type: "uint256" },
-      { name: "verifyingContract", type: "address" },
-      { name: "salt", type: "bytes32" },
-    ]
-    const cheque = [
-      { name: "id", type: "uint256" },
-      { name: "amount", type: "uint256" },
-    ]
-    const domainData = {
-      name: "YakYak® Bank",
-      version: "1",
-      chainId:  parseInt(String(chainId), 16),
-      verifyingContract: YAKYAK_BANK_ADDRESS[chainId],
-      salt: "0xf2d857f4a3edcb9b78b4d503bfe733db1e3f6cdc2b7971ee739626c97e86a558"
-    }
     const message: {[key: string]: string | number} = {
-      id: new Date().getTime(),
+      id: 1,
       amount: parseToBigNumber(amount).shiftedBy(18).toFixed(0),
     }
     const data = JSON.stringify({
       types: {
-        EIP712Domain: domain,
-        Cheque: cheque,
+        EIP712Domain: [
+          { name: "name", type: "string" },
+          { name: "version", type: "string" },
+          { name: "chainId", type: "uint256" },
+          { name: "verifyingContract", type: "address" },
+        ],
+        Cheque: [
+          { name: "id", type: "uint256" },
+          { name: "amount", type: "uint256" },
+        ],
       },
-      domain: domainData,
+      domain: {
+        name: "YakYak Bank",
+        version: "1",
+        chainId: 4,
+        verifyingContract: "0xBA29386D5cbCB8C047716ad29a7FF3BD282b166E",
+      },
       primaryType: "Cheque",
       message: message
     })
@@ -101,13 +97,23 @@ const Deposit = () => {
         const v = parseInt(signature.substring(128, 130), 16);
         if (message) {
           setCheque({
-            message: message,
+            cheque: message,
             r: r,
             s: s,
             v: v,
           })
         }
       })
+    }catch (e){
+      console.log(e)
+    }
+  }
+
+  const handleVerify = async () =>{
+    if (!yakYakBank || !cheque) return
+    try{
+      const res = await yakYakBank.verify(cheque.cheque, cheque.r, cheque.s, cheque.v)
+      setVerifyResult(res)
     }catch (e){
       console.log(e)
     }
@@ -174,20 +180,22 @@ const Deposit = () => {
 
       <Stack spacing={[2, 4, 4, 8]}>
         <BankFormTitle id={"02"} title={"Sign cheque"}/>
-        <Button onClick={handleSign}>
+        <Button onClick={handleSign} disabled={amount === '0'}>
           Sign
         </Button>
       </Stack>
 
       {(cheque) && (
         <Stack p={[2 ,2, 4, 4]} bg={"blue.300"} borderRadius={"20px"} fontWeight={"bold"}>
-          <Text><Badge>id</Badge> {cheque.message.id}</Text>
-          <Text><Badge>amount</Badge> {formatNumber(parseToBigNumber(cheque.message.amount).shiftedBy(-18))} YakYak®</Text>
-          <Text><Badge>r</Badge> {cheque.r}</Text>
-          <Text><Badge>s</Badge> {cheque.s}</Text>
-          <Text><Badge>v</Badge> {cheque.v}</Text>
+          <Code children={JSON.stringify(cheque)} bg={"blue.300"}/>
         </Stack>
       )}
+
+      <Button onClick={handleVerify}>
+        Verify
+      </Button>
+
+      <Text>{verifyResult}</Text>
     </Stack>
   )
 }

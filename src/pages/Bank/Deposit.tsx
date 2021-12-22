@@ -1,129 +1,32 @@
 import React, { FC, useState } from "react"
 import { Button, Heading, NumberInput, NumberInputField, Stack } from "@chakra-ui/react"
-import { useYakYakBankContract, useYakYakRewardContract } from "../../hooks/useContract"
-import { YAKYAK_BANK_ADDRESS, YAKYAK_REWARDS_ADDRESS } from "../../constants/addresses"
-import { useActiveWeb3React } from "../../hooks/web3"
-import { parseToBigNumber } from "../../utils/bignumberUtil"
-import { ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS } from "../../constants/misc"
+import { PROCESSING } from "../../constants/misc"
+import {useYakYakBank} from "../../hooks/useYakYakBank";
+import {useYakYakRewards} from "../../hooks/useYakYakRewards";
+import {YAKYAK_BANK_ADDRESS} from "../../constants/addresses";
+import {useActiveWeb3React} from "../../hooks/web3";
+import {useCheque} from "../../hooks/useCheque";
 
 const Deposit = () => {
   const format = (val: string) => val + " YakYak®"
   const parse = (val: string) => val.replace(/[a-zA-Z\s]+/g, "")
-  const [approveStatus, setApproveStatus] = useState(IDLE)
-  const [depositStatus, setDepositStatus] = useState(IDLE)
-  const { chainId, library, account } = useActiveWeb3React()
-  const yakYakRewards = useYakYakRewardContract(YAKYAK_REWARDS_ADDRESS[chainId ?? 1], true)
-  const yakYakBank = useYakYakBankContract(YAKYAK_BANK_ADDRESS[chainId ?? 1], true)
   const [amount, setAmount] = useState("0")
   const [approveAmount, setApproveAmount] = useState("0")
+  const { chainId } = useActiveWeb3React()
+  const { depositStatus, deposit  } = useYakYakBank()
+  const { approve, approveStatus } = useYakYakRewards()
+  const { sign } = useCheque()
 
   const handleApprove = async () => {
-    if (!yakYakRewards || approveAmount === "0") {
-      return
-    }
-    const amount = parseToBigNumber(approveAmount).shiftedBy(18).toFixed(0)
-    try {
-      setApproveStatus(PROCESSING)
-      const tx = await yakYakRewards.approve(YAKYAK_BANK_ADDRESS[chainId ?? 1], amount)
-      const res = await tx.wait()
-      switch (res.status) {
-        case 0:
-          setApproveStatus(ERROR)
-          setTimeout(() => {
-            setApproveStatus(IDLE)
-          }, IDLE_DELAY)
-          break
-        case 1:
-          setApproveStatus(SUCCESS)
-          setTimeout(() => {
-            setApproveStatus(IDLE)
-          }, IDLE_DELAY)
-          break
-      }
-    } catch (e) {
-      setApproveStatus(ERROR)
-      setTimeout(() => {
-        setApproveStatus(IDLE)
-      }, IDLE_DELAY)
-    }
+    await approve(YAKYAK_BANK_ADDRESS[chainId ?? 1], approveAmount)
   }
 
   const handleSign = async () => {
-    if (!chainId || !yakYakBank) return
-    const id = new Date().getTime()
-    const data = JSON.stringify({
-      types: {
-        EIP712Domain: [
-          { name: "name", type: "string" },
-          { name: "version", type: "string" },
-          { name: "chainId", type: "uint256" },
-          { name: "verifyingContract", type: "address" },
-        ],
-        cheque: [
-          { name: "sender", type: "address" },
-          { name: "id", type: "uint256" },
-          { name: "amount", type: "uint256" },
-        ],
-      },
-      domain: {
-        name: "YakYakBank",
-        version: "1",
-        chainId: chainId,
-        verifyingContract: YAKYAK_BANK_ADDRESS[chainId],
-      },
-      primaryType: "cheque",
-      message: {
-        sender: account,
-        id: id,
-        amount: parseToBigNumber(amount).shiftedBy(18).toFixed(0),
-      },
-    })
-
-    try {
-      // @ts-ignore
-      library.provider.sendAsync(
-        {
-          method: "eth_signTypedData_v3",
-          params: [account, data],
-        },
-        async function (error, response) {
-          if (error) {
-            return console.log(error)
-          }
-          const signature = response.result.substring(2)
-          const r = "0x" + signature.substring(0, 64)
-          const s = "0x" + signature.substring(64, 128)
-          const v = parseInt(signature.substring(128, 130), 16)
-          await yakYakBank.cash(v, r, s, account, id, parseToBigNumber(amount).shiftedBy(18).toFixed(0))
-        }
-      )
-    } catch (e) {
-      console.log(e)
-    }
+    await sign(amount)
   }
 
   const handleDeposit = async () => {
-    if (!yakYakBank || approveAmount === "0") {
-      return
-    }
-    const amount = parseToBigNumber(approveAmount).shiftedBy(18).toFixed(0)
-    try {
-      setDepositStatus(PROCESSING)
-      const tx = await yakYakBank.deposit(amount)
-      const res = await tx.wait()
-      switch (res.status) {
-        case 0:
-          setDepositStatus(ERROR)
-          break
-        case 1:
-          setDepositStatus(SUCCESS)
-          break
-      }
-    } catch (e) {
-      setDepositStatus(ERROR)
-    } finally {
-      setDepositStatus(IDLE)
-    }
+    await deposit(amount)
   }
 
   return (

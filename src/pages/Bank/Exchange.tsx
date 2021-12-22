@@ -1,51 +1,34 @@
 import { Button, Heading, NumberInput, NumberInputField, Spacer, Stack, Text } from "@chakra-ui/react"
-import React, { useState } from "react"
-import { useActiveWeb3React } from "../../hooks/web3"
-import useReadYakYakRewards from "../../hooks/useReadYakYakRewards"
-import useReadBank from "../../hooks/useReadBank"
-import { ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS } from "../../constants/misc"
-import { useYakYakBankContract } from "../../hooks/useContract"
-import { YAKYAK_BANK_ADDRESS } from "../../constants/addresses"
-import { parseToBigNumber } from "../../utils/bignumberUtil"
+import React, {useState} from "react"
+import {PROCESSING} from "../../constants/misc"
+import useInterval from "@use-it/interval";
+import {useActiveWeb3React} from "../../hooks/web3";
+import {formatNumber, parseToBigNumber} from "../../utils/bignumberUtil";
+import {useYakYakBank} from "../../hooks/useYakYakBank";
+import {useYakYakRewards} from "../../hooks/useYakYakRewards";
 
 const Exchange = () => {
   const format = (val: string) => val + " YakYak®"
   const parse = (val: string) => val.replace(/[a-zA-Z\s]+/g, "")
 
-  const { account, chainId } = useActiveWeb3React()
-  const { balance } = useReadYakYakRewards(account)
-  const { balance: bankBalance } = useReadBank(account)
   const [withdrawAmount, setWithdrawAmount] = useState("0")
-  const [withdrawStatus, setWithdrawStatus] = useState(IDLE)
-  const contract = useYakYakBankContract(YAKYAK_BANK_ADDRESS[chainId ?? 1], true)
+  const { balanceOf: bankBalanceOf, withdraw, withdrawStatus } = useYakYakBank()
+  const [bankBalance, setBankBalance] = useState('0')
+  const [balance, setBalance] = useState('0')
+  const { account } = useActiveWeb3React()
+  const { balanceOf } = useYakYakRewards()
+
+  useInterval(async () => {
+    if (account) {
+      setBankBalance(formatNumber(parseToBigNumber(await bankBalanceOf(account)).shiftedBy(-18).toString()))
+      setBalance(formatNumber(parseToBigNumber(await balanceOf(account)).shiftedBy(-18).toString()))
+    }
+
+  }, 3000)
 
   const handleWithdraw = async () => {
-    if (!contract || withdrawAmount === "0" || !account) {
-      return
-    }
-    const amount = parseToBigNumber(withdrawAmount).shiftedBy(18).toFixed(0)
-    try {
-      const tx = await contract.withdraw(account, amount)
-      const res = await tx.wait()
-      switch (res.status) {
-        case 0:
-          setWithdrawStatus(ERROR)
-          setTimeout(() => {
-            setWithdrawStatus(IDLE)
-          }, IDLE_DELAY)
-          break
-        case 1:
-          setWithdrawStatus(SUCCESS)
-          setTimeout(() => {
-            setWithdrawStatus(IDLE)
-          }, IDLE_DELAY)
-          break
-      }
-    } catch (e) {
-      setWithdrawStatus(ERROR)
-      setTimeout(() => {
-        setWithdrawStatus(IDLE)
-      }, IDLE_DELAY)
+    if (account){
+      await withdraw(account, withdrawAmount)
     }
   }
 

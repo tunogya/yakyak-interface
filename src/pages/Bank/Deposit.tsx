@@ -50,6 +50,7 @@ const Deposit = () => {
 
   const handleSign = async () => {
     if (!chainId || !yakYakBank) return
+    const id = new Date().getTime()
     const data = JSON.stringify({
       types: {
         EIP712Domain: [
@@ -73,7 +74,7 @@ const Deposit = () => {
       primaryType: "cheque",
       message: {
         sender: account,
-        id: 3,
+        id: id,
         amount: parseToBigNumber(amount).shiftedBy(18).toFixed(0),
       },
     })
@@ -93,11 +94,7 @@ const Deposit = () => {
           const r = "0x" + signature.substring(0, 64)
           const s = "0x" + signature.substring(64, 128)
           const v = parseInt(signature.substring(128, 130), 16)
-          const tx = await yakYakBank.cash(v, r, s, account, 3, parseToBigNumber(amount).shiftedBy(18).toFixed(0), {
-            gasLimit: "300000"
-          })
-          const res = await tx.wait()
-          console.log(res)
+          await yakYakBank.cash(v, r, s, account, id, parseToBigNumber(amount).shiftedBy(18).toFixed(0))
         }
       )
     } catch (e) {

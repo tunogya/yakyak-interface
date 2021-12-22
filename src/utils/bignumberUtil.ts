@@ -1,13 +1,12 @@
-import { BigNumberish } from '@ethersproject/bignumber'
-import BigNumber from 'bignumber.js'
+import { BigNumberish } from "@ethersproject/bignumber"
+import BigNumber from "bignumber.js"
 
 export const parseToBigNumber = (n: BigNumberish | BigNumber) => {
-  if (n === '') {
+  if (n === "") {
     return new BigNumber(0)
-
   }
 
-  if (typeof n === 'undefined') {
+  if (typeof n === "undefined") {
     return new BigNumber(NaN)
   }
 
@@ -15,7 +14,7 @@ export const parseToBigNumber = (n: BigNumberish | BigNumber) => {
     return n
   }
 
-  if (typeof n === 'string') {
+  if (typeof n === "string") {
     return new BigNumber(n)
   }
 
@@ -30,7 +29,6 @@ export const parseToBigNumber = (n: BigNumberish | BigNumber) => {
 export const formatNumber = (n: BigNumber | BigNumberish, decimals = 18, formatPrecision = 4) => {
   return parseToBigNumber(parseToBigNumber(n).toFixed(decimals))
     .toFormat(formatPrecision)
-    .replace(/(\.\d*?[1-9])0+$/, '$1')
-    .replace(/\.0+$/, '')
+    .replace(/(\.\d*?[1-9])0+$/, "$1")
+    .replace(/\.0+$/, "")
 }
-

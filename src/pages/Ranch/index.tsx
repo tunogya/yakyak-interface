@@ -1,5 +1,5 @@
-import {Heading, Stack} from "@chakra-ui/react";
-import React from "react";
+import { Heading, Stack } from "@chakra-ui/react"
+import React from "react"
 
 const Ranch = () => {
   return (
@@ -8,7 +8,7 @@ const Ranch = () => {
         <Heading fontSize={"2xl"}>YakYak® Ranch</Heading>
       </Stack>
     </Stack>
-    )
+  )
 }
 
 export default Ranch

@@ -1,9 +1,8 @@
 export const Input = {
-  baseStyle: {
-  },
+  baseStyle: {},
   variants: {
     filled: {
-      field:{
+      field: {
         fontFamily: "Nunito",
         fontWeight: "700",
         borderRadius: "20px",
@@ -16,8 +15,8 @@ export const Input = {
         _focus: {
           bg: "white",
           borderColor: "blue.500",
-        }
-      }
-    }
+        },
+      },
+    },
   },
 }

@@ -52,4 +52,3 @@ export function useYakYakRewardContract(tokenAddress?: string, withSignerIfPossi
 export function useYakYakBankContract(address?: string, withSignerIfPossible?: boolean): Contract | null {
   return useContract<YakyakBank>(address, YakYakBank_ABI, withSignerIfPossible)
 }
-

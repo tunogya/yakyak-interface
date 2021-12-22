@@ -122,21 +122,9 @@ const _abi = [
   {
     inputs: [
       {
-        components: [
-          {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "amount",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct IYakYakBank.CHEQUE",
-        name: "cheque",
-        type: "tuple",
+        internalType: "uint8",
+        name: "v",
+        type: "uint8",
       },
       {
         internalType: "bytes32",
@@ -149,9 +137,19 @@ const _abi = [
         type: "bytes32",
       },
       {
-        internalType: "uint8",
-        name: "v",
-        type: "uint8",
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
       },
     ],
     name: "cash",
@@ -200,55 +198,9 @@ const _abi = [
             type: "address",
           },
         ],
-        internalType: "struct IYakYakBank.ORDER",
+        internalType: "struct YakYakBank.ORDER",
         name: "",
         type: "tuple",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        components: [
-          {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "amount",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct IYakYakBank.CHEQUE",
-        name: "cheque",
-        type: "tuple",
-      },
-      {
-        internalType: "bytes32",
-        name: "r",
-        type: "bytes32",
-      },
-      {
-        internalType: "bytes32",
-        name: "s",
-        type: "bytes32",
-      },
-      {
-        internalType: "uint8",
-        name: "v",
-        type: "uint8",
-      },
-    ],
-    name: "verify",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
       },
     ],
     stateMutability: "view",

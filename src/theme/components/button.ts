@@ -4,8 +4,7 @@ export const Button = {
     fontFamily: "Nunito",
   },
   variants: {
-    outline: {
-    },
+    outline: {},
     solid: {
       bg: "blue.500",
       color: "white",
@@ -17,9 +16,8 @@ export const Button = {
       },
       _disabled: {
         bg: "blue.600",
-      }
+      },
     },
-    ghost: {
-    },
+    ghost: {},
   },
 }

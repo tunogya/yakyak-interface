@@ -23,10 +23,9 @@ interface YakyakBankInterface extends ethers.utils.Interface {
   functions: {
     "_token()": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
-    "cash((uint256,uint256),bytes32,bytes32,uint8)": FunctionFragment;
+    "cash(uint8,bytes32,bytes32,address,uint256,uint256)": FunctionFragment;
     "deposit(uint256)": FunctionFragment;
     "getOrder(address,uint256)": FunctionFragment;
-    "verify((uint256,uint256),bytes32,bytes32,uint8)": FunctionFragment;
     "withdraw(address,uint256)": FunctionFragment;
   };
 
@@ -35,9 +34,11 @@ interface YakyakBankInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "cash",
     values: [
-      { id: BigNumberish; amount: BigNumberish },
+      BigNumberish,
       BytesLike,
       BytesLike,
+      string,
+      BigNumberish,
       BigNumberish
     ]
   ): string;
@@ -50,15 +51,6 @@ interface YakyakBankInterface extends ethers.utils.Interface {
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "verify",
-    values: [
-      { id: BigNumberish; amount: BigNumberish },
-      BytesLike,
-      BytesLike,
-      BigNumberish
-    ]
-  ): string;
-  encodeFunctionData(
     functionFragment: "withdraw",
     values: [string, BigNumberish]
   ): string;
@@ -68,7 +60,6 @@ interface YakyakBankInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "cash", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getOrder", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "verify", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {
@@ -148,10 +139,12 @@ export class YakyakBank extends BaseContract {
     balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     cash(
-      cheque: { id: BigNumberish; amount: BigNumberish },
+      v: BigNumberish,
       r: BytesLike,
       s: BytesLike,
-      v: BigNumberish,
+      sender: string,
+      id: BigNumberish,
+      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -166,14 +159,6 @@ export class YakyakBank extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[[BigNumber, string] & { amount: BigNumber; casher: string }]>;
 
-    verify(
-      cheque: { id: BigNumberish; amount: BigNumberish },
-      r: BytesLike,
-      s: BytesLike,
-      v: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
     withdraw(
       to: string,
       amount: BigNumberish,
@@ -186,10 +171,12 @@ export class YakyakBank extends BaseContract {
   balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   cash(
-    cheque: { id: BigNumberish; amount: BigNumberish },
+    v: BigNumberish,
     r: BytesLike,
     s: BytesLike,
-    v: BigNumberish,
+    sender: string,
+    id: BigNumberish,
+    amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -204,14 +191,6 @@ export class YakyakBank extends BaseContract {
     overrides?: CallOverrides
   ): Promise<[BigNumber, string] & { amount: BigNumber; casher: string }>;
 
-  verify(
-    cheque: { id: BigNumberish; amount: BigNumberish },
-    r: BytesLike,
-    s: BytesLike,
-    v: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
   withdraw(
     to: string,
     amount: BigNumberish,
@@ -224,10 +203,12 @@ export class YakyakBank extends BaseContract {
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     cash(
-      cheque: { id: BigNumberish; amount: BigNumberish },
+      v: BigNumberish,
       r: BytesLike,
       s: BytesLike,
-      v: BigNumberish,
+      sender: string,
+      id: BigNumberish,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -238,14 +219,6 @@ export class YakyakBank extends BaseContract {
       id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber, string] & { amount: BigNumber; casher: string }>;
-
-    verify(
-      cheque: { id: BigNumberish; amount: BigNumberish },
-      r: BytesLike,
-      s: BytesLike,
-      v: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
 
     withdraw(
       to: string,
@@ -314,10 +287,12 @@ export class YakyakBank extends BaseContract {
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     cash(
-      cheque: { id: BigNumberish; amount: BigNumberish },
+      v: BigNumberish,
       r: BytesLike,
       s: BytesLike,
-      v: BigNumberish,
+      sender: string,
+      id: BigNumberish,
+      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -329,14 +304,6 @@ export class YakyakBank extends BaseContract {
     getOrder(
       account: string,
       id: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    verify(
-      cheque: { id: BigNumberish; amount: BigNumberish },
-      r: BytesLike,
-      s: BytesLike,
-      v: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -356,10 +323,12 @@ export class YakyakBank extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     cash(
-      cheque: { id: BigNumberish; amount: BigNumberish },
+      v: BigNumberish,
       r: BytesLike,
       s: BytesLike,
-      v: BigNumberish,
+      sender: string,
+      id: BigNumberish,
+      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -371,14 +340,6 @@ export class YakyakBank extends BaseContract {
     getOrder(
       account: string,
       id: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    verify(
-      cheque: { id: BigNumberish; amount: BigNumberish },
-      r: BytesLike,
-      s: BytesLike,
-      v: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

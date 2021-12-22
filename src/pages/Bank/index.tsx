@@ -1,7 +1,7 @@
-import {Heading, Stack, Wrap, WrapItem} from "@chakra-ui/react";
-import React from "react";
-import Deposit from "./Deposit";
-import Exchange from "./Exchange";
+import { Heading, Stack, Wrap, WrapItem } from "@chakra-ui/react"
+import React from "react"
+import Deposit from "./Deposit"
+import Exchange from "./Exchange"
 
 const Bank = () => {
   return (
@@ -11,10 +11,10 @@ const Bank = () => {
       </Stack>
       <Wrap p={[2, 4, 8, 16]} spacing={[2, 4, 8, 16]} justify={"center"}>
         <WrapItem>
-          <Deposit/>
+          <Deposit />
         </WrapItem>
         <WrapItem>
-          <Exchange/>
+          <Exchange />
         </WrapItem>
       </Wrap>
     </Stack>

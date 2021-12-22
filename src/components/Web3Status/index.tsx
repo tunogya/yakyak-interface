@@ -1,4 +1,4 @@
-import {Trans} from "@lingui/macro"
+import { Trans } from "@lingui/macro"
 import {
   Button,
   Link,
@@ -12,20 +12,20 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react"
-import {UnsupportedChainIdError, useWeb3React} from "@web3-react/core"
-import {isMobile} from "react-device-detect"
-import {SUPPORTED_WALLETS} from "../../constants/wallet"
-import {injected} from "../../connectors"
-import {WalletConnectConnector} from "@web3-react/walletconnect-connector"
-import {AbstractConnector} from "@web3-react/abstract-connector"
-import {useEffect, useState} from "react"
+import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core"
+import { isMobile } from "react-device-detect"
+import { SUPPORTED_WALLETS } from "../../constants/wallet"
+import { injected } from "../../connectors"
+import { WalletConnectConnector } from "@web3-react/walletconnect-connector"
+import { AbstractConnector } from "@web3-react/abstract-connector"
+import { useEffect, useState } from "react"
 import MetamaskIcon from "../../assets/images/metamask.png"
 import styled from "styled-components"
 import PendingView from "./PeddingView"
 import usePrevious from "../../hooks/usePrevious"
 import AccountDetails from "../AccountDetails"
-import {Activity} from "react-feather"
-import {shortenAddress} from "../../utils"
+import { Activity } from "react-feather"
+import { shortenAddress } from "../../utils"
 
 const IconWrapper = styled.div<{ size?: number | null }>`
   align-items: center;
@@ -33,8 +33,8 @@ const IconWrapper = styled.div<{ size?: number | null }>`
 
   & > img,
   span {
-    height: ${({size}) => (size ? size + "px" : "24px")};
-    width: ${({size}) => (size ? size + "px" : "24px")};
+    height: ${({ size }) => (size ? size + "px" : "24px")};
+    width: ${({ size }) => (size ? size + "px" : "24px")};
   }
 `
 
@@ -53,8 +53,8 @@ const WALLET_VIEWS = {
 }
 
 export const WalletModal = () => {
-  const {isOpen, onOpen, onClose} = useDisclosure()
-  const {active, account, connector, activate, error} = useWeb3React()
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { active, account, connector, activate, error } = useWeb3React()
   const [pendingWallet, setPendingWallet] = useState<AbstractConnector | undefined>()
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingError, setPendingError] = useState<boolean>()
@@ -99,13 +99,13 @@ export const WalletModal = () => {
     }
 
     connector &&
-    activate(connector, undefined, true).catch(error => {
-      if (error instanceof UnsupportedChainIdError) {
-        activate(connector)
-      } else {
-        setPendingError(true)
-      }
-    })
+      activate(connector, undefined, true).catch(error => {
+        if (error instanceof UnsupportedChainIdError) {
+          activate(connector)
+        } else {
+          setPendingError(true)
+        }
+      })
   }
 
   const getWeb3Status = () => {
@@ -120,7 +120,7 @@ export const WalletModal = () => {
     if (error) {
       return (
         <>
-          <NetworkIcon/>
+          <NetworkIcon />
           <Text>{error instanceof UnsupportedChainIdError ? <Trans>Wrong Network</Trans> : <Trans>Error</Trans>}</Text>
         </>
       )
@@ -154,9 +154,9 @@ export const WalletModal = () => {
             >
               <Stack direction={"row"} w={"100%"} alignItems={"center"}>
                 <Text>{option.name}</Text>
-                <Spacer/>
+                <Spacer />
                 <IconWrapper>
-                  <img src={option.iconURL} alt={"Icon"}/>
+                  <img src={option.iconURL} alt={"Icon"} />
                 </IconWrapper>
               </Stack>
             </Button>
@@ -177,9 +177,9 @@ export const WalletModal = () => {
                     <Text>
                       <Trans>Install Metamask</Trans>
                     </Text>
-                    <Spacer/>
+                    <Spacer />
                     <IconWrapper>
-                      <img src={MetamaskIcon} alt={"Icon"}/>
+                      <img src={MetamaskIcon} alt={"Icon"} />
                     </IconWrapper>
                   </Stack>
                 </Link>
@@ -217,9 +217,9 @@ export const WalletModal = () => {
           >
             <Stack direction={"row"} w={"100%"} alignItems={"center"}>
               <Text color={option.connector === connector ? option.color : "black"}>{option.name}</Text>
-              <Spacer/>
+              <Spacer />
               <IconWrapper>
-                <img src={option.iconURL} alt={"Icon"}/>
+                <img src={option.iconURL} alt={"Icon"} />
               </IconWrapper>
             </Stack>
           </Button>
@@ -232,7 +232,7 @@ export const WalletModal = () => {
     if (error) {
       return (
         <>
-          <ModalOverlay/>
+          <ModalOverlay />
           <ModalContent padding={"20px"}>
             <ModalHeader fontFamily={"Noto Sans"} fontStyle={"italic"}>
               <Trans>Error</Trans>
@@ -245,13 +245,13 @@ export const WalletModal = () => {
     if (account && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <>
-          <ModalOverlay/>
+          <ModalOverlay />
           <ModalContent padding={"20px"}>
             <ModalHeader fontFamily={"Noto Sans"} fontStyle={"italic"}>
               <Trans>Account</Trans>
             </ModalHeader>
             <ModalBody>
-              <AccountDetails openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)}/>
+              <AccountDetails openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)} />
             </ModalBody>
           </ModalContent>
         </>
@@ -260,7 +260,7 @@ export const WalletModal = () => {
 
     return (
       <>
-        <ModalOverlay/>
+        <ModalOverlay />
         <ModalContent padding={"20px"}>
           <ModalHeader fontFamily={"Noto Sans"} fontStyle={"italic"}>
             <Trans>Connect Wallet</Trans>

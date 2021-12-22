@@ -1,10 +1,10 @@
-import {useActiveWeb3React} from "./web3";
-import {isAddress} from "../utils";
-import {useYakYakBankContract} from "./useContract";
-import {YAKYAK_BANK_ADDRESS} from "../constants/addresses";
-import {useEffect, useState} from "react";
-import {formatNumber, parseToBigNumber} from "../utils/bignumberUtil";
-import useInterval from "@use-it/interval";
+import { useActiveWeb3React } from "./web3"
+import { isAddress } from "../utils"
+import { useYakYakBankContract } from "./useContract"
+import { YAKYAK_BANK_ADDRESS } from "../constants/addresses"
+import { useEffect, useState } from "react"
+import { formatNumber, parseToBigNumber } from "../utils/bignumberUtil"
+import useInterval from "@use-it/interval"
 
 const useReadBank = (address: string | undefined | null) => {
   const { chainId } = useActiveWeb3React()
@@ -14,9 +14,7 @@ const useReadBank = (address: string | undefined | null) => {
 
   const fetch = async () => {
     if (!address || !validated || !contract) return
-    const [balance] = await Promise.all([
-      contract.balanceOf(address),
-    ])
+    const [balance] = await Promise.all([contract.balanceOf(address)])
     setBalance(formatNumber(parseToBigNumber(balance).shiftedBy(-18)))
   }
 
@@ -26,7 +24,7 @@ const useReadBank = (address: string | undefined | null) => {
   useInterval(fetch, 3000)
 
   return {
-    balance
+    balance,
   }
 }
 

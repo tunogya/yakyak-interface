@@ -1,10 +1,10 @@
 import { isAddress } from "../utils"
-import {useYakYakRewardContract} from "./useContract";
-import {useEffect, useState} from "react";
-import {YAKYAK_REWARDS_ADDRESS} from "../constants/addresses";
-import {useActiveWeb3React} from "./web3";
-import {formatNumber, parseToBigNumber} from "../utils/bignumberUtil";
-import useInterval from "@use-it/interval";
+import { useYakYakRewardContract } from "./useContract"
+import { useEffect, useState } from "react"
+import { YAKYAK_REWARDS_ADDRESS } from "../constants/addresses"
+import { useActiveWeb3React } from "./web3"
+import { formatNumber, parseToBigNumber } from "../utils/bignumberUtil"
+import useInterval from "@use-it/interval"
 
 const useReadYakYakRewards = (address: string | undefined | null) => {
   const { chainId } = useActiveWeb3React()

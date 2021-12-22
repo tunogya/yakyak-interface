@@ -14,9 +14,7 @@ export const NetworkCard = () => {
     <Stack>
       <Link href={info.infoLink}>
         <Badge variant="ghost" fontStyle={"italic"} color={"blue.700"}>
-          <Text>
-            {info.label}
-          </Text>
+          <Text>{info.label}</Text>
         </Badge>
       </Link>
     </Stack>

@@ -13,7 +13,7 @@ export const NetworkCard = () => {
   return (
     <Stack>
       <Link href={info.infoLink}>
-        <Badge variant="ghost" fontStyle={"italic"} color={"blue.700"}>
+        <Badge variant="ghost" fontStyle={"italic"}>
           <Text>{info.label}</Text>
         </Badge>
       </Link>

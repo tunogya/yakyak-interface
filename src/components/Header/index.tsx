@@ -1,42 +1,41 @@
-import { Heading, Stack, Text } from "@chakra-ui/react"
-import { useNavigate, useLocation } from "react-router-dom"
-import { useState } from "react"
+import {Button, Heading, Spacer, Stack} from "@chakra-ui/react"
+import {useNavigate, useLocation} from "react-router-dom"
+import {useState} from "react"
 import Web3Status from "../Web3Status"
+import NetworkCard from "./NetworkCard";
 
 export const Header = () => {
   const links = [
-    { path: "/", label: "Rewards" },
-    { path: "/bank", label: "Bank" },
-    { path: "/ranch", label: "Ranch" },
+    {path: "/", label: "Rewards"},
+    {path: "/bank", label: "Bank"},
+    {path: "/ranch", label: "Ranch"},
   ]
   const navigate = useNavigate()
   const location = useLocation()
   const [currentPath, setCurrentPath] = useState(location.pathname)
 
   return (
-    <Stack w={"full"} alignItems={"center"} bg={"white"}>
+    <Stack alignItems={"center"} bg={"veryPeri"} color={"white"}>
       <Stack
         direction={"row"}
         alignItems={"center"}
-        justifyContent={"space-between"}
-        py={4}
-        px={[2, 2, 4, 4]}
+        h={"96px"}
         w={"full"}
+        maxW={"1024px"}
+        px={"96px"}
       >
-        <Stack direction={"row"} alignItems={"center"} spacing={[2, 4, 8, 16]}>
-          <Stack id={"logo"}>
-            <Heading fontSize={"md"} fontWeight={"bold"} fontStyle={"italic"} whiteSpace={"nowrap"}>
-              YakYak® Club
-            </Heading>
-          </Stack>
-          <Stack direction={"row"} spacing={[1, 2, 4, 8]} id={"menu"}>
+        <Stack direction={"row"} alignItems={"center"} spacing={"24px"}>
+          <Heading fontSize={"md"} fontWeight={"bold"} fontStyle={"italic"} whiteSpace={"nowrap"}>
+            YakYak® Club
+          </Heading>
+          <Stack direction={"row"} id={"menu"}>
             {links.map((link, index) => (
-              <Text
+              <Button
                 key={index}
-                size={"md"}
                 fontStyle={"italic"}
+                variant={currentPath === link.path ? "outline" : "ghost"}
                 fontWeight={"800"}
-                color={currentPath === link.path ? "blue.700" : "gray"}
+                color={currentPath === link.path ? "white" : "gray.300"}
                 onClick={() => {
                   navigate(link.path)
                   setCurrentPath(link.path)
@@ -44,13 +43,14 @@ export const Header = () => {
                 cursor={"pointer"}
               >
                 {link.label}
-              </Text>
+              </Button>
             ))}
           </Stack>
         </Stack>
+        <Spacer/>
         <Stack direction={"row"} alignItems={"center"}>
-          {/*<NetworkCard/>*/}
-          <Web3Status />
+          <NetworkCard/>
+          <Web3Status/>
         </Stack>
       </Stack>
     </Stack>

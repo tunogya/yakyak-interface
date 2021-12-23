@@ -54,6 +54,6 @@ jobs:
         uses: web3-storage/add-to-web3@v1.0.0
         with:
           path_to_add: build
-          web3_token: ${{ secrets.WEB3_KEY }}
+          web3_token: ${{ secrets.WEB3STORAGE }}
           web3_api: https://api.web3.storage
           wrap_with_directory: false

@@ -6,9 +6,10 @@ import NetworkCard from "./NetworkCard";
 
 export const Header = () => {
   const links = [
-    {path: "/", label: "Rewards"},
-    {path: "/bank", label: "Bank"},
-    {path: "/ranch", label: "Ranch"},
+    {path: "/", label: "Dashboard"},
+    {path: "/transfer", label: "Get & Pay YakYak®"},
+    {path: "/shopping", label: "Shopping"},
+    {path: "/transactions", label: "Activity" }
   ]
   const navigate = useNavigate()
   const location = useLocation()
@@ -22,7 +23,6 @@ export const Header = () => {
         h={"96px"}
         w={"full"}
         maxW={"1024px"}
-        px={"96px"}
       >
         <Stack direction={"row"} alignItems={"center"} spacing={"24px"}>
           <Heading fontSize={"md"} fontWeight={"bold"} fontStyle={"italic"} whiteSpace={"nowrap"}>

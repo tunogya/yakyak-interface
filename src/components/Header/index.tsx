@@ -2,7 +2,6 @@ import { Heading, Stack, Text } from "@chakra-ui/react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useState } from "react"
 import Web3Status from "../Web3Status"
-import NetworkCard from "./NetworkCard"
 
 export const Header = () => {
   const links = [

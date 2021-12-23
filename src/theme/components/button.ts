@@ -11,7 +11,7 @@ export const Button = {
       height: "48px",
     },
     solid: {
-      bg: "veryPeri",
+      bg: "primary",
       _hover: "none",
       _active: "none",
       height: "48px",
@@ -20,7 +20,7 @@ export const Button = {
       _hover: "none",
       _active: "none",
       border: "2px",
-      borderColor: "veryPeri",
+      borderColor: "primary",
       height: "48px",
     },
   },

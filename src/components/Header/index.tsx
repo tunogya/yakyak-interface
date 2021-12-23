@@ -15,7 +15,7 @@ export const Header = () => {
   const [currentPath, setCurrentPath] = useState(location.pathname)
 
   return (
-    <Stack alignItems={"center"} bg={"veryPeri"} color={"white"}>
+    <Stack alignItems={"center"} bg={"primary"} color={"white"}>
       <Stack
         direction={"row"}
         alignItems={"center"}
@@ -35,7 +35,7 @@ export const Header = () => {
                 fontStyle={"italic"}
                 variant={currentPath === link.path ? "outline" : "ghost"}
                 fontWeight={"800"}
-                color={currentPath === link.path ? "white" : "gray.300"}
+                color={"white"}
                 onClick={() => {
                   navigate(link.path)
                   setCurrentPath(link.path)

@@ -7,7 +7,7 @@ import NetworkCard from "./NetworkCard";
 export const Header = () => {
   const links = [
     {path: "/", label: "Dashboard"},
-    {path: "/transfer", label: "Get & Pay YakYak®"},
+    {path: "/transfer", label: "Get & Pay Rewards"},
     {path: "/shopping", label: "Shopping"},
     {path: "/transactions", label: "Activity" }
   ]

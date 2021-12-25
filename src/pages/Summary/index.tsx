@@ -8,7 +8,7 @@ export const Summary = () => {
   const {account} = useActiveWeb3React()
 
   return (
-    <Stack direction={"row"} spacing={0}>
+    <Stack direction={"row"} spacing={0} w={"full"} maxW={"1024px"}>
       <Stack flex={"0 0 60%"} maxW={"60%"} px={"12px"}>
         <Stack my={"36px"} fontSize={"30px"}>
           {

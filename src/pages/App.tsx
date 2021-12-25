@@ -26,18 +26,13 @@ function App() {
 const Content = () => {
   return (
     <Stack alignItems={"center"} pt={"96px"}>
-      <Stack
-        w={"full"}
-        maxW={"1024px"}
-      >
-        <Routes>
-          <Route path="/" element={<Summary/>}/>
-          <Route path="/transfer" element={<Transfer/>}/>
-          <Route path="/shopping" element={<Shopping/>}/>
-          <Route path="/transactions" element={<Transactions/>}/>
-          <Route/>
-        </Routes>
-      </Stack>
+      <Routes>
+        <Route path="/" element={<Summary/>}/>
+        <Route path="/transfer" element={<Transfer/>}/>
+        <Route path="/shopping" element={<Shopping/>}/>
+        <Route path="/transactions" element={<Transactions/>}/>
+        <Route/>
+      </Routes>
     </Stack>
   )
 }

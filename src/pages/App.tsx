@@ -25,7 +25,7 @@ function App() {
 
 const Content = () => {
   return (
-    <Stack alignItems={"center"} bg={"white"} pt={"96px"}>
+    <Stack alignItems={"center"} pt={"96px"}>
       <Stack
         w={"full"}
         maxW={"1024px"}

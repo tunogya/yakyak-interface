@@ -2,13 +2,12 @@ import {Button, Heading, Spacer, Stack} from "@chakra-ui/react"
 import {useNavigate, useLocation} from "react-router-dom"
 import {useState} from "react"
 import Web3Status from "../Web3Status"
-import NetworkCard from "./NetworkCard";
 
 export const Header = () => {
   const links = [
     {path: "/", label: "Dashboard"},
     {path: "/transfer", label: "Get & Pay Rewards"},
-    {path: "/shopping", label: "Shopping"},
+    {path: "/shopping", label: "Deals"},
     {path: "/transactions", label: "Activity" }
   ]
   const navigate = useNavigate()
@@ -32,10 +31,11 @@ export const Header = () => {
             {links.map((link, index) => (
               <Button
                 key={index}
-                fontStyle={"italic"}
-                variant={currentPath === link.path ? "outline" : "ghost"}
-                fontWeight={"800"}
                 color={"white"}
+                border={"2px"}
+                borderColor={currentPath === link.path ?  "white" : "primary"}
+                fontWeight={"bold"}
+                _hover={{ borderColor: "white" }}
                 onClick={() => {
                   navigate(link.path)
                   setCurrentPath(link.path)
@@ -49,7 +49,6 @@ export const Header = () => {
         </Stack>
         <Spacer/>
         <Stack direction={"row"} alignItems={"center"}>
-          <NetworkCard/>
           <Web3Status/>
         </Stack>
       </Stack>

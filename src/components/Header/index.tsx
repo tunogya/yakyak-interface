@@ -7,7 +7,7 @@ export const Header = () => {
     {path: "/summary", label: "Dashboard"},
     {path: "/transfer", label: "Get & Pay Rewards"},
     {path: "/shopping", label: "Deals"},
-    {path: "/transactions", label: "Activity" }
+    {path: "/transactions", label: "Activity"}
   ]
   const navigate = useNavigate()
   const location = useLocation()
@@ -31,9 +31,9 @@ export const Header = () => {
                 key={index}
                 color={"white"}
                 border={"2px"}
-                borderColor={location.pathname.includes(link.path) ?  "white" : "primary"}
+                borderColor={location.pathname === '/' ? (link.path === "/summary" ? "white" : "primary") : (location.pathname.includes(link.path) ? "white" : "primary")}
                 fontWeight={"bold"}
-                _hover={{ borderColor: "white" }}
+                _hover={{borderColor: "white"}}
                 onClick={() => {
                   navigate(link.path)
                 }}

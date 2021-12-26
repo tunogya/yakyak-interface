@@ -28,10 +28,9 @@ export const Shopping = () => {
           <Text fontSize={"14px"} fontWeight={"600"} _hover={{ color: "primary" }}>Categories</Text>
           <Text fontSize={"14px"} fontWeight={"600"}>{balance} YakYak® Rewards </Text>
           <Spacer />
-          <Input w={"200px"}/>
+          <Input w={"200px"} placeholder={"Search"}/>
         </Stack>
       </Stack>
-
     </Stack>
   )
 }

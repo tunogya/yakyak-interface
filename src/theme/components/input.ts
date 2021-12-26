@@ -5,16 +5,11 @@ export const Input = {
       field: {
         fontFamily: "Nunito",
         fontWeight: "700",
-        borderRadius: "20px",
-        bg: "blue.300",
-        color: "blue.500",
-        _hover: {
-          borderColor: "blue.500",
-          bg: "blue.300",
-        },
+        borderRadius: "full",
+        _hover: null,
         _focus: {
           bg: "white",
-          borderColor: "blue.500",
+          borderColor: "primary",
         },
       },
     },

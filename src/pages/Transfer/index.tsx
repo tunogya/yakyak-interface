@@ -35,13 +35,15 @@ export const Transfer = () => {
           ))
         }
       </Stack>
-      {
-        tabList.map((tab) => (
-          <Stack key={tab.label} hidden={currentPath !== tab.path }>
-            {tab.element}
-          </Stack>
-        ))
-      }
+      <Stack alignItems={"center"} px={"12px"} spacing={0}>
+        {
+          tabList.map((tab) => (
+            <Stack key={tab.label} hidden={currentPath !== tab.path } w={"full"} maxW={"1024px"}>
+              {tab.element}
+            </Stack>
+          ))
+        }
+      </Stack>
     </Stack>
   )
 }

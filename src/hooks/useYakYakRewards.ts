@@ -13,7 +13,7 @@ export const useYakYakRewards = () => {
   const balanceOf = async (account: string | undefined) => {
     if (!token || !account) return 'NaN'
     try {
-      return parseToBigNumber(await token.balanceOf(account)).toString()
+      return parseToBigNumber(await token.balanceOf(account)).shiftedBy(-18)
     }catch (e){
       return 'NaN'
     }

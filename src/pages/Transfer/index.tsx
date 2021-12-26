@@ -11,51 +11,51 @@ import {Cheque} from "./Cheque";
 import {Donate} from "./Donate";
 import {YakYakMe} from "./YakYakMe";
 
+export const moreList = [
+  {
+    label: 'Invite your friends',
+    info: "Invite a friend and you can both get 10 YakYak®",
+    button: "Get Started",
+    action: 'invite',
+    element: <Invite/>
+  },
+  {
+    label: 'Send to bank account',
+    info: "You can send Rewards to YakYak® Bank",
+    button: "Send Rewards",
+    action: 'deposit',
+    element: <Deposit/>
+  },
+  {
+    label: 'Create a cheque',
+    info: "Create a cheque by Bank and send it to anyone",
+    button: "Create Cheque",
+    action: 'cheque',
+    element: <Cheque/>
+  },
+  {
+    label: 'Send and receive donations',
+    info: "Find support and help others now",
+    button: "Get Started",
+    action: 'donate',
+    element: <Donate/>
+  },
+  {
+    label: 'Create your YakYak.Me profile',
+    info: 'Help your friends and customers know it\'s you they are paying.',
+    button: 'Create Your Profile',
+    action: 'yakyakme',
+    element: <YakYakMe/>
+  }
+]
+
+export const tabList = [
+  {label: "Pay", action: "pay", element: <Pay/>},
+  {label: "Get Rewards", action: "request", element: <Request/>},
+  {label: "More", action: "more", element: <More/>},
+]
+
 export const Transfer = () => {
-  const tabList = [
-    {label: "Pay", action: "pay", element: <Pay/>},
-    {label: "Get Rewards", action: "request", element: <Request/>},
-    {label: "More", action: "more", element: <More/>},
-  ]
-
-  const moreList = [
-    {
-      label: 'Invite your friends',
-      info: "Invite a friend and you can both get 10 YakYak®",
-      button: "Get Started",
-      action: 'invite',
-      element: <Invite/>
-    },
-    {
-      label: 'Send to bank account',
-      info: "You can send Rewards to YakYak® Bank",
-      button: "Send Rewards",
-      action: 'deposit',
-      element: <Deposit/>
-    },
-    {
-      label: 'Create a cheque',
-      info: "Create a cheque by Bank and send it to anyone",
-      button: "Create Cheque",
-      action: 'cheque',
-      element: <Cheque/>
-    },
-    {
-      label: 'Send and receive donations',
-      info: "Find support and help others now",
-      button: "Get Started",
-      action: 'donate',
-      element: <Donate/>
-    },
-    {
-      label: 'Create your YakYak.Me profile',
-      info: 'Help your friends and customers know it\'s you they are paying.',
-      button: 'Create Your Profile',
-      action: 'yakyakme',
-      element: <YakYakMe/>
-    }
-  ]
-
   const navigate = useNavigate()
   const params = useParams()
 

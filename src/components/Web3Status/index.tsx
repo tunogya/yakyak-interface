@@ -111,7 +111,7 @@ export const WalletModal = () => {
   const getWeb3Status = () => {
     if (account) {
       return (
-        <Button onClick={onOpen} variant={"ghost"}>
+        <Button onClick={onOpen} variant={"ghost"} fontWeight={"bold"}>
           <Text>{shortenAddress(account)}</Text>
         </Button>
       )
@@ -245,7 +245,7 @@ export const WalletModal = () => {
         <>
           <ModalOverlay />
           <ModalContent padding={"20px"}>
-            <ModalHeader fontFamily={"Noto Sans"} fontStyle={"italic"}>
+            <ModalHeader fontFamily={"Nunito"}>
               <Trans>Account</Trans>
             </ModalHeader>
             <ModalBody>
@@ -260,7 +260,7 @@ export const WalletModal = () => {
       <>
         <ModalOverlay />
         <ModalContent padding={"20px"}>
-          <ModalHeader fontFamily={"Noto Sans"} fontStyle={"italic"}>
+          <ModalHeader fontFamily={"Nunito"}>
             <Trans>Connect Wallet</Trans>
           </ModalHeader>
           <ModalBody>

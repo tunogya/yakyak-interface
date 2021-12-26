@@ -28,7 +28,7 @@ export const Shopping = () => {
           <Text fontSize={"14px"} fontWeight={"bold"}>Categories</Text>
           <Text fontSize={"14px"} fontWeight={"bold"}>{balance} YakYak® Rewards </Text>
           <Spacer />
-          <Input w={"200px"} variant={"filled"}/>
+          <Input w={"200px"}/>
         </Stack>
       </Stack>
 

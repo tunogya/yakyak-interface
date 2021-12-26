@@ -8,9 +8,9 @@ import {Request} from "./Request";
 
 export const Transfer = () => {
   const tabList = [
-    {label: "Pay", action: "pay", path: "/transfer/pay", element: <Pay/>},
-    {label: "Get Rewards", action: "request", path: "/transfer/request", element: <Request/>},
-    {label: "More", action: "more", path: "/transfer/more", element: <More/>},
+    {label: "Pay", action: "pay", element: <Pay/>},
+    {label: "Get Rewards", action: "request", element: <Request/>},
+    {label: "More", action: "more", element: <More/>},
   ]
   const navigate = useNavigate()
   const params = useParams()
@@ -23,7 +23,7 @@ export const Transfer = () => {
           tabList.map((tab) => (
             <TabMenuItem key={tab.label} label={tab.label} activated={(params?.action ?? "pay") === tab.action}
                          onClick={() => {
-                           navigate(tab.path)
+                           navigate('/transfer/' + tab.action)
                          }}/>
           ))
         }

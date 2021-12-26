@@ -45,8 +45,7 @@ export const Pay = () => {
       <Stack flex={"0 0 40%"} maxW={"40%"} px={"30px"} py={"10px"} fontWeight={"bold"}>
         <Text>Invite your friends</Text>
         <Text>Send to bank account</Text>
-        <Text>Send cash for pick up</Text>
-        <Text>Send an invoice</Text>
+        <Text>Create a cheque</Text>
         <Text>Send and receive donations</Text>
       </Stack>
     </Stack>

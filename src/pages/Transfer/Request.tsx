@@ -59,8 +59,6 @@ export const Request = () => {
       </Stack>
       <Stack flex={"0 0 40%"} maxW={"40%"} px={"30px"} py={"10px"} fontWeight={"bold"}>
         <Text>Invite your friends</Text>
-        <Text>Create an invoice </Text>
-        <Text>Create a Personal Profile</Text>
         <Text>Start a fundraiser</Text>
       </Stack>
     </Stack>

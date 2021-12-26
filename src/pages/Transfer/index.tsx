@@ -1,14 +1,26 @@
 import {Stack} from "@chakra-ui/react";
 import {TabMenuItem} from "../../components/TabMenuItem";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
+import {Pay} from "./Pay";
+import {More} from "./More";
+import {Request} from "./Request";
 
 export const Transfer = () => {
   const tabList = [
-    {id: 0, label: "Pay", path: "/transfer/pay"},
-    {id: 1, label: "Get Rewards", path: "/transfer/request"},
-    {id: 2, label: "More", path: "/transfer/more"},
+    {label: "Pay", action: "pay", path: "/transfer/pay", element: <Pay/>},
+    {label: "Get Rewards", action: "request", path: "/transfer/request", element: <Request/>},
+    {label: "More", action: "more", path: "/transfer/more", element: <More/>},
   ]
-  const [activate, setActivate] = useState(0)
+  const navigate = useNavigate()
+  const params = useParams()
+  const [currentPath, setCurrentPath] = useState("/transfer/pay")
+
+  useEffect(() => {
+    if (params?.action) {
+      setCurrentPath("/transfer/" + params.action)
+    }
+  }, [navigate, params])
 
   return (
     <Stack w={"full"}>
@@ -16,11 +28,20 @@ export const Transfer = () => {
              borderBottomWidth={"1px"} borderBottomColor={"divider"}>
         {
           tabList.map((tab) => (
-            <TabMenuItem key={tab.id} label={tab.label} activated={activate === tab.id}
-                         onClick={() => setActivate(tab.id)}/>
+            <TabMenuItem key={tab.label} label={tab.label} activated={currentPath === tab.path}
+                         onClick={() => {
+                           navigate(tab.path)
+                         }}/>
           ))
         }
       </Stack>
+      {
+        tabList.map((tab) => (
+          <Stack key={tab.label} hidden={currentPath !== tab.path }>
+            {tab.element}
+          </Stack>
+        ))
+      }
     </Stack>
   )
 }

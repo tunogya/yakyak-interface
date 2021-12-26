@@ -5,7 +5,7 @@ import Web3Status from "../Web3Status"
 
 export const Header = () => {
   const links = [
-    {path: "/", label: "Dashboard"},
+    {path: "/summary", label: "Dashboard"},
     {path: "/transfer", label: "Get & Pay Rewards"},
     {path: "/shopping", label: "Deals"},
     {path: "/transactions", label: "Activity" }
@@ -33,7 +33,7 @@ export const Header = () => {
                 key={index}
                 color={"white"}
                 border={"2px"}
-                borderColor={currentPath === link.path ?  "white" : "primary"}
+                borderColor={currentPath.includes(link.path) ?  "white" : "primary"}
                 fontWeight={"bold"}
                 _hover={{ borderColor: "white" }}
                 onClick={() => {

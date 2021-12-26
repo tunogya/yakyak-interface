@@ -28,10 +28,20 @@ const Content = () => {
     <Stack alignItems={"center"} pt={"96px"}>
       <Routes>
         <Route path="/" element={<Summary/>}/>
-        <Route path="/transfer" element={<Transfer/>}/>
+        <Route path="/summary" element={<Summary/>}/>
+        <Route path="/transfer" element={<Transfer/>}>
+          <Route path=":action" element={<Transfer/>}/>
+        </Route>
         <Route path="/shopping" element={<Shopping/>}/>
         <Route path="/transactions" element={<Transactions/>}/>
-        <Route/>
+        <Route
+          path="*"
+          element={
+            <main style={{padding: "1rem"}}>
+              <p>There's nothing here!</p>
+            </main>
+          }
+        />
       </Routes>
     </Stack>
   )

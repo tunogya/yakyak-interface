@@ -20,7 +20,7 @@ export const Request = () => {
       <Stack flex={"0 0 60%"} bg={"white"} maxW={"60%"} p={"30px"} spacing={"32px"} borderRadius={"8px"}>
         <Text fontSize={"20px"}>Cash YakYak® Rewards</Text>
         <Stack direction={"row"} spacing={"20px"}>
-          <Input placeholder={"cheque id"} w={"40%"} onChange={(e) => {
+          <Input placeholder={"Cheque ID"} w={"40%"} onChange={(e) => {
             setId(e.target.value)
           }}/>
           <NumberInput
@@ -35,10 +35,10 @@ export const Request = () => {
             <NumberInputField/>
           </NumberInput>
         </Stack>
-        <Input placeholder={"cheque sender"} isInvalid={!(isAddress(sender) || sender === '')} onChange={(e) => {
+        <Input placeholder={"Cheque Sender"} isInvalid={!(isAddress(sender) || sender === '')} onChange={(e) => {
           setSender(e.target.value)
         }}/>
-        <Input placeholder={"cheque signature"} onChange={(e) => {
+        <Input placeholder={"Cheque Signature"} onChange={(e) => {
           setSignature(e.target.value)
         }}/>
         <Stack direction={"row"}>

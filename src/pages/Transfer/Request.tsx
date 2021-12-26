@@ -18,7 +18,7 @@ export const Request = () => {
   return (
     <Stack w={"full"} maxW={"1024px"} py={"12px"} direction={"row"}>
       <Stack flex={"0 0 60%"} bg={"white"} maxW={"60%"} p={"30px"} spacing={"32px"} borderRadius={"8px"}>
-        <Text fontSize={"20px"}>Cashing YakYak® Rewards</Text>
+        <Text fontSize={"20px"}>Cash YakYak® Rewards</Text>
         <Stack direction={"row"} spacing={"20px"}>
           <Input placeholder={"cheque id"} w={"40%"} onChange={(e) => {
             setId(e.target.value)

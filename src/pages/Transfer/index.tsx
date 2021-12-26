@@ -28,15 +28,13 @@ export const Transfer = () => {
           ))
         }
       </Stack>
-      <Stack alignItems={"center"} px={"12px"} spacing={0}>
-        {
-          tabList.map((tab) => (
-            <Stack key={tab.label} hidden={params.action !== tab.action} w={"full"} maxW={"1024px"}>
-              {tab.element}
-            </Stack>
-          ))
-        }
-      </Stack>
+      {
+        tabList.map((tab) => (
+          <Stack key={tab.label} hidden={(params?.action ?? "pay") !== tab.action} w={"full"} alignItems={"center"}>
+            {tab.element}
+          </Stack>
+        ))
+      }
     </Stack>
   )
 }

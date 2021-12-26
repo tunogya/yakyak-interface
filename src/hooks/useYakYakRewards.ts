@@ -9,6 +9,7 @@ export const useYakYakRewards = () => {
   const { chainId } = useActiveWeb3React()
   const token = useTokenContract(YAKYAK_REWARDS_ADDRESS[chainId ?? 1])
   const [approveStatus, setApproveStatus] = useState(IDLE)
+  const [transferStatus, setTransferStatus] = useState(IDLE)
 
   const balanceOf = async (account: string | undefined) => {
     if (!token || !account) return 'NaN'
@@ -47,9 +48,39 @@ export const useYakYakRewards = () => {
     }
   }
 
+  const transfer = async (to: string, value: string) => {
+    if (!token) return
+    try {
+      setTransferStatus(PROCESSING)
+      const tx = await token.transfer(to, value)
+      const res = await tx.wait()
+      switch (res.status) {
+        case 0:
+          setTransferStatus(ERROR)
+          setTimeout(() => {
+            setTransferStatus(IDLE)
+          }, IDLE_DELAY)
+          break
+        case 1:
+          setTransferStatus(SUCCESS)
+          setTimeout(() => {
+            setTransferStatus(IDLE)
+          }, IDLE_DELAY)
+          break
+      }
+    }catch (e){
+      setTransferStatus(ERROR)
+      setTimeout(() => {
+        setTransferStatus(IDLE)
+      }, IDLE_DELAY)
+    }
+  }
+
   return {
     balanceOf,
     approve,
     approveStatus,
+    transfer,
+    transferStatus,
   }
 }

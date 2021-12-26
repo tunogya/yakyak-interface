@@ -4,7 +4,6 @@ export const Input = {
     filled: {
       field: {
         fontFamily: "Nunito",
-        fontWeight: "700",
         borderRadius: "8px",
         _hover: null,
         _focus: {
@@ -16,7 +15,6 @@ export const Input = {
     outline: {
       field: {
         fontFamily: "Nunito",
-        fontWeight: "700",
         borderRadius: "8px",
         _hover: null,
         _focus: {

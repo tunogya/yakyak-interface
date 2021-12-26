@@ -1,6 +1,5 @@
 import {Button, Heading, Spacer, Stack} from "@chakra-ui/react"
 import {useNavigate, useLocation} from "react-router-dom"
-import {useState} from "react"
 import Web3Status from "../Web3Status"
 
 export const Header = () => {
@@ -12,7 +11,6 @@ export const Header = () => {
   ]
   const navigate = useNavigate()
   const location = useLocation()
-  const [currentPath, setCurrentPath] = useState(location.pathname)
 
   return (
     <Stack alignItems={"center"} bg={"primary"} color={"white"}>
@@ -33,12 +31,11 @@ export const Header = () => {
                 key={index}
                 color={"white"}
                 border={"2px"}
-                borderColor={currentPath.includes(link.path) ?  "white" : "primary"}
+                borderColor={location.pathname.includes(link.path) ?  "white" : "primary"}
                 fontWeight={"bold"}
                 _hover={{ borderColor: "white" }}
                 onClick={() => {
                   navigate(link.path)
-                  setCurrentPath(link.path)
                 }}
                 cursor={"pointer"}
               >

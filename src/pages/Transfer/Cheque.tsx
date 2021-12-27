@@ -23,7 +23,8 @@ export const Cheque = () => {
           <NumberInputField/>
         </NumberInput>
         <Stack direction={"row"}>
-          <Button variant={"outline"} onClick={async ()=> {
+          <Button variant={"outline"} disabled={amount === '0'}
+                  onClick={async ()=> {
             sign(amount)
           }}>
             Next

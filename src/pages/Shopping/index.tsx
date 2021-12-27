@@ -24,7 +24,7 @@ export const Shopping = () => {
       <Stack h={"60px"} bg={"white"} alignItems={"center"} justifyContent={"center"}
              borderBottomWidth={"1px"} borderBottomColor={"divider"}>
         <Stack w={"full"} maxW={"1024px"} direction={"row"} alignItems={"center"} spacing={"60px"}>
-          <Text fontSize={"14px"} fontWeight={"600"} _hover={{ color: "primary" }}>Shop</Text>
+          <Text fontSize={"14px"} fontWeight={"600"} color={"primary"}>Shop</Text>
           <Text fontSize={"14px"} fontWeight={"600"} _hover={{ color: "primary" }}>Categories</Text>
           <Text fontSize={"14px"} fontWeight={"600"}>{balance} YakYak® Rewards </Text>
           <Spacer />

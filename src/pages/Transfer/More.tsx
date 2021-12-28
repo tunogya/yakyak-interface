@@ -9,7 +9,7 @@ export const More = () => {
     <Stack w={"full"} maxW={"1024px"} py={"12px"} direction={"row"}>
       <Wrap spacing='30px' justify={"center"}>
         {moreList.map((item) => (
-          <WrapItem>
+          <WrapItem key={item.label}>
             <Stack w={"280px"} h={"240px"} bg={"white"} borderRadius={"8px"} p={"24px"} alignItems={"center"}
                    textAlign={"center"}
                    justifyContent={"center"}>

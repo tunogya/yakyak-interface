@@ -6,7 +6,7 @@ export const Cheque = () => {
   const format = (val: string) => val + ' YakYak®'
   const parse = (val: string) => val.replace(/^D/g, '')
   const [amount, setAmount] = useState('0')
-  const { sign } = useCheque()
+  const {sign} = useCheque()
 
   const createForm = () => {
     return (
@@ -24,9 +24,9 @@ export const Cheque = () => {
         </NumberInput>
         <Stack direction={"row"}>
           <Button variant={"outline"} disabled={amount === '0'}
-                  onClick={async ()=> {
-            sign(amount)
-          }}>
+                  onClick={() => {
+                    sign(amount)
+                  }}>
             Next
           </Button>
         </Stack>

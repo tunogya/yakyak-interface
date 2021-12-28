@@ -4,10 +4,11 @@ import ERC20_BYTES32_ABI from "../abis/erc20_bytes32.json"
 import EIP_2612 from "../abis/eip_2612.json"
 import YakYakBank_ABI from "../abis/yakyak-bank.json"
 import YakYakRewards_ABI from "../abis/yakyak-rewards.json"
+import YakYakMe_ABI from "../abis/yakyak-me.json"
 
 import { useMemo } from "react"
 import { getContract } from "../utils"
-import { Erc20, YakyakBank, YakyakRewards } from "../abis/types"
+import { Erc20, YakyakBank, YakyakRewards, YakyakMe } from "../abis/types"
 import { useActiveWeb3React } from "./web3"
 
 // returns null on errors
@@ -51,4 +52,8 @@ export function useYakYakRewardContract(tokenAddress?: string, withSignerIfPossi
 
 export function useYakYakBankContract(address?: string, withSignerIfPossible?: boolean): Contract | null {
   return useContract<YakyakBank>(address, YakYakBank_ABI, withSignerIfPossible)
+}
+
+export function useYakYakMeContract(address?: string, withSignerIfPossible?: boolean): Contract | null {
+  return useContract<YakyakMe>(address, YakYakMe_ABI, withSignerIfPossible)
 }

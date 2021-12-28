@@ -1,12 +1,28 @@
 import {YAKYAK_BANK_ADDRESS} from "../constants/addresses";
 import {parseToBigNumber} from "../utils/bignumberUtil";
 import {useActiveWeb3React} from "./web3";
+import {atom, useRecoilState} from "recoil";
+
+type Cheque = {
+  id: number,
+  amount: string,
+  sender: string,
+  signature: string,
+}
+
+const defaultChequeList: Cheque[] = []
+
+export const chequeListAtom = atom({
+  key: "cheque::list",
+  default: defaultChequeList,
+})
 
 export const useCheque = () =>{
   const { chainId, library, account } = useActiveWeb3React()
+  const [chequeList, setChequeList] = useRecoilState(chequeListAtom)
 
   const sign = (amount: string) => {
-    if (!chainId) return
+    if (!chainId || !account) return 'NaN'
     const id = new Date().getTime()
     const data = JSON.stringify({
       types: {
@@ -47,12 +63,13 @@ export const useCheque = () =>{
             return console.log(error)
           }
           const signature = response.result.substring(2)
-          const r = "0x" + signature.substring(0, 64)
-          const s = "0x" + signature.substring(64, 128)
-          const v = parseInt(signature.substring(128, 130), 16)
-          return {
-            r, s, v, signature
+          const cheque = {
+            id: id,
+            amount: parseToBigNumber(amount).shiftedBy(18).toFixed(0),
+            sender: account,
+            signature: signature,
           }
+          setChequeList([...chequeList, cheque])
         }
       )
     } catch (e) {
@@ -61,6 +78,7 @@ export const useCheque = () =>{
   }
 
   return {
-    sign
+    sign,
+    chequeList,
   }
 }

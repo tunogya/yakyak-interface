@@ -1,4 +1,4 @@
-import {Text, Stack, NumberInput, NumberInputField, Button} from "@chakra-ui/react"
+import {Text, Stack, NumberInput, NumberInputField, Button, Code} from "@chakra-ui/react"
 import {useState} from "react";
 import {useCheque} from "../../hooks/useCheque";
 
@@ -6,7 +6,7 @@ export const Cheque = () => {
   const format = (val: string) => val + ' YakYak®'
   const parse = (val: string) => val.replace(/^D/g, '')
   const [amount, setAmount] = useState('0')
-  const {sign} = useCheque()
+  const {sign, chequeList} = useCheque()
 
   const createForm = () => {
     return (
@@ -38,6 +38,16 @@ export const Cheque = () => {
     return (
       <Stack>
         <Text fontWeight={"bold"}>Recently Cheques</Text>
+        <Stack spacing={3}>
+          {
+            chequeList.map((cheque)=>(
+              <Code key={cheque.id} p={"24px"} bg={"white"} color={"primary"} fontSize={"12px"}
+                    borderRadius={"8px"}>
+                {JSON.stringify(cheque)}
+              </Code>
+            ))
+          }
+        </Stack>
       </Stack>
     )
   }

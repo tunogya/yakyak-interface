@@ -24,7 +24,7 @@ export const useYakYakMe = () => {
   const addressToName = async (account: string) => {
     if (!me) return 'NaN'
     try {
-      return ethers.utils.parseBytes32String(await me.addressToName(ethers.utils.formatBytes32String(account)))
+      return ethers.utils.parseBytes32String(await me.addressToName(account))
     } catch (e) {
       return 'NaN'
     }
@@ -85,8 +85,8 @@ export const useYakYakMe = () => {
   }
 
   return {
-    fetchAddress: nameToAddress,
-    fetchName: addressToName,
+    nameToAddress,
+    addressToName,
     take,
     takeStatus,
     update,

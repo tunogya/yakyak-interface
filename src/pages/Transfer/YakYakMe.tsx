@@ -1,24 +1,51 @@
 import {Button, Input, Stack, Text} from "@chakra-ui/react"
 import {useYakYakMe} from "../../hooks/useYakYakMe";
-import {useState} from "react";
+import {useCallback, useEffect, useState} from "react";
+import {useActiveWeb3React} from "../../hooks/web3";
+import {ERROR, IDLE, PROCESSING, SUCCESS} from "../../constants/misc";
 
 export const YakYakMe = () => {
-  const {take, update, takeStatus, updateStatus} = useYakYakMe()
+  const { account } = useActiveWeb3React()
+  const {take, takeStatus, addressToName} = useYakYakMe()
+  const [newName, setNewName] = useState("")
   const [name, setName] = useState("")
+
+  const refresh = useCallback(async () => {
+    if (!account) return
+    setName(await addressToName(account))
+  }, [account, addressToName])
+
+  useEffect(()=>{
+    refresh()
+  }, [refresh])
 
   const createForm = () => {
     return (
-      <Stack w={"full"} bg={"white"} p={"96px"} spacing={"32px"} borderRadius={"8px"}>
-        <Text fontSize={"20px"}>Set your profile</Text>
-        <Input onChange={(e)=> setName(e.target.value)}/>
-        <Stack direction={"row"}>
-          <Button variant={"outline"} disabled={name === ''}
-                  onClick={async () => {
-                    await take(name)
-                  }}>
-            Next
-          </Button>
-        </Stack>
+      <Stack w={"full"} bg={"white"} p={"96px"} borderRadius={"8px"}>
+        {
+          (name === '') ? (
+            <Stack spacing={"32px"}>
+              <Text fontSize={"20px"}>Set your profile</Text>
+              <Input onChange={(e)=> setNewName(e.target.value)}/>
+              <Stack direction={"row"}>
+                <Button variant={"outline"} disabled={newName === ''} isLoading={takeStatus === PROCESSING}
+                        onClick={async () => {
+                          await take(newName)
+                        }}>
+                  { takeStatus === IDLE && ("Next")}
+                  { takeStatus === SUCCESS && ("Success")}
+                  { takeStatus === ERROR && ("Error")}
+                </Button>
+              </Stack>
+            </Stack>
+          ) : (
+            <Stack spacing={"32px"}>
+              <Text fontSize={"20px"}>YakYakMe profile</Text>
+              // TODO: Add update username
+              <Text>@{name}</Text>
+            </Stack>
+          )
+        }
       </Stack>
     )
   }

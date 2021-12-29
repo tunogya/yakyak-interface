@@ -16,6 +16,7 @@ import { createGlobalStyle } from "styled-components"
 import MovaviGrotesque from "./assets/font/movavi-grotesque.black.ttf"
 import {isMobile} from "react-device-detect"
 import ReactGA from "react-ga"
+import {GoogleAnalytics} from "./components/analytics/GoogleAnalytics";
 
 const GlobalStyle = createGlobalStyle`
   .js-focus-visible :focus:not([data-focus-visible-added]) {
@@ -72,6 +73,7 @@ ReactDOM.render(
               <Web3ProviderNetwork getLibrary={getLibrary}>
                 <Blocklist>
                   <Updaters />
+                  <GoogleAnalytics />
                   <App />
                 </Blocklist>
               </Web3ProviderNetwork>

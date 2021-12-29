@@ -1,5 +1,5 @@
-import React, {useEffect} from "react"
-import {Route, Routes, useLocation} from "react-router-dom"
+import React from "react"
+import {Route, Routes} from "react-router-dom"
 import {Stack} from "@chakra-ui/react"
 import Header from "../components/Header"
 import Web3ReactManager from "../components/Web3ReactManager"
@@ -7,7 +7,6 @@ import Summary from "./Summary";
 import Transfer from "./Transfer";
 import Shopping from "./Shopping";
 import Transactions from "./Transactions";
-import ReactGA from "react-ga";
 
 function App() {
   return (
@@ -25,12 +24,6 @@ function App() {
 }
 
 const Content = () => {
-  const location = useLocation()
-
-  useEffect(() => {
-    ReactGA.pageview(`${location.pathname}${location.search}`)
-  }, [location.pathname, location.search])
-
   return (
     <Stack alignItems={"center"} pt={"96px"}>
       <Routes>

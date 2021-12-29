@@ -41,7 +41,6 @@ export const YakYakMe = () => {
           ) : (
             <Stack spacing={"32px"}>
               <Text fontSize={"20px"}>YakYakMe profile</Text>
-              // TODO: Add update username
               <Text>@{name}</Text>
             </Stack>
           )

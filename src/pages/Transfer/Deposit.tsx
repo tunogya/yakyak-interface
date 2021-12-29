@@ -25,7 +25,6 @@ export const Deposit = () => {
   useEffect(()=>{
     refresh()
   }, [refresh])
-  setInterval(refresh, 3000)
 
   const depositForm = () => {
     return (
@@ -49,6 +48,7 @@ export const Deposit = () => {
                   onClick={async () => {
                     await approve(YAKYAK_BANK_ADDRESS[chainId ?? 1], parseToBigNumber(amount).shiftedBy(18).toString())
                     await deposit(parseToBigNumber(amount).shiftedBy(18).toString())
+                    await refresh()
                   }} isLoading={depositStatus === PROCESSING || approveStatus === PROCESSING} loadingText={"Pending"}>
             {depositStatus === IDLE && ("Next")}
             {depositStatus === SUCCESS && ("Success")}

@@ -4,7 +4,7 @@ import { createWeb3ReactRoot, Web3ReactProvider } from "@web3-react/core"
 import App from "./pages/App"
 import { NetworkContextName } from "./constants/misc"
 import { RecoilRoot } from "recoil"
-import { HashRouter } from "react-router-dom"
+import {HashRouter} from "react-router-dom"
 import reportWebVitals from "./reportWebVitals"
 import { ChakraProvider } from "@chakra-ui/react"
 import theme from "./theme"
@@ -14,8 +14,7 @@ import getLibrary from "./utils/getLibrary"
 import "focus-visible/dist/focus-visible"
 import { createGlobalStyle } from "styled-components"
 import MovaviGrotesque from "./assets/font/movavi-grotesque.black.ttf"
-import {isMobile} from "react-device-detect"
-import ReactGA from "react-ga"
+import GA4React  from "ga-4-react"
 import {GoogleAnalytics} from "./components/analytics/GoogleAnalytics";
 
 const GlobalStyle = createGlobalStyle`
@@ -39,52 +38,41 @@ if (!!window.ethereum) {
 }
 
 const GOOGLE_ANALYTICS_ID: string | undefined = process.env.REACT_APP_GOOGLE_ANALYTICS_ID
-if (typeof GOOGLE_ANALYTICS_ID === 'string') {
-  ReactGA.initialize(GOOGLE_ANALYTICS_ID, {
-    gaOptions: {
-      storage: 'none',
-      storeGac: false,
-    },
-  })
-  ReactGA.set({
-    anonymizeIp: true,
-    customBrowserType: !isMobile
-      ? 'desktop'
-      : 'web3' in window || 'ethereum' in window
-        ? 'mobileWeb3'
-        : 'mobileRegular',
-  })
-} else {
-  ReactGA.initialize('test', { testMode: true, debug: true })
-}
+const ga4react = new GA4React(GOOGLE_ANALYTICS_ID ?? "test", {
+  debug_mode: true
+})
 
 const Updaters = () => {
   return <></>
 }
 
-ReactDOM.render(
-  <StrictMode>
-    <RecoilRoot>
-      <HashRouter>
-        <ChakraProvider theme={theme}>
-          <GlobalStyle />
-          <LanguageProvider>
-            <Web3ReactProvider getLibrary={getLibrary}>
-              <Web3ProviderNetwork getLibrary={getLibrary}>
-                <Blocklist>
-                  <Updaters />
-                  <GoogleAnalytics />
-                  <App />
-                </Blocklist>
-              </Web3ProviderNetwork>
-            </Web3ReactProvider>
-          </LanguageProvider>
-        </ChakraProvider>
-      </HashRouter>
-    </RecoilRoot>
-  </StrictMode>,
-  document.getElementById("root")
-)
+(async () => {
+  await ga4react.initialize();
+
+  ReactDOM.render(
+    <StrictMode>
+      <RecoilRoot>
+        <HashRouter>
+          <ChakraProvider theme={theme}>
+            <GlobalStyle/>
+            <LanguageProvider>
+              <Web3ReactProvider getLibrary={getLibrary}>
+                <Web3ProviderNetwork getLibrary={getLibrary}>
+                  <Blocklist>
+                    <Updaters/>
+                    <GoogleAnalytics/>
+                    <App/>
+                  </Blocklist>
+                </Web3ProviderNetwork>
+              </Web3ReactProvider>
+            </LanguageProvider>
+          </ChakraProvider>
+        </HashRouter>
+      </RecoilRoot>
+    </StrictMode>,
+    document.getElementById("root")
+  )
+})();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

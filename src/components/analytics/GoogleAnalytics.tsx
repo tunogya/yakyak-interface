@@ -1,13 +1,15 @@
 import {useLocation} from "react-router-dom";
 import {useEffect} from "react";
-import ReactGA from "react-ga";
+import {useGA4React} from "ga-4-react";
 
 export const GoogleAnalytics = () => {
   const location = useLocation()
+  const ga4 = useGA4React()
 
   useEffect(() => {
-    ReactGA.pageview(`${location.pathname}${location.search}`)
-  }, [location.pathname, location.search])
+    if (!ga4) return
+    ga4.pageview(`${location.pathname}${location.search}`)
+  }, [ga4, location.pathname, location.search])
 
   return null
 }

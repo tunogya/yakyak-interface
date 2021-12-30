@@ -3,6 +3,7 @@ import {useState} from "react";
 import {useYakYakBank} from "../../hooks/useYakYakBank";
 import {ERROR, IDLE, PROCESSING, SUCCESS} from "../../constants/misc";
 import {isAddress} from "../../utils";
+import {parseToBigNumber} from "../../utils/bignumberUtil";
 
 export const Request = () => {
   const [amount, setAmount] = useState('0')
@@ -49,7 +50,7 @@ export const Request = () => {
                     const s = "0x" + sign.substring(64, 128)
                     const v = parseInt(sign.substring(128, 130), 16)
 
-                    await cash(v, r, s, sender, id, amount)
+                    await cash(v, r, s, sender, id, parseToBigNumber(amount).shiftedBy(18).toFixed(0))
                   }} isLoading={cashStatus === PROCESSING} loadingText={"Pending"}>
             {cashStatus === IDLE && ("Next")}
             {cashStatus === SUCCESS && ("Success")}

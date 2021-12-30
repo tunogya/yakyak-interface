@@ -1,19 +1,25 @@
 import {Input, Spacer, Stack, Text} from "@chakra-ui/react";
 import {useYakYakRewards} from "../../hooks/useYakYakRewards";
 import {useActiveWeb3React} from "../../hooks/web3";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect} from "react";
 import {formatNumber} from "../../utils/bignumberUtil";
+import {atom, useRecoilState} from "recoil";
+
+const balanceAtom = atom({
+  key: "my:balance",
+  default: "NaN",
+})
 
 export const Shopping = () => {
   const { account } = useActiveWeb3React()
   const { balanceOf } = useYakYakRewards()
-  const [balance, setBalance] = useState('NaN')
+  const [balance, setBalance] = useRecoilState(balanceAtom)
 
   const refresh = useCallback(async () => {
     if (account) {
       setBalance(formatNumber(await balanceOf(account)))
     }
-  }, [account, balanceOf])
+  }, [account, balanceOf, setBalance])
 
   useEffect(()=>{
     refresh()

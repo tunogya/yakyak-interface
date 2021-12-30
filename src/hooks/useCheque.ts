@@ -62,7 +62,7 @@ export const useCheque = () =>{
           if (error) {
             return console.log(error)
           }
-          const signature = response.result.substring(2)
+          const signature = response.result
           const cheque = {
             id: id,
             amount: parseToBigNumber(amount).shiftedBy(18).toFixed(0),

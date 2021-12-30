@@ -37,7 +37,7 @@ export const Pay = () => {
                   loadingText={"Pending"}
                   onClick={async () => {
                     if (ga4) {
-                      ga4.event("pay", "transfer", amount)
+                      ga4.event("bank", "transfer", amount)
                     }
                     await transfer(receipt, parseToBigNumber(amount).shiftedBy(18).toString())
                   }}>

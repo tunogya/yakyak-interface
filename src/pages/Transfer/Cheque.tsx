@@ -28,7 +28,7 @@ export const Cheque = () => {
           <Button variant={"outline"} disabled={amount === '0'}
                   onClick={() => {
                     if (ga4) {
-                      ga4.event("sign_cheque", "cheque", "cheque")
+                      ga4.event("bank", "sign_cheque", amount)
                     }
                     sign(amount)
                   }}>

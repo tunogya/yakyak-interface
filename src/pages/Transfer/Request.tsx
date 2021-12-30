@@ -48,7 +48,7 @@ export const Request = () => {
           <Button variant={"outline"} disabled={id === '' || !isAddress(sender) || signature === '' || amount === '0'}
                   onClick={async () => {
                     if (ga4) {
-                      ga4.event("cash", "bank", amount)
+                      ga4.event("bank", "cash", amount)
                     }
                     const sign = signature.substring(2)
                     const r = "0x" + sign.substring(0, 64)

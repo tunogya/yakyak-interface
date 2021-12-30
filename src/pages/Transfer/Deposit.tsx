@@ -49,7 +49,7 @@ export const Deposit = () => {
           <Button variant={"outline"} disabled={amount === '0'}
                   onClick={async () => {
                     if (ga4){
-                      ga4.event("deposit_to_bank", "bank", amount)
+                      ga4.event("bank", "deposit", amount)
                     }
                     await approve(YAKYAK_BANK_ADDRESS[chainId ?? 1], parseToBigNumber(amount).shiftedBy(18).toString())
                     await deposit(parseToBigNumber(amount).shiftedBy(18).toString())

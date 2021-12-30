@@ -33,7 +33,7 @@ export const YakYakMe = () => {
                 <Button variant={"outline"} disabled={newName === ''} isLoading={takeStatus === PROCESSING}
                         onClick={async () => {
                           if (ga4) {
-                            ga4.event("take_me", "me", newName)
+                            ga4.event("me", "take", newName)
                           }
                           await take(newName)
                         }}>

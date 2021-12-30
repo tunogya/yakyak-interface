@@ -7,6 +7,7 @@ import Summary from "./Summary";
 import Transfer from "./Transfer";
 import Shopping from "./Shopping";
 import Transactions from "./Transactions";
+import {GoogleAnalyticsReporter} from "../components/analytics/GoogleAnalyticsReporter";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ const Content = () => {
   return (
     <Stack alignItems={"center"} pt={"96px"}>
       <Routes>
+        <Route element={<GoogleAnalyticsReporter/>}/>
         <Route path="/" element={<Summary/>}/>
         <Route path="/summary" element={<Summary/>}/>
         <Route path="/transfer" element={<Transfer/>}>

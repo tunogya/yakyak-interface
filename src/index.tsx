@@ -15,7 +15,6 @@ import "focus-visible/dist/focus-visible"
 import { createGlobalStyle } from "styled-components"
 import MovaviGrotesque from "./assets/font/movavi-grotesque.black.ttf"
 import GA4React  from "ga-4-react"
-import {GoogleAnalytics} from "./components/analytics/GoogleAnalytics";
 
 const GlobalStyle = createGlobalStyle`
   .js-focus-visible :focus:not([data-focus-visible-added]) {
@@ -39,7 +38,7 @@ if (!!window.ethereum) {
 
 const GOOGLE_ANALYTICS_ID: string | undefined = process.env.REACT_APP_GOOGLE_ANALYTICS_ID
 const ga4react = new GA4React(GOOGLE_ANALYTICS_ID ?? "test", {
-  debug_mode: true
+  send_page_view: true,
 })
 
 const Updaters = () => {
@@ -60,7 +59,6 @@ const Updaters = () => {
                 <Web3ProviderNetwork getLibrary={getLibrary}>
                   <Blocklist>
                     <Updaters/>
-                    <GoogleAnalytics/>
                     <App/>
                   </Blocklist>
                 </Web3ProviderNetwork>

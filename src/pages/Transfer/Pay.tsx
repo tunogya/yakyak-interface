@@ -4,11 +4,13 @@ import {isAddress} from "../../utils";
 import {useYakYakRewards} from "../../hooks/useYakYakRewards";
 import {parseToBigNumber} from "../../utils/bignumberUtil";
 import {ERROR, IDLE, PROCESSING, SUCCESS} from "../../constants/misc";
+import {useGA4React} from "ga-4-react";
 
 export const Pay = () => {
   const [receipt, setReceipt] = useState('')
   const [amount, setAmount] = useState('0')
   const {transfer, transferStatus} = useYakYakRewards()
+  const ga4 = useGA4React()
 
   const format = (val: string) => val + ' YakYak®'
   const parse = (val: string) => val.replace(/^D/g, '')
@@ -34,6 +36,9 @@ export const Pay = () => {
                   isLoading={transferStatus === PROCESSING}
                   loadingText={"Pending"}
                   onClick={async () => {
+                    if (ga4) {
+                      ga4.event("pay", "transfer", amount)
+                    }
                     await transfer(receipt, parseToBigNumber(amount).shiftedBy(18).toString())
                   }}>
             { transferStatus === IDLE && ("Next") }

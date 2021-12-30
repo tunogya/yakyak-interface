@@ -4,6 +4,7 @@ import {useYakYakBank} from "../../hooks/useYakYakBank";
 import {ERROR, IDLE, PROCESSING, SUCCESS} from "../../constants/misc";
 import {isAddress} from "../../utils";
 import {parseToBigNumber} from "../../utils/bignumberUtil";
+import {useGA4React} from "ga-4-react";
 
 export const Request = () => {
   const [amount, setAmount] = useState('0')
@@ -12,6 +13,7 @@ export const Request = () => {
   const [id, setId] = useState('')
 
   const {cash, cashStatus} = useYakYakBank()
+  const ga4 = useGA4React()
 
   const format = (val: string) => val + ' YakYak®'
   const parse = (val: string) => val.replace(/^D/g, '')
@@ -45,6 +47,9 @@ export const Request = () => {
         <Stack direction={"row"}>
           <Button variant={"outline"} disabled={id === '' || !isAddress(sender) || signature === '' || amount === '0'}
                   onClick={async () => {
+                    if (ga4) {
+                      ga4.event("cash", "bank", amount)
+                    }
                     const sign = signature.substring(2)
                     const r = "0x" + sign.substring(0, 64)
                     const s = "0x" + sign.substring(64, 128)

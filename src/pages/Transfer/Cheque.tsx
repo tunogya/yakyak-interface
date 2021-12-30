@@ -1,12 +1,14 @@
 import {Text, Stack, NumberInput, NumberInputField, Button, Code} from "@chakra-ui/react"
 import {useState} from "react";
 import {useCheque} from "../../hooks/useCheque";
+import {useGA4React} from "ga-4-react";
 
 export const Cheque = () => {
   const format = (val: string) => val + ' YakYak®'
   const parse = (val: string) => val.replace(/^D/g, '')
   const [amount, setAmount] = useState('0')
   const {sign, chequeList} = useCheque()
+  const ga4 = useGA4React()
 
   const createForm = () => {
     return (
@@ -25,6 +27,9 @@ export const Cheque = () => {
         <Stack direction={"row"}>
           <Button variant={"outline"} disabled={amount === '0'}
                   onClick={() => {
+                    if (ga4) {
+                      ga4.event("sign_cheque", "cheque", "cheque")
+                    }
                     sign(amount)
                   }}>
             Next

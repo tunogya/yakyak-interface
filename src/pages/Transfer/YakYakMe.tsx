@@ -3,12 +3,14 @@ import {useYakYakMe} from "../../hooks/useYakYakMe";
 import {useCallback, useEffect, useState} from "react";
 import {useActiveWeb3React} from "../../hooks/web3";
 import {ERROR, IDLE, PROCESSING, SUCCESS} from "../../constants/misc";
+import {useGA4React} from "ga-4-react";
 
 export const YakYakMe = () => {
   const { account } = useActiveWeb3React()
   const {take, takeStatus, addressToName} = useYakYakMe()
   const [newName, setNewName] = useState("")
   const [name, setName] = useState("")
+  const ga4 = useGA4React()
 
   const refresh = useCallback(async () => {
     if (!account) return
@@ -30,6 +32,9 @@ export const YakYakMe = () => {
               <Stack direction={"row"}>
                 <Button variant={"outline"} disabled={newName === ''} isLoading={takeStatus === PROCESSING}
                         onClick={async () => {
+                          if (ga4) {
+                            ga4.event("take_me", "me", newName)
+                          }
                           await take(newName)
                         }}>
                   { takeStatus === IDLE && ("Next")}

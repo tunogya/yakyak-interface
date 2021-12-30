@@ -6,6 +6,7 @@ import {formatNumber, parseToBigNumber} from "../../utils/bignumberUtil";
 import {useYakYakRewards} from "../../hooks/useYakYakRewards";
 import {YAKYAK_BANK_ADDRESS} from "../../constants/addresses";
 import {useActiveWeb3React} from "../../hooks/web3";
+import {useGA4React} from "ga-4-react";
 
 export const Deposit = () => {
   const [amount, setAmount] = useState('0')
@@ -14,6 +15,7 @@ export const Deposit = () => {
   const {chainId, account} = useActiveWeb3React()
   const {deposit, depositStatus, balanceOf} = useYakYakBank()
   const {approve, approveStatus} = useYakYakRewards()
+  const ga4 = useGA4React()
 
   const [balance, setBalance] = useState('')
 
@@ -46,6 +48,9 @@ export const Deposit = () => {
         <Stack direction={"row"}>
           <Button variant={"outline"} disabled={amount === '0'}
                   onClick={async () => {
+                    if (ga4){
+                      ga4.event("deposit_to_bank", "bank", amount)
+                    }
                     await approve(YAKYAK_BANK_ADDRESS[chainId ?? 1], parseToBigNumber(amount).shiftedBy(18).toString())
                     await deposit(parseToBigNumber(amount).shiftedBy(18).toString())
                     await refresh()

@@ -12,13 +12,13 @@ export const Pay = () => {
   const {transfer, transferStatus} = useYakYakRewards()
   const ga4 = useGA4React()
 
-  const format = (val: string) => val + ' YakYak®'
+  const format = (val: string) => val + ' YKR'
   const parse = (val: string) => val.replace(/^D/g, '')
 
   const transferForm = () => {
     return (
       <Stack bg={"white"} p={"30px"} spacing={"32px"} borderRadius={"8px"}>
-        <Text fontSize={"20px"}>Send YakYak® Rewards</Text>
+        <Text fontSize={"20px"}>Send YakYak Rewards</Text>
         <Input placeholder='Enter Address' isInvalid={!(isAddress(receipt) || receipt === '')}
                onChange={(e) => setReceipt(e.target.value)}/>
         <NumberInput
@@ -39,7 +39,7 @@ export const Pay = () => {
                     if (ga4) {
                       ga4.event("bank", "transfer", amount)
                     }
-                    await transfer(receipt, parseToBigNumber(amount).shiftedBy(18).toString())
+                    await transfer(receipt, parseToBigNumber(amount).shiftedBy(18).toFixed(0))
                   }}>
             { transferStatus === IDLE && ("Next") }
             { transferStatus === SUCCESS && ("Success") }

@@ -3,13 +3,13 @@ import { SupportedChainId } from "./chains"
 type AddressMap = { [chainId: number]: string }
 
 export const YAKYAK_REWARDS_ADDRESS: AddressMap = {
-  [SupportedChainId.RINKEBY]: "0xC9F51064022A011152B7dA6dDE44def02b5C157C",
+  [SupportedChainId.RINKEBY]: "0x8678a05fC4d51a47BEBFDb5446171037de605f25",
 }
 
 export const YAKYAK_BANK_ADDRESS: AddressMap = {
-  [SupportedChainId.RINKEBY]: "0xBedf7Ecd022be10b4e13B7AFD29CD5fEdEc474ab",
+  [SupportedChainId.RINKEBY]: "0x3705b5eA8AB6cf63dC25e5DFE5AF37E71Bf8d9B5",
 }
 
-export const YAKYAK_ME_ADDRESS: AddressMap = {
-  [SupportedChainId.RINKEBY]: "0x756276F1a5c2DD4ba49c54CcC7729fE0D9d10968",
+export const YAKYAK_CLONE_ADDRESS: AddressMap = {
+  [SupportedChainId.RINKEBY]: "0xC92831214747dac175e0B4b1e4711124c3214fbf",
 }

@@ -15,7 +15,7 @@ const Footer = () => {
     >
       <Stack spacing={4} w={"300px"}>
         <Heading fontStyle={"italic"} fontSize={"xl"} color={"white"}>
-          YakYak®
+          YakYak
         </Heading>
         <Heading fontSize={"md"} color={"white"}>
           Wakanda Labs

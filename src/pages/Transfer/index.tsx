@@ -5,20 +5,11 @@ import {useNavigate, useParams} from "react-router-dom";
 import {Pay} from "./Pay";
 import {More} from "./More";
 import {Request} from "./Request";
-import {Invite} from "./Invite";
 import {Deposit} from "./Deposit";
 import {Cheque} from "./Cheque";
 import {Donate} from "./Donate";
-import {YakYakMe} from "./YakYakMe";
 
 export const moreList = [
-  {
-    label: 'Invite your friends',
-    info: "Invite a friend and you can both get 10 YakYak®",
-    button: "Get Started",
-    action: 'invite',
-    element: <Invite/>
-  },
   {
     label: 'Send to bank account',
     info: "You can send Rewards to YakYak® Bank",
@@ -40,13 +31,6 @@ export const moreList = [
     action: 'donate',
     element: <Donate/>
   },
-  {
-    label: 'Create your YakYak.Me profile',
-    info: 'Help your friends and customers know it\'s you they are paying.',
-    button: 'Create Your Profile',
-    action: 'yakyakme',
-    element: <YakYakMe/>
-  }
 ]
 
 export const tabList = [

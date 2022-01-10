@@ -12,16 +12,16 @@ export const Request = () => {
   const [sender, setSender] = useState('')
   const [id, setId] = useState('')
 
-  const {cash, cashStatus} = useYakYakBank()
+  const {redeem, redeemStatus} = useYakYakBank()
   const ga4 = useGA4React()
 
-  const format = (val: string) => val + ' YakYak®'
+  const format = (val: string) => val + ' YKR'
   const parse = (val: string) => val.replace(/^D/g, '')
 
   const cashForm = () => {
     return (
       <Stack bg={"white"} p={"30px"} spacing={"32px"} borderRadius={"8px"}>
-        <Text fontSize={"20px"}>Cash YakYak® Rewards</Text>
+        <Text fontSize={"20px"}>Redeem YakYak Rewards</Text>
         <Stack direction={"row"} spacing={"20px"}>
           <Input placeholder={"Cheque ID"} w={"40%"} onChange={(e) => {
             setId(e.target.value)
@@ -55,11 +55,11 @@ export const Request = () => {
                     const s = "0x" + sign.substring(64, 128)
                     const v = parseInt(sign.substring(128, 130), 16)
 
-                    await cash(v, r, s, sender, id, parseToBigNumber(amount).shiftedBy(18).toFixed(0))
-                  }} isLoading={cashStatus === PROCESSING} loadingText={"Pending"}>
-            {cashStatus === IDLE && ("Next")}
-            {cashStatus === SUCCESS && ("Success")}
-            {cashStatus === ERROR && ("Error")}
+                    await redeem(v, r, s, sender, id, parseToBigNumber(amount).shiftedBy(18).toFixed(0))
+                  }} isLoading={redeemStatus === PROCESSING} loadingText={"Pending"}>
+            {redeemStatus === IDLE && ("Next")}
+            {redeemStatus === SUCCESS && ("Success")}
+            {redeemStatus === ERROR && ("Error")}
           </Button>
         </Stack>
       </Stack>

@@ -23,7 +23,7 @@ export const Header = () => {
       >
         <Stack direction={"row"} alignItems={"center"} spacing={"24px"}>
           <Heading fontSize={"md"} fontWeight={"bold"} fontStyle={"italic"} whiteSpace={"nowrap"}>
-            YakYak® Club
+            YakYak Club
           </Heading>
           <Stack direction={"row"} id={"menu"}>
             {links.map((link, index) => (

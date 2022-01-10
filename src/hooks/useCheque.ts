@@ -39,7 +39,7 @@ export const useCheque = () =>{
         ],
       },
       domain: {
-        name: "YakYakBank",
+        name: "YakYak Bank",
         version: "1",
         chainId: chainId,
         verifyingContract: YAKYAK_BANK_ADDRESS[chainId],

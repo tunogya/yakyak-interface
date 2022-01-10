@@ -9,7 +9,7 @@ export const useYakYakBank = () => {
   const bank = useYakYakBankContract(YAKYAK_BANK_ADDRESS[chainId ?? 1], true)
   const [withdrawStatus, setWithdrawStatus] = useState(IDLE)
   const [depositStatus, setDepositStatus] = useState(IDLE)
-  const [cashStatus, setCashStatus] = useState(IDLE)
+  const [redeemStatus, setRedeemStatus] = useState(IDLE)
 
   const balanceOf = async (account: string | undefined) => {
     if (!bank) return 'NaN'
@@ -75,30 +75,30 @@ export const useYakYakBank = () => {
     }
   }
 
-  const cash = async (v: number, r: string, s: string, sender: string, id: string, amount: string) => {
+  const redeem = async (v: number, r: string, s: string, sender: string, id: string, amount: string) => {
     if (!bank) return
     try {
-      setCashStatus(PROCESSING)
-      const tx = await bank.cash(v, r, s, sender, id, amount)
+      setRedeemStatus(PROCESSING)
+      const tx = await bank.redeem(v, r, s, sender, id, amount)
       const res = await tx.wait()
       switch (res.status) {
         case 0:
-          setCashStatus(ERROR)
+          setRedeemStatus(ERROR)
           setTimeout(() => {
-            setCashStatus(IDLE)
+            setRedeemStatus(IDLE)
           }, IDLE_DELAY)
           break
         case 1:
-          setCashStatus(SUCCESS)
+          setRedeemStatus(SUCCESS)
           setTimeout(() => {
-            setCashStatus(IDLE)
+            setRedeemStatus(IDLE)
           }, IDLE_DELAY)
           break
       }
     } catch (e) {
-      setCashStatus(ERROR)
+      setRedeemStatus(ERROR)
       setTimeout(() => {
-        setCashStatus(IDLE)
+        setRedeemStatus(IDLE)
       }, IDLE_DELAY)
     }
   }
@@ -109,7 +109,7 @@ export const useYakYakBank = () => {
     withdrawStatus,
     deposit,
     depositStatus,
-    cash,
-    cashStatus,
+    redeem,
+    redeemStatus,
   }
 }

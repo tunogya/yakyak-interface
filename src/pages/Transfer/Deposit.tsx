@@ -10,7 +10,7 @@ import {useGA4React} from "ga-4-react";
 
 export const Deposit = () => {
   const [amount, setAmount] = useState('0')
-  const format = (val: string) => val + ' YakYak®'
+  const format = (val: string) => val + ' YKR'
   const parse = (val: string) => val.replace(/^D/g, '')
   const {chainId, account} = useActiveWeb3React()
   const {deposit, depositStatus, balanceOf} = useYakYakBank()
@@ -31,9 +31,9 @@ export const Deposit = () => {
   const depositForm = () => {
     return (
       <Stack bg={"white"} p={"30px"} spacing={"32px"} borderRadius={"8px"}>
-        <Text fontSize={"20px"}>Send to YakYak® Bank</Text>
+        <Text fontSize={"20px"}>Send to YakYak Bank</Text>
         <Stack>
-          <Text fontSize={"12px"}>My bank balance: {balance} YakYak®</Text>
+          <Text fontSize={"12px"}>My bank balance: {balance} YKR</Text>
           <NumberInput
             onChange={(valueString) => setAmount(parse(valueString))}
             onFocus={(e) => {
@@ -51,8 +51,8 @@ export const Deposit = () => {
                     if (ga4){
                       ga4.event("bank", "deposit", amount)
                     }
-                    await approve(YAKYAK_BANK_ADDRESS[chainId ?? 1], parseToBigNumber(amount).shiftedBy(18).toString())
-                    await deposit(parseToBigNumber(amount).shiftedBy(18).toString())
+                    await approve(YAKYAK_BANK_ADDRESS[chainId ?? 1], parseToBigNumber(amount).shiftedBy(18).toFixed(0))
+                    await deposit(parseToBigNumber(amount).shiftedBy(18).toFixed(0))
                     await refresh()
                   }} isLoading={depositStatus === PROCESSING || approveStatus === PROCESSING} loadingText={"Pending"}>
             {depositStatus === IDLE && ("Next")}

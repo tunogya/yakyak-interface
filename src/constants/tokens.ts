@@ -7,7 +7,7 @@ export const YAKYAK: { [chainId: number]: Token } = {
     SupportedChainId.RINKEBY,
     YAKYAK_REWARDS_ADDRESS[4],
     18,
-    "YakYak®",
-    "YakYak® Rewards"
+    "YKR",
+    "YakYak Rewards"
   ),
 }

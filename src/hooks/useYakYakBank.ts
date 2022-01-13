@@ -1,12 +1,9 @@
 import {useYakYakBankContract} from "./useContract";
-import {YAKYAK_BANK_ADDRESS} from "../constants/addresses";
-import {useActiveWeb3React} from "./web3";
 import {useState} from "react";
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../constants/misc";
 
 export const useYakYakBank = () => {
-  const {chainId} = useActiveWeb3React()
-  const bank = useYakYakBankContract(YAKYAK_BANK_ADDRESS[chainId ?? 1], true)
+  const bank = useYakYakBankContract()
   const [withdrawStatus, setWithdrawStatus] = useState(IDLE)
   const [depositStatus, setDepositStatus] = useState(IDLE)
   const [redeemStatus, setRedeemStatus] = useState(IDLE)

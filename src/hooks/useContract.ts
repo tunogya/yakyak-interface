@@ -9,6 +9,7 @@ import { useMemo } from "react"
 import { getContract } from "../utils"
 import { Erc20, YakyakBank, YakyakRewards, YakyakClone } from "../abis/types"
 import { useActiveWeb3React } from "./web3"
+import {YAKYAK_BANK_ADDRESS, YAKYAK_CLONE_ADDRESS, YAKYAK_REWARDS_ADDRESS} from "../constants/addresses";
 
 // returns null on errors
 export function useContract<T extends Contract = Contract>(
@@ -41,14 +42,17 @@ export function useBytes32TokenContract(tokenAddress?: string, withSignerIfPossi
   return useContract(tokenAddress, ERC20_BYTES32_ABI, withSignerIfPossible)
 }
 
-export function useYakYakRewardContract(tokenAddress?: string, withSignerIfPossible?: boolean): Contract | null {
-  return useContract<YakyakRewards>(tokenAddress, YakYakRewards_ABI, withSignerIfPossible)
+export function useYakYakRewardContract(): Contract | null {
+  const { chainId } = useActiveWeb3React()
+  return useContract<YakyakRewards>(YAKYAK_REWARDS_ADDRESS[chainId ?? 1], YakYakRewards_ABI, true)
 }
 
-export function useYakYakBankContract(address?: string, withSignerIfPossible?: boolean): Contract | null {
-  return useContract<YakyakBank>(address, YakYakBank_ABI, withSignerIfPossible)
+export function useYakYakBankContract(): Contract | null {
+  const { chainId } = useActiveWeb3React()
+  return useContract<YakyakBank>(YAKYAK_BANK_ADDRESS[chainId ?? 1], YakYakBank_ABI, true)
 }
 
-export function useYakYakCloneContract(address?: string, withSignerIfPossible?: boolean): Contract | null {
-  return useContract<YakyakClone>(address, YakYakClone_ABI, withSignerIfPossible)
+export function useYakYakCloneContract(): Contract | null {
+  const { chainId } = useActiveWeb3React()
+  return useContract<YakyakClone>(YAKYAK_CLONE_ADDRESS[chainId ?? 1] , YakYakClone_ABI, true)
 }

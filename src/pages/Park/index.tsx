@@ -4,6 +4,7 @@ import {useActiveWeb3React} from "../../hooks/web3";
 import {useCallback, useEffect} from "react";
 import {formatNumber} from "../../utils/bignumberUtil";
 import {atom, useRecoilState} from "recoil";
+import {useYakYakClone} from "../../hooks/useYakYakClone";
 
 const balanceAtom = atom({
   key: "my:balance",
@@ -14,6 +15,9 @@ export const Shopping = () => {
   const { account } = useActiveWeb3React()
   const { balanceOf } = useYakYakRewards()
   const [balance, setBalance] = useRecoilState(balanceAtom)
+  const { totalSupply, nextDNAID, nextSetID, currentSeries } = useYakYakClone()
+
+  console.log(totalSupply, nextDNAID, nextSetID, currentSeries)
 
   const refresh = useCallback(async () => {
     if (account) {

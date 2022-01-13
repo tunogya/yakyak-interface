@@ -5,7 +5,7 @@ import Web3Status from "../Web3Status"
 export const Header = () => {
   const links = [
     {path: "/summary", label: "Dashboard"},
-    {path: "/transfer", label: "Get & Pay Rewards"},
+    {path: "/transfer", label: "Rewards"},
     {path: "/shopping", label: "Deals"},
     {path: "/transactions", label: "Activity"}
   ]

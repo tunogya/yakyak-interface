@@ -5,7 +5,7 @@ import Header from "../components/Header"
 import Web3ReactManager from "../components/Web3ReactManager"
 import Summary from "./Summary";
 import Transfer from "./Transfer";
-import Shopping from "./Shopping";
+import Park from "./Park";
 import Transactions from "./Transactions";
 import {GoogleAnalyticsReporter} from "../components/analytics/GoogleAnalyticsReporter";
 
@@ -34,7 +34,7 @@ const Content = () => {
         <Route path="/transfer" element={<Transfer/>}>
           <Route path=":action" element={<Transfer/>}/>
         </Route>
-        <Route path="/shopping" element={<Shopping/>}/>
+        <Route path="/shopping" element={<Park/>}/>
         <Route path="/transactions" element={<Transactions/>}/>
         <Route
           path="*"

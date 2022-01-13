@@ -25,18 +25,31 @@ export const Shopping = () => {
     refresh()
   }, [refresh])
 
-  return (
-    <Stack w={"full"}>
+  const control = () => {
+    return (
       <Stack h={"60px"} bg={"white"} alignItems={"center"} justifyContent={"center"}
              borderBottomWidth={"1px"} borderBottomColor={"divider"}>
         <Stack w={"full"} maxW={"1024px"} direction={"row"} alignItems={"center"} spacing={"60px"}>
-          <Text fontSize={"14px"} fontWeight={"600"} color={"primary"}>Shop</Text>
+          <Text fontSize={"14px"} fontWeight={"600"} color={"primary"}>YakYak Park</Text>
           <Text fontSize={"14px"} fontWeight={"600"} _hover={{ color: "primary" }}>Categories</Text>
           <Text fontSize={"14px"}>{balance} YKR </Text>
           <Spacer />
           <Input w={"200px"} placeholder={"Search"}/>
         </Stack>
       </Stack>
+    )
+  }
+
+  return (
+    <Stack w={"full"}>
+      { control() }
+      <Stack alignItems={"center"}>
+        <Stack w={"full"} maxW={"1024px"} py={"12px"} direction={"row"}>
+          
+
+        </Stack>
+      </Stack>
+
     </Stack>
   )
 }

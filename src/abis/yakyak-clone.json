@@ -65,15 +65,15 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "uint32",
-        "name": "setID",
-        "type": "uint32"
+        "internalType": "uint256",
+        "name": "periodID",
+        "type": "uint256"
       },
       {
         "indexed": true,
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "dnaID",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "DNAAddedToSet",
@@ -84,9 +84,9 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "id",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "DNACreated",
@@ -97,21 +97,21 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "uint32",
-        "name": "setID",
-        "type": "uint32"
+        "internalType": "uint256",
+        "name": "periodID",
+        "type": "uint256"
       },
       {
         "indexed": true,
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "dnaID",
-        "type": "uint32"
+        "type": "uint256"
       },
       {
         "indexed": false,
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "numClones",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "DNARetiredFromSet",
@@ -122,9 +122,9 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "new_currentSeries",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "NewSeriesStarted",
@@ -154,18 +154,18 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "uint32",
-        "name": "setID",
-        "type": "uint32"
+        "internalType": "uint256",
+        "name": "periodID",
+        "type": "uint256"
       },
       {
         "indexed": true,
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "series",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
-    "name": "SetCreated",
+    "name": "PeriodCreated",
     "type": "event"
   },
   {
@@ -173,12 +173,12 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "uint32",
-        "name": "setID",
-        "type": "uint32"
+        "internalType": "uint256",
+        "name": "periodID",
+        "type": "uint256"
       }
     ],
-    "name": "SetLocked",
+    "name": "PeriodLocked",
     "type": "event"
   },
   {
@@ -217,9 +217,9 @@
       },
       {
         "indexed": false,
-        "internalType": "uint64",
+        "internalType": "uint256",
         "name": "amount",
-        "type": "uint64"
+        "type": "uint256"
       }
     ],
     "name": "Withdraw",
@@ -230,27 +230,27 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "uint64",
+        "internalType": "uint256",
         "name": "cloneID",
-        "type": "uint64"
+        "type": "uint256"
       },
       {
         "indexed": true,
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "dnaID",
-        "type": "uint32"
+        "type": "uint256"
       },
       {
         "indexed": true,
-        "internalType": "uint32",
-        "name": "setID",
-        "type": "uint32"
+        "internalType": "uint256",
+        "name": "periodID",
+        "type": "uint256"
       },
       {
         "indexed": false,
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "serialNumber",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "YaklonCloned",
@@ -261,9 +261,9 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "uint64",
+        "internalType": "uint256",
         "name": "id",
-        "type": "uint64"
+        "type": "uint256"
       }
     ],
     "name": "YaklonDestroyed",
@@ -272,14 +272,14 @@
   {
     "inputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "setID",
-        "type": "uint32"
+        "type": "uint256"
       },
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "dnaID",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "addDNAToSet",
@@ -290,14 +290,14 @@
   {
     "inputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "setID",
-        "type": "uint32"
+        "type": "uint256"
       },
       {
-        "internalType": "uint32[]",
+        "internalType": "uint256[]",
         "name": "dnaIDs",
-        "type": "uint32[]"
+        "type": "uint256[]"
       }
     ],
     "name": "addDNAsToSet",
@@ -345,35 +345,12 @@
   {
     "inputs": [
       {
-        "internalType": "uint64[]",
+        "internalType": "uint256[]",
         "name": "cloneIDs",
-        "type": "uint64[]"
+        "type": "uint256[]"
       }
     ],
     "name": "batchBurn",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint32",
-        "name": "setID",
-        "type": "uint32"
-      },
-      {
-        "internalType": "uint32",
-        "name": "dnaID",
-        "type": "uint32"
-      },
-      {
-        "internalType": "uint64",
-        "name": "quantity",
-        "type": "uint64"
-      }
-    ],
-    "name": "batchCloning",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -386,9 +363,9 @@
         "type": "address"
       },
       {
-        "internalType": "uint64[]",
+        "internalType": "uint256[]",
         "name": "cloneIDs",
-        "type": "uint64[]"
+        "type": "uint256[]"
       }
     ],
     "name": "batchTransfer",
@@ -412,14 +389,19 @@
   {
     "inputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "setID",
-        "type": "uint32"
+        "type": "uint256"
       },
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "dnaID",
-        "type": "uint32"
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "metadata",
+        "type": "string"
       }
     ],
     "name": "cloning",
@@ -435,17 +417,22 @@
         "type": "string"
       },
       {
-        "internalType": "uint64",
-        "name": "fee",
-        "type": "uint64"
+        "internalType": "uint256",
+        "name": "weight",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "level",
+        "type": "uint8"
       }
     ],
     "name": "createDNA",
     "outputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "stateMutability": "nonpayable",
@@ -457,14 +444,24 @@
         "internalType": "string",
         "name": "name",
         "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "start",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "end",
+        "type": "uint256"
       }
     ],
-    "name": "createSet",
+    "name": "createPeriod",
     "outputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "stateMutability": "nonpayable",
@@ -494,9 +491,9 @@
     "name": "getCurrentSeries",
     "outputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -505,9 +502,9 @@
   {
     "inputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "dnaID",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "getDNAMetadata",
@@ -524,17 +521,17 @@
   {
     "inputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "setID",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "getDNAsInSet",
     "outputs": [
       {
-        "internalType": "uint32[]",
+        "internalType": "uint256[]",
         "name": "",
-        "type": "uint32[]"
+        "type": "uint256[]"
       }
     ],
     "stateMutability": "view",
@@ -545,9 +542,9 @@
     "name": "getNextDNAID",
     "outputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -558,9 +555,9 @@
     "name": "getNextSetID",
     "outputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -569,9 +566,9 @@
   {
     "inputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "setID",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "getSetName",
@@ -588,17 +585,17 @@
   {
     "inputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "setID",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "getSetSeries",
     "outputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -631,9 +628,9 @@
   {
     "inputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "setID",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "isSetLocked",
@@ -650,9 +647,9 @@
   {
     "inputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "setID",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "lockSet",
@@ -706,6 +703,25 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_length",
+        "type": "uint256"
+      }
+    ],
+    "name": "rand",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "renounceOwnership",
     "outputs": [],
@@ -715,9 +731,9 @@
   {
     "inputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "setID",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "retireAllFromSet",
@@ -728,14 +744,14 @@
   {
     "inputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "setID",
-        "type": "uint32"
+        "type": "uint256"
       },
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "dnaID",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "name": "retireDNAFromSet",
@@ -817,9 +833,9 @@
     "name": "startNewSeries",
     "outputs": [
       {
-        "internalType": "uint32",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint32"
+        "type": "uint256"
       }
     ],
     "stateMutability": "nonpayable",
@@ -860,49 +876,8 @@
   {
     "inputs": [
       {
-        "internalType": "uint64",
-        "name": "cloneID",
-        "type": "uint64"
-      }
-    ],
-    "name": "tokenURI",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint64",
-            "name": "cloneID",
-            "type": "uint64"
-          },
-          {
-            "internalType": "uint32",
-            "name": "dnaID",
-            "type": "uint32"
-          },
-          {
-            "internalType": "uint32",
-            "name": "setID",
-            "type": "uint32"
-          },
-          {
-            "internalType": "uint32",
-            "name": "serialNumber",
-            "type": "uint32"
-          }
-        ],
-        "internalType": "struct YakYakClone.Yaklon",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "uint256",
-        "name": "tokenId",
+        "name": "cloneID",
         "type": "uint256"
       }
     ],
@@ -922,9 +897,9 @@
     "name": "totalSupply",
     "outputs": [
       {
-        "internalType": "uint64",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint64"
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -938,9 +913,9 @@
         "type": "address"
       },
       {
-        "internalType": "uint64",
+        "internalType": "uint256",
         "name": "cloneID",
-        "type": "uint64"
+        "type": "uint256"
       }
     ],
     "name": "transfer",
@@ -998,9 +973,9 @@
         "type": "address"
       },
       {
-        "internalType": "uint64",
+        "internalType": "uint256",
         "name": "amount",
-        "type": "uint64"
+        "type": "uint256"
       }
     ],
     "name": "withdraw",

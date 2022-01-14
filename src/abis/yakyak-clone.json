@@ -76,7 +76,7 @@
         "type": "uint256"
       }
     ],
-    "name": "DNAAddedToSet",
+    "name": "DnaAddedToPeriod",
     "type": "event"
   },
   {
@@ -89,7 +89,7 @@
         "type": "uint256"
       }
     ],
-    "name": "DNACreated",
+    "name": "DnaCreated",
     "type": "event"
   },
   {
@@ -114,7 +114,7 @@
         "type": "uint256"
       }
     ],
-    "name": "DNARetiredFromSet",
+    "name": "DnaRetiredFromPeriod",
     "type": "event"
   },
   {
@@ -230,6 +230,25 @@
     "inputs": [
       {
         "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "WithdrawToken",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
         "internalType": "uint256",
         "name": "cloneID",
         "type": "uint256"
@@ -273,7 +292,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "setID",
+        "name": "periodID",
         "type": "uint256"
       },
       {
@@ -282,7 +301,7 @@
         "type": "uint256"
       }
     ],
-    "name": "addDNAToSet",
+    "name": "addDnaToPeriod",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -291,7 +310,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "setID",
+        "name": "periodID",
         "type": "uint256"
       },
       {
@@ -300,7 +319,7 @@
         "type": "uint256[]"
       }
     ],
-    "name": "addDNAsToSet",
+    "name": "addDnasToPeriod",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -390,7 +409,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "setID",
+        "name": "periodID",
         "type": "uint256"
       },
       {
@@ -406,7 +425,7 @@
     ],
     "name": "cloning",
     "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -427,7 +446,7 @@
         "type": "uint8"
       }
     ],
-    "name": "createDNA",
+    "name": "createDna",
     "outputs": [
       {
         "internalType": "uint256",
@@ -507,11 +526,21 @@
         "type": "uint256"
       }
     ],
-    "name": "getDNAMetadata",
+    "name": "getDnaData",
     "outputs": [
       {
+        "internalType": "uint256",
+        "name": "scale",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "level",
+        "type": "uint8"
+      },
+      {
         "internalType": "string",
-        "name": "",
+        "name": "metadata",
         "type": "string"
       }
     ],
@@ -522,11 +551,11 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "setID",
+        "name": "periodID",
         "type": "uint256"
       }
     ],
-    "name": "getDNAsInSet",
+    "name": "getDnasInPeriod",
     "outputs": [
       {
         "internalType": "uint256[]",
@@ -539,7 +568,7 @@
   },
   {
     "inputs": [],
-    "name": "getNextDNAID",
+    "name": "getNextDnaID",
     "outputs": [
       {
         "internalType": "uint256",
@@ -552,7 +581,7 @@
   },
   {
     "inputs": [],
-    "name": "getNextSetID",
+    "name": "getNextPeriodID",
     "outputs": [
       {
         "internalType": "uint256",
@@ -567,35 +596,36 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "setID",
+        "name": "periodID",
         "type": "uint256"
       }
     ],
-    "name": "getSetName",
+    "name": "getPeriodData",
     "outputs": [
       {
         "internalType": "string",
-        "name": "",
+        "name": "name",
         "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
+      },
       {
         "internalType": "uint256",
-        "name": "setID",
+        "name": "series",
         "type": "uint256"
-      }
-    ],
-    "name": "getSetSeries",
-    "outputs": [
+      },
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "start",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "end",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isLocked",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -629,30 +659,11 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "setID",
+        "name": "periodID",
         "type": "uint256"
       }
     ],
-    "name": "isSetLocked",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "setID",
-        "type": "uint256"
-      }
-    ],
-    "name": "lockSet",
+    "name": "lockPeriod",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -708,6 +719,11 @@
         "internalType": "uint256",
         "name": "_length",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_nonce",
+        "type": "uint256"
       }
     ],
     "name": "rand",
@@ -732,11 +748,11 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "setID",
+        "name": "periodID",
         "type": "uint256"
       }
     ],
-    "name": "retireAllFromSet",
+    "name": "retireAllFromPeriod",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -745,7 +761,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "setID",
+        "name": "periodID",
         "type": "uint256"
       },
       {
@@ -754,7 +770,7 @@
         "type": "uint256"
       }
     ],
-    "name": "retireDNAFromSet",
+    "name": "retireDnaFromPeriod",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -968,17 +984,25 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
         "internalType": "uint256",
         "name": "amount",
         "type": "uint256"
       }
     ],
     "name": "withdraw",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawToken",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

@@ -1,23 +1,24 @@
 import {Input, Spacer, Stack, Text} from "@chakra-ui/react";
 import {useYakYakRewards} from "../../hooks/useYakYakRewards";
 import {useActiveWeb3React} from "../../hooks/web3";
-import {useCallback, useEffect} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {formatNumber} from "../../utils/bignumberUtil";
 import {atom, useRecoilState} from "recoil";
 import {useYakYakClone} from "../../hooks/useYakYakClone";
+import {PeriodItem} from "./PeriodItem";
+import {AddNewPeriod} from "./AddNewPeriod";
 
 const balanceAtom = atom({
   key: "my:balance",
   default: "NaN",
 })
 
-export const Shopping = () => {
+export const Park = () => {
   const { account } = useActiveWeb3React()
   const { balanceOf } = useYakYakRewards()
   const [balance, setBalance] = useRecoilState(balanceAtom)
-  const { totalSupply, nextDNAID, nextSetID, currentSeries } = useYakYakClone()
-
-  console.log(totalSupply, nextDNAID, nextSetID, currentSeries)
+  const { totalSupply, nextDnaID, nextPeriodID, currentSeries } = useYakYakClone()
+  const [periods, setPeriods] = useState<number[]>([])
 
   const refresh = useCallback(async () => {
     if (account) {
@@ -28,6 +29,10 @@ export const Shopping = () => {
   useEffect(()=>{
     refresh()
   }, [refresh])
+
+  useEffect(()=> {
+
+  }, [])
 
   const control = () => {
     return (
@@ -48,14 +53,23 @@ export const Shopping = () => {
     <Stack w={"full"}>
       { control() }
       <Stack alignItems={"center"}>
-        <Stack w={"full"} maxW={"1024px"} py={"12px"} direction={"row"}>
-          
-
+        <Stack w={"full"} maxW={"1024px"} py={"12px"} direction={"row"} alignItems={"center"}>
+          <Text>Current Series ID: {currentSeries} ;</Text>
+          <Text>Next Period ID: {nextPeriodID} ;</Text>
+          <Text>Next DNA ID: {nextDnaID} ;</Text>
+          <Text>Total Supply: {totalSupply} ;</Text>
         </Stack>
+        <Stack direction={"row"}>
+          <PeriodItem periodID={0} />
+          <PeriodItem periodID={1} />
+          <PeriodItem periodID={2} />
+        </Stack>
+        <AddNewPeriod/>
       </Stack>
-
     </Stack>
   )
 }
 
-export default Shopping
+
+
+export default Park

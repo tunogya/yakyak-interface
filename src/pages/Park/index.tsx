@@ -17,7 +17,7 @@ export const Park = () => {
   const {account} = useActiveWeb3React()
   const {balanceOf} = useYakYakRewards()
   const [balance, setBalance] = useRecoilState(balanceAtom)
-  const {totalSupply, nextDnaID, nextSetID, currentSeries} = useYakYakClone()
+  const {nextSetID} = useYakYakClone()
   const [sets, setSets] = useState<number[]>([])
 
   const refresh = useCallback(async () => {
@@ -57,18 +57,14 @@ export const Park = () => {
     <Stack w={"full"}>
       {control()}
       <Stack alignItems={"center"}>
-        <Stack w={"full"} maxW={"1024px"} py={"12px"} direction={"row"} alignItems={"center"}>
-          <Text>Current Series ID: {currentSeries} ;</Text>
-          <Text>Next Period ID: {nextSetID} ;</Text>
-          <Text>Next DNA ID: {nextDnaID} ;</Text>
-          <Text>Total Supply: {totalSupply} ;</Text>
+        <Stack direction={"row"} alignItems={"center"} py={"8px"}>
+          <Stack direction={"row"} overflow={"scroll"} maxW={"1024px"}>
+            {sets.map((setID) => (
+              <SetItem key={setID} setID={setID}/>
+            ))}
+          </Stack>
+          <AddNewSet/>
         </Stack>
-        <Stack direction={"row"}>
-          {sets.map((setID) => (
-            <SetItem key={setID} setID={setID}/>
-          ))}
-        </Stack>
-        <AddNewSet/>
       </Stack>
     </Stack>
   )

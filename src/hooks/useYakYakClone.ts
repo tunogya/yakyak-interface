@@ -1,22 +1,22 @@
 import {useCallback, useEffect, useState} from "react";
 import {useYakYakCloneContract} from "./useContract";
-import {formatNumber, parseToBigNumber} from "../utils/bignumberUtil";
+import {parseToBigNumber} from "../utils/bignumberUtil";
 
 export const useYakYakClone = () => {
-  const [totalSupply, setTotalSupply] = useState('')
-  const [nextDnaID, setNextDnaID] = useState('')
-  const [nextSetID, setNextSetID] = useState('')
-  const [currentSeries, setCurrentSeries] = useState('')
+  const [totalSupply, setTotalSupply] = useState(0)
+  const [nextDnaID, setNextDnaID] = useState(0)
+  const [nextSetID, setNextSetID] = useState(0)
+  const [currentSeries, setCurrentSeries] = useState(0)
   const [baseURI, setBaseURI] = useState('')
   const yaklone = useYakYakCloneContract()
 
   const fetch = useCallback(async ()=> {
     if (!yaklone) return
-    setCurrentSeries(formatNumber(parseToBigNumber((await yaklone.getState()).currentSeries)))
-    setNextSetID(formatNumber(parseToBigNumber((await yaklone.getState()).nextSetID)))
-    setNextDnaID(formatNumber(parseToBigNumber((await yaklone.getState()).nextDnaID)))
-    setTotalSupply(formatNumber(parseToBigNumber(await yaklone.totalSupply())))
-    setBaseURI(formatNumber(parseToBigNumber(await yaklone.getBaseURI())))
+    setCurrentSeries(parseToBigNumber((await yaklone.getState()).currentSeries).toNumber())
+    setNextSetID(parseToBigNumber((await yaklone.getState()).nextSetID).toNumber())
+    setNextDnaID(parseToBigNumber((await yaklone.getState()).nextDnaID).toNumber())
+    setTotalSupply(parseToBigNumber(await yaklone.totalSupply()).toNumber())
+    setBaseURI(await yaklone.getBaseURI())
   }, [yaklone])
 
   useEffect(()=>{

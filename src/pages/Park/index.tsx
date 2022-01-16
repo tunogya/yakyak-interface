@@ -1,7 +1,7 @@
 import {Input, Spacer, Stack, Text} from "@chakra-ui/react";
 import {useYakYakRewards} from "../../hooks/useYakYakRewards";
 import {useActiveWeb3React} from "../../hooks/web3";
-import {useCallback, useEffect} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {formatNumber} from "../../utils/bignumberUtil";
 import {atom, useRecoilState} from "recoil";
 import {useYakYakClone} from "../../hooks/useYakYakClone";
@@ -14,11 +14,11 @@ const balanceAtom = atom({
 })
 
 export const Park = () => {
-  const { account } = useActiveWeb3React()
-  const { balanceOf } = useYakYakRewards()
+  const {account} = useActiveWeb3React()
+  const {balanceOf} = useYakYakRewards()
   const [balance, setBalance] = useRecoilState(balanceAtom)
-  const { totalSupply, nextDnaID, nextSetID , currentSeries } = useYakYakClone()
-  // const [sets, setSets] = useState<number[]>([])
+  const {totalSupply, nextDnaID, nextSetID, currentSeries} = useYakYakClone()
+  const [sets, setSets] = useState<number[]>([])
 
   const refresh = useCallback(async () => {
     if (account) {
@@ -26,13 +26,17 @@ export const Park = () => {
     }
   }, [account, balanceOf, setBalance])
 
-  useEffect(()=>{
+  useEffect(() => {
     refresh()
   }, [refresh])
 
-  useEffect(()=> {
-
-  }, [])
+  useEffect(() => {
+    let arr = []
+    for (let i = 0; i < nextSetID; i++) {
+      arr[i] = i;
+    }
+    setSets(arr)
+  }, [nextSetID])
 
   const control = () => {
     return (
@@ -40,9 +44,9 @@ export const Park = () => {
              borderBottomWidth={"1px"} borderBottomColor={"divider"}>
         <Stack w={"full"} maxW={"1024px"} direction={"row"} alignItems={"center"} spacing={"60px"}>
           <Text fontSize={"14px"} fontWeight={"600"} color={"primary"}>YakYak Park</Text>
-          <Text fontSize={"14px"} fontWeight={"600"} _hover={{ color: "primary" }}>Categories</Text>
+          <Text fontSize={"14px"} fontWeight={"600"} _hover={{color: "primary"}}>Categories</Text>
           <Text fontSize={"14px"}>{balance} YKR </Text>
-          <Spacer />
+          <Spacer/>
           <Input w={"200px"} placeholder={"Search"}/>
         </Stack>
       </Stack>
@@ -51,7 +55,7 @@ export const Park = () => {
 
   return (
     <Stack w={"full"}>
-      { control() }
+      {control()}
       <Stack alignItems={"center"}>
         <Stack w={"full"} maxW={"1024px"} py={"12px"} direction={"row"} alignItems={"center"}>
           <Text>Current Series ID: {currentSeries} ;</Text>
@@ -60,16 +64,15 @@ export const Park = () => {
           <Text>Total Supply: {totalSupply} ;</Text>
         </Stack>
         <Stack direction={"row"}>
-          <SetItem setID={0} />
-          <SetItem setID={1} />
-          <SetItem setID={2} />
+          {sets.map((setID) => (
+            <SetItem key={setID} setID={setID}/>
+          ))}
         </Stack>
         <AddNewSet/>
       </Stack>
     </Stack>
   )
 }
-
 
 
 export default Park

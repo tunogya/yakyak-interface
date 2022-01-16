@@ -7,8 +7,11 @@ export enum SupportedChainId {
   GOERLI = 5,
   KOVAN = 42,
 
+  LOCALHOST = 31337,
+
   ARBITRUM_ONE = 42161,
   ARBITRUM_RINKEBY = 421611,
+
 }
 
 export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = [
@@ -17,7 +20,8 @@ export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = [
   SupportedChainId.RINKEBY,
   SupportedChainId.GOERLI,
   SupportedChainId.KOVAN,
-
+  SupportedChainId.LOCALHOST,
+  
   SupportedChainId.ARBITRUM_ONE,
   SupportedChainId.ARBITRUM_RINKEBY,
 ]
@@ -28,6 +32,7 @@ export const L1_CHAIN_IDS = [
   SupportedChainId.RINKEBY,
   SupportedChainId.GOERLI,
   SupportedChainId.KOVAN,
+  SupportedChainId.LOCALHOST,
 ] as const
 
 export type SupportedL1ChainId = typeof L1_CHAIN_IDS[number]
@@ -69,33 +74,39 @@ export const CHAIN_INFO: ChainInfo = {
     logoUrl: arbitrumLogoUrl,
   },
   [SupportedChainId.MAINNET]: {
-    docs: "https://docs.uniswap.org/",
+    docs: "https://wakanda-labs.com/",
     explorer: "https://etherscan.io/",
     infoLink: "",
     label: "Mainnet",
   },
   [SupportedChainId.RINKEBY]: {
-    docs: "https://docs.uniswap.org/",
+    docs: "https://wakanda-labs.com/",
     explorer: "https://rinkeby.etherscan.io/",
     infoLink: "",
     label: "Rinkeby",
   },
   [SupportedChainId.ROPSTEN]: {
-    docs: "https://docs.uniswap.org/",
+    docs: "https://wakanda-labs.com/",
     explorer: "https://ropsten.etherscan.io/",
     infoLink: "",
     label: "Ropsten",
   },
   [SupportedChainId.KOVAN]: {
-    docs: "https://docs.uniswap.org/",
+    docs: "https://wakanda-labs.com/",
     explorer: "https://kovan.etherscan.io/",
     infoLink: "",
     label: "Kovan",
   },
   [SupportedChainId.GOERLI]: {
-    docs: "https://docs.uniswap.org/",
+    docs: "https://wakanda-labs.com/",
     explorer: "https://goerli.etherscan.io/",
     infoLink: "",
     label: "Görli",
+  },
+  [SupportedChainId.LOCALHOST]: {
+    docs: "https://localhost/",
+    explorer: "",
+    infoLink: "",
+    label: "Localhost",
   },
 }

@@ -5,6 +5,11 @@
         "internalType": "address",
         "name": "tokenAddress_",
         "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "nftBaseURI_",
+        "type": "string"
       }
     ],
     "stateMutability": "nonpayable",
@@ -64,19 +69,13 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "periodID",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "dnaID",
-        "type": "uint256"
+        "indexed": false,
+        "internalType": "string",
+        "name": "newBaseURI",
+        "type": "string"
       }
     ],
-    "name": "DnaAddedToPeriod",
+    "name": "BaseURIUpdate",
     "type": "event"
   },
   {
@@ -84,9 +83,28 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "uint256",
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint64",
+        "name": "dnaID",
+        "type": "uint64"
+      }
+    ],
+    "name": "DnaAddedToSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint64",
         "name": "id",
-        "type": "uint256"
+        "type": "uint64"
       }
     ],
     "name": "DnaCreated",
@@ -97,24 +115,24 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "uint256",
-        "name": "periodID",
-        "type": "uint256"
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
       },
       {
         "indexed": true,
-        "internalType": "uint256",
+        "internalType": "uint64",
         "name": "dnaID",
-        "type": "uint256"
+        "type": "uint64"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "numClones",
+        "name": "numNFTs",
         "type": "uint256"
       }
     ],
-    "name": "DnaRetiredFromPeriod",
+    "name": "DnaRetiredFromSet",
     "type": "event"
   },
   {
@@ -122,9 +140,9 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "uint256",
-        "name": "new_currentSeries",
-        "type": "uint256"
+        "internalType": "uint64",
+        "name": "newSeriesID",
+        "type": "uint64"
       }
     ],
     "name": "NewSeriesStarted",
@@ -154,18 +172,18 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "uint256",
-        "name": "periodID",
-        "type": "uint256"
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
       },
       {
         "indexed": true,
-        "internalType": "uint256",
+        "internalType": "uint64",
         "name": "series",
-        "type": "uint256"
+        "type": "uint64"
       }
     ],
-    "name": "PeriodCreated",
+    "name": "SetCreated",
     "type": "event"
   },
   {
@@ -173,12 +191,12 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "uint256",
-        "name": "periodID",
-        "type": "uint256"
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
       }
     ],
-    "name": "PeriodLocked",
+    "name": "SetLocked",
     "type": "event"
   },
   {
@@ -230,9 +248,22 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "address",
-        "name": "account",
-        "type": "address"
+        "internalType": "uint256",
+        "name": "tokenID",
+        "type": "uint256"
+      }
+    ],
+    "name": "YaklonDestroyed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenID",
+        "type": "uint256"
       },
       {
         "indexed": false,
@@ -241,7 +272,7 @@
         "type": "uint256"
       }
     ],
-    "name": "WithdrawToken",
+    "name": "YaklonFed",
     "type": "event"
   },
   {
@@ -250,58 +281,45 @@
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "cloneID",
+        "name": "tokenID",
         "type": "uint256"
       },
       {
         "indexed": true,
-        "internalType": "uint256",
+        "internalType": "uint64",
         "name": "dnaID",
-        "type": "uint256"
+        "type": "uint64"
       },
       {
         "indexed": true,
-        "internalType": "uint256",
-        "name": "periodID",
-        "type": "uint256"
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "serialNumber",
+        "name": "serialID",
         "type": "uint256"
       }
     ],
-    "name": "YaklonCloned",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      }
-    ],
-    "name": "YaklonDestroyed",
+    "name": "YaklonMinted",
     "type": "event"
   },
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "periodID",
-        "type": "uint256"
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint64",
         "name": "dnaID",
-        "type": "uint256"
+        "type": "uint64"
       }
     ],
-    "name": "addDnaToPeriod",
+    "name": "addDnaToSet",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -309,17 +327,17 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "periodID",
-        "type": "uint256"
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
       },
       {
-        "internalType": "uint256[]",
+        "internalType": "uint64[]",
         "name": "dnaIDs",
-        "type": "uint256[]"
+        "type": "uint64[]"
       }
     ],
-    "name": "addDnasToPeriod",
+    "name": "addDnasToSet",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -365,7 +383,7 @@
     "inputs": [
       {
         "internalType": "uint256[]",
-        "name": "cloneIDs",
+        "name": "tokenIDs",
         "type": "uint256[]"
       }
     ],
@@ -377,13 +395,36 @@
   {
     "inputs": [
       {
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "dnaID",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "batchCloning",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "to",
         "type": "address"
       },
       {
         "internalType": "uint256[]",
-        "name": "cloneIDs",
+        "name": "tokenIDs",
         "type": "uint256[]"
       }
     ],
@@ -408,19 +449,14 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "periodID",
-        "type": "uint256"
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint64",
         "name": "dnaID",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "metadata",
-        "type": "string"
+        "type": "uint64"
       }
     ],
     "name": "cloning",
@@ -434,24 +470,14 @@
         "internalType": "string",
         "name": "metadata",
         "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "weight",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint8",
-        "name": "level",
-        "type": "uint8"
       }
     ],
     "name": "createDna",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint64",
         "name": "",
-        "type": "uint256"
+        "type": "uint64"
       }
     ],
     "stateMutability": "nonpayable",
@@ -463,26 +489,34 @@
         "internalType": "string",
         "name": "name",
         "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "start",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "end",
-        "type": "uint256"
       }
     ],
-    "name": "createPeriod",
+    "name": "createSet",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint64",
         "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
         "type": "uint256"
       }
     ],
+    "name": "feeding",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -507,12 +541,12 @@
   },
   {
     "inputs": [],
-    "name": "getCurrentSeries",
+    "name": "getBaseURI",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "",
-        "type": "uint256"
+        "type": "string"
       }
     ],
     "stateMutability": "view",
@@ -521,23 +555,13 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint64",
         "name": "dnaID",
-        "type": "uint256"
+        "type": "uint64"
       }
     ],
     "name": "getDnaData",
     "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "scale",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint8",
-        "name": "level",
-        "type": "uint8"
-      },
       {
         "internalType": "string",
         "name": "metadata",
@@ -550,38 +574,17 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "periodID",
-        "type": "uint256"
-      }
-    ],
-    "name": "getDnasInPeriod",
-    "outputs": [
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
+      },
       {
-        "internalType": "uint256[]",
-        "name": "",
-        "type": "uint256[]"
+        "internalType": "uint64",
+        "name": "dnaID",
+        "type": "uint64"
       }
     ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getNextDnaID",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getNextPeriodID",
+    "name": "getDnaMintedInSet",
     "outputs": [
       {
         "internalType": "uint256",
@@ -595,12 +598,65 @@
   {
     "inputs": [
       {
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
+      }
+    ],
+    "name": "getDnasInSet",
+    "outputs": [
+      {
+        "internalType": "uint64[]",
+        "name": "",
+        "type": "uint64[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
-        "name": "periodID",
+        "name": "tokenID",
         "type": "uint256"
       }
     ],
-    "name": "getPeriodData",
+    "name": "getNftMetadata",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "serialID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "feed",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint64",
+        "name": "dnaID",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
+      }
+    ],
+    "name": "getSetData",
     "outputs": [
       {
         "internalType": "string",
@@ -608,24 +664,42 @@
         "type": "string"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint64",
         "name": "series",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "start",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "end",
-        "type": "uint256"
+        "type": "uint64"
       },
       {
         "internalType": "bool",
-        "name": "isLocked",
+        "name": "locked",
         "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getState",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "currentSeries",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "nextDnaID",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "nextSetID",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nextCloneID",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -658,12 +732,12 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "periodID",
-        "type": "uint256"
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
       }
     ],
-    "name": "lockPeriod",
+    "name": "lockSet",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -714,30 +788,6 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_length",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_nonce",
-        "type": "uint256"
-      }
-    ],
-    "name": "rand",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "renounceOwnership",
     "outputs": [],
@@ -747,12 +797,12 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "periodID",
-        "type": "uint256"
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
       }
     ],
-    "name": "retireAllFromPeriod",
+    "name": "retireAllFromSet",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -760,17 +810,17 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "periodID",
-        "type": "uint256"
+        "internalType": "uint64",
+        "name": "setID",
+        "type": "uint64"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint64",
         "name": "dnaID",
-        "type": "uint256"
+        "type": "uint64"
       }
     ],
-    "name": "retireDnaFromPeriod",
+    "name": "retireDnaFromSet",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -849,9 +899,9 @@
     "name": "startNewSeries",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint64",
         "name": "",
-        "type": "uint256"
+        "type": "uint64"
       }
     ],
     "stateMutability": "nonpayable",
@@ -893,7 +943,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "cloneID",
+        "name": "tokenId",
         "type": "uint256"
       }
     ],
@@ -919,30 +969,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "cloneID",
-        "type": "uint256"
-      }
-    ],
-    "name": "transfer",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -984,14 +1010,14 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
+        "internalType": "string",
+        "name": "newBaseURI",
+        "type": "string"
       }
     ],
-    "name": "withdraw",
+    "name": "updateBaseURI",
     "outputs": [],
-    "stateMutability": "payable",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -1002,9 +1028,9 @@
         "type": "uint256"
       }
     ],
-    "name": "withdrawToken",
+    "name": "withdraw",
     "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function"
   }
 ]

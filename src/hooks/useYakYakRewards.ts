@@ -1,13 +1,10 @@
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../constants/misc";
-import {useTokenContract} from "./useContract";
+import {useYakYakRewardContract} from "./useContract";
 import {useState} from "react";
 import {parseToBigNumber} from "../utils/bignumberUtil";
-import {YAKYAK_REWARDS_ADDRESS} from "../constants/addresses";
-import {useActiveWeb3React} from "./web3";
 
 export const useYakYakRewards = () => {
-  const { chainId } = useActiveWeb3React()
-  const token = useTokenContract(YAKYAK_REWARDS_ADDRESS[chainId ?? 1])
+  const token = useYakYakRewardContract()
   const [approveStatus, setApproveStatus] = useState(IDLE)
   const [transferStatus, setTransferStatus] = useState(IDLE)
 

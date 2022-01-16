@@ -8,6 +8,7 @@ import {Request} from "./Request";
 import {Deposit} from "./Deposit";
 import {Cheque} from "./Cheque";
 import {Donate} from "./Donate";
+import {Mint} from "./Mint";
 
 export const moreList = [
   {
@@ -30,6 +31,13 @@ export const moreList = [
     button: "Get Started",
     action: 'donate',
     element: <Donate/>
+  },
+  {
+    label: 'Mint YakYak Rewards',
+    info: "Only for Admin",
+    button: "Get Started",
+    action: 'mint',
+    element: <Mint/>
   },
 ]
 

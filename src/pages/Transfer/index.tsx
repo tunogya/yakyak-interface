@@ -12,7 +12,7 @@ import {Donate} from "./Donate";
 export const moreList = [
   {
     label: 'Send to bank account',
-    info: "You can send Rewards to YakYak® Bank",
+    info: "You can send Rewards to YakYak Bank",
     button: "Send Rewards",
     action: 'deposit',
     element: <Deposit/>

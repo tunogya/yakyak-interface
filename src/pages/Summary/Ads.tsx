@@ -11,7 +11,7 @@ export const Ads = () => {
     <Stack>
       <Stack bg={"white"} borderRadius={"20px"} h={"240px"}>
         <Stack px={"24px"} py={"12px"}>
-          <Text fontSize={"24px"}>YakYak® Rewards is on Rinkeby network!</Text>
+          <Text fontSize={"24px"}>YakYak Rewards is on Rinkeby network!</Text>
           <Text>We use blockchain to record members' rewards points.</Text>
         </Stack>
         <Spacer/>

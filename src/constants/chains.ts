@@ -7,7 +7,7 @@ export enum SupportedChainId {
   GOERLI = 5,
   KOVAN = 42,
 
-  LOCALHOST = 31337,
+  GANACHE = 1337,
 
   ARBITRUM_ONE = 42161,
   ARBITRUM_RINKEBY = 421611,
@@ -20,7 +20,7 @@ export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = [
   SupportedChainId.RINKEBY,
   SupportedChainId.GOERLI,
   SupportedChainId.KOVAN,
-  SupportedChainId.LOCALHOST,
+  SupportedChainId.GANACHE,
   
   SupportedChainId.ARBITRUM_ONE,
   SupportedChainId.ARBITRUM_RINKEBY,
@@ -32,7 +32,7 @@ export const L1_CHAIN_IDS = [
   SupportedChainId.RINKEBY,
   SupportedChainId.GOERLI,
   SupportedChainId.KOVAN,
-  SupportedChainId.LOCALHOST,
+  SupportedChainId.GANACHE,
 ] as const
 
 export type SupportedL1ChainId = typeof L1_CHAIN_IDS[number]
@@ -103,7 +103,7 @@ export const CHAIN_INFO: ChainInfo = {
     infoLink: "",
     label: "Görli",
   },
-  [SupportedChainId.LOCALHOST]: {
+  [SupportedChainId.GANACHE]: {
     docs: "https://localhost/",
     explorer: "",
     infoLink: "",

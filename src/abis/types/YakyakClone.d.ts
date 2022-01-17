@@ -27,7 +27,7 @@ interface YakyakCloneInterface extends ethers.utils.Interface {
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "batchBurn(uint256[])": FunctionFragment;
-    "batchCloning(uint64,uint64,uint256)": FunctionFragment;
+    "batchCloning(uint64,uint64,uint32)": FunctionFragment;
     "batchTransfer(address,uint256[])": FunctionFragment;
     "burn(uint256)": FunctionFragment;
     "cloning(uint64,uint64)": FunctionFragment;
@@ -40,8 +40,11 @@ interface YakyakCloneInterface extends ethers.utils.Interface {
     "getDnaMintedInSet(uint64,uint64)": FunctionFragment;
     "getDnasInSet(uint64)": FunctionFragment;
     "getNftMetadata(uint256)": FunctionFragment;
+    "getSeriesSet(uint64)": FunctionFragment;
     "getSetData(uint64)": FunctionFragment;
     "getState()": FunctionFragment;
+    "getToken()": FunctionFragment;
+    "initialize(address,string)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "lockSet(uint64)": FunctionFragment;
     "name()": FunctionFragment;
@@ -60,6 +63,8 @@ interface YakyakCloneInterface extends ethers.utils.Interface {
     "transferFrom(address,address,uint256)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "updateBaseURI(string)": FunctionFragment;
+    "upgradeTo(address)": FunctionFragment;
+    "upgradeToAndCall(address,bytes)": FunctionFragment;
     "withdraw(uint256)": FunctionFragment;
   };
 
@@ -124,10 +129,19 @@ interface YakyakCloneInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "getSeriesSet",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getSetData",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "getState", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getToken", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "initialize",
+    values: [string, string]
+  ): string;
   encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [string, string]
@@ -191,6 +205,11 @@ interface YakyakCloneInterface extends ethers.utils.Interface {
     functionFragment: "updateBaseURI",
     values: [string]
   ): string;
+  encodeFunctionData(functionFragment: "upgradeTo", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "upgradeToAndCall",
+    values: [string, BytesLike]
+  ): string;
   encodeFunctionData(
     functionFragment: "withdraw",
     values: [BigNumberish]
@@ -238,8 +257,14 @@ interface YakyakCloneInterface extends ethers.utils.Interface {
     functionFragment: "getNftMetadata",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "getSeriesSet",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "getSetData", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getState", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getToken", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "isApprovedForAll",
     data: BytesLike
@@ -294,12 +319,19 @@ interface YakyakCloneInterface extends ethers.utils.Interface {
     functionFragment: "updateBaseURI",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "upgradeTo", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "upgradeToAndCall",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {
+    "AdminChanged(address,address)": EventFragment;
     "Approval(address,address,uint256)": EventFragment;
     "ApprovalForAll(address,address,bool)": EventFragment;
     "BaseURIUpdate(string)": EventFragment;
+    "BeaconUpgraded(address)": EventFragment;
     "DnaAddedToSet(uint64,uint64)": EventFragment;
     "DnaCreated(uint64)": EventFragment;
     "DnaRetiredFromSet(uint64,uint64,uint256)": EventFragment;
@@ -308,15 +340,18 @@ interface YakyakCloneInterface extends ethers.utils.Interface {
     "SetCreated(uint64,uint64)": EventFragment;
     "SetLocked(uint64)": EventFragment;
     "Transfer(address,address,uint256)": EventFragment;
+    "Upgraded(address)": EventFragment;
     "Withdraw(address,uint256)": EventFragment;
     "YaklonDestroyed(uint256)": EventFragment;
     "YaklonFed(uint256,uint256)": EventFragment;
     "YaklonMinted(uint256,uint64,uint64,uint256)": EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: "AdminChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ApprovalForAll"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "BaseURIUpdate"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "BeaconUpgraded"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "DnaAddedToSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "DnaCreated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "DnaRetiredFromSet"): EventFragment;
@@ -325,11 +360,16 @@ interface YakyakCloneInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "SetCreated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SetLocked"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Upgraded"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Withdraw"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "YaklonDestroyed"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "YaklonFed"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "YaklonMinted"): EventFragment;
 }
+
+export type AdminChangedEvent = TypedEvent<
+  [string, string] & { previousAdmin: string; newAdmin: string }
+>;
 
 export type ApprovalEvent = TypedEvent<
   [string, string, BigNumber] & {
@@ -348,6 +388,8 @@ export type ApprovalForAllEvent = TypedEvent<
 >;
 
 export type BaseURIUpdateEvent = TypedEvent<[string] & { newBaseURI: string }>;
+
+export type BeaconUpgradedEvent = TypedEvent<[string] & { beacon: string }>;
 
 export type DnaAddedToSetEvent = TypedEvent<
   [BigNumber, BigNumber] & { setID: BigNumber; dnaID: BigNumber }
@@ -380,6 +422,8 @@ export type SetLockedEvent = TypedEvent<[BigNumber] & { setID: BigNumber }>;
 export type TransferEvent = TypedEvent<
   [string, string, BigNumber] & { from: string; to: string; tokenId: BigNumber }
 >;
+
+export type UpgradedEvent = TypedEvent<[string] & { implementation: string }>;
 
 export type WithdrawEvent = TypedEvent<
   [string, BigNumber] & { account: string; amount: BigNumber }
@@ -546,6 +590,11 @@ export class YakyakClone extends BaseContract {
       }
     >;
 
+    getSeriesSet(
+      seriesID: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]]>;
+
     getSetData(
       setID: BigNumberish,
       overrides?: CallOverrides
@@ -567,6 +616,14 @@ export class YakyakClone extends BaseContract {
         nextCloneID: BigNumber;
       }
     >;
+
+    getToken(overrides?: CallOverrides): Promise<[string]>;
+
+    initialize(
+      tokenAddress_: string,
+      nftBaseURI_: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     isApprovedForAll(
       owner: string,
@@ -657,6 +714,17 @@ export class YakyakClone extends BaseContract {
     updateBaseURI(
       newBaseURI: string,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    upgradeTo(
+      newImplementation: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    upgradeToAndCall(
+      newImplementation: string,
+      data: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     withdraw(
@@ -762,6 +830,11 @@ export class YakyakClone extends BaseContract {
     }
   >;
 
+  getSeriesSet(
+    seriesID: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber[]>;
+
   getSetData(
     setID: BigNumberish,
     overrides?: CallOverrides
@@ -783,6 +856,14 @@ export class YakyakClone extends BaseContract {
       nextCloneID: BigNumber;
     }
   >;
+
+  getToken(overrides?: CallOverrides): Promise<string>;
+
+  initialize(
+    tokenAddress_: string,
+    nftBaseURI_: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   isApprovedForAll(
     owner: string,
@@ -867,6 +948,17 @@ export class YakyakClone extends BaseContract {
   updateBaseURI(
     newBaseURI: string,
     overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  upgradeTo(
+    newImplementation: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  upgradeToAndCall(
+    newImplementation: string,
+    data: BytesLike,
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   withdraw(
@@ -963,6 +1055,11 @@ export class YakyakClone extends BaseContract {
       }
     >;
 
+    getSeriesSet(
+      seriesID: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber[]>;
+
     getSetData(
       setID: BigNumberish,
       overrides?: CallOverrides
@@ -984,6 +1081,14 @@ export class YakyakClone extends BaseContract {
         nextCloneID: BigNumber;
       }
     >;
+
+    getToken(overrides?: CallOverrides): Promise<string>;
+
+    initialize(
+      tokenAddress_: string,
+      nftBaseURI_: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     isApprovedForAll(
       owner: string,
@@ -1060,10 +1165,37 @@ export class YakyakClone extends BaseContract {
 
     updateBaseURI(newBaseURI: string, overrides?: CallOverrides): Promise<void>;
 
+    upgradeTo(
+      newImplementation: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    upgradeToAndCall(
+      newImplementation: string,
+      data: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     withdraw(amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
+    "AdminChanged(address,address)"(
+      previousAdmin?: null,
+      newAdmin?: null
+    ): TypedEventFilter<
+      [string, string],
+      { previousAdmin: string; newAdmin: string }
+    >;
+
+    AdminChanged(
+      previousAdmin?: null,
+      newAdmin?: null
+    ): TypedEventFilter<
+      [string, string],
+      { previousAdmin: string; newAdmin: string }
+    >;
+
     "Approval(address,address,uint256)"(
       owner?: string | null,
       approved?: string | null,
@@ -1107,6 +1239,14 @@ export class YakyakClone extends BaseContract {
     BaseURIUpdate(
       newBaseURI?: null
     ): TypedEventFilter<[string], { newBaseURI: string }>;
+
+    "BeaconUpgraded(address)"(
+      beacon?: string | null
+    ): TypedEventFilter<[string], { beacon: string }>;
+
+    BeaconUpgraded(
+      beacon?: string | null
+    ): TypedEventFilter<[string], { beacon: string }>;
 
     "DnaAddedToSet(uint64,uint64)"(
       setID?: BigNumberish | null,
@@ -1215,6 +1355,14 @@ export class YakyakClone extends BaseContract {
       [string, string, BigNumber],
       { from: string; to: string; tokenId: BigNumber }
     >;
+
+    "Upgraded(address)"(
+      implementation?: string | null
+    ): TypedEventFilter<[string], { implementation: string }>;
+
+    Upgraded(
+      implementation?: string | null
+    ): TypedEventFilter<[string], { implementation: string }>;
 
     "Withdraw(address,uint256)"(
       account?: string | null,
@@ -1381,12 +1529,25 @@ export class YakyakClone extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getSeriesSet(
+      seriesID: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getSetData(
       setID: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getState(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getToken(overrides?: CallOverrides): Promise<BigNumber>;
+
+    initialize(
+      tokenAddress_: string,
+      nftBaseURI_: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     isApprovedForAll(
       owner: string,
@@ -1477,6 +1638,17 @@ export class YakyakClone extends BaseContract {
     updateBaseURI(
       newBaseURI: string,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    upgradeTo(
+      newImplementation: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    upgradeToAndCall(
+      newImplementation: string,
+      data: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     withdraw(
@@ -1582,12 +1754,25 @@ export class YakyakClone extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getSeriesSet(
+      seriesID: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getSetData(
       setID: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getState(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    initialize(
+      tokenAddress_: string,
+      nftBaseURI_: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     isApprovedForAll(
       owner: string,
@@ -1678,6 +1863,17 @@ export class YakyakClone extends BaseContract {
     updateBaseURI(
       newBaseURI: string,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    upgradeTo(
+      newImplementation: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    upgradeToAndCall(
+      newImplementation: string,
+      data: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     withdraw(

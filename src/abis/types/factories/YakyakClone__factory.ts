@@ -8,20 +8,28 @@ import type { YakyakClone, YakyakCloneInterface } from "../YakyakClone";
 
 const _abi = [
   {
+    inputs: [],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    anonymous: false,
     inputs: [
       {
+        indexed: false,
         internalType: "address",
-        name: "tokenAddress_",
+        name: "previousAdmin",
         type: "address",
       },
       {
-        internalType: "string",
-        name: "nftBaseURI_",
-        type: "string",
+        indexed: false,
+        internalType: "address",
+        name: "newAdmin",
+        type: "address",
       },
     ],
-    stateMutability: "nonpayable",
-    type: "constructor",
+    name: "AdminChanged",
+    type: "event",
   },
   {
     anonymous: false,
@@ -84,6 +92,19 @@ const _abi = [
       },
     ],
     name: "BaseURIUpdate",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "beacon",
+        type: "address",
+      },
+    ],
+    name: "BeaconUpgraded",
     type: "event",
   },
   {
@@ -230,6 +251,19 @@ const _abi = [
       },
     ],
     name: "Transfer",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "implementation",
+        type: "address",
+      },
+    ],
+    name: "Upgraded",
     type: "event",
   },
   {
@@ -413,9 +447,9 @@ const _abi = [
         type: "uint64",
       },
       {
-        internalType: "uint256",
+        internalType: "uint32",
         name: "amount",
-        type: "uint256",
+        type: "uint32",
       },
     ],
     name: "batchCloning",
@@ -660,6 +694,25 @@ const _abi = [
     inputs: [
       {
         internalType: "uint64",
+        name: "seriesID",
+        type: "uint64",
+      },
+    ],
+    name: "getSeriesSet",
+    outputs: [
+      {
+        internalType: "uint64[]",
+        name: "",
+        type: "uint64[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint64",
         name: "setID",
         type: "uint64",
       },
@@ -711,6 +764,37 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getToken",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "tokenAddress_",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "nftBaseURI_",
+        type: "string",
+      },
+    ],
+    name: "initialize",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -1026,6 +1110,37 @@ const _abi = [
     name: "updateBaseURI",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "newImplementation",
+        type: "address",
+      },
+    ],
+    name: "upgradeTo",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "newImplementation",
+        type: "address",
+      },
+      {
+        internalType: "bytes",
+        name: "data",
+        type: "bytes",
+      },
+    ],
+    name: "upgradeToAndCall",
+    outputs: [],
+    stateMutability: "payable",
     type: "function",
   },
   {

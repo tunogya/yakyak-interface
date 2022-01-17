@@ -2,11 +2,12 @@ import {Input, Spacer, Stack, Text} from "@chakra-ui/react";
 import {useYakYakRewards} from "../../hooks/useYakYakRewards";
 import {useActiveWeb3React} from "../../hooks/web3";
 import {useCallback, useEffect, useState} from "react";
-import {formatNumber} from "../../utils/bignumberUtil";
+import {formatNumber, parseToBigNumber} from "../../utils/bignumberUtil";
 import {atom, useRecoilState} from "recoil";
-import {useYakYakClone} from "../../hooks/useYakYakClone";
 import {SetItem} from "./SetItem";
 import {AddNewSet} from "./AddNewSet";
+import {useYakYakCloneContract} from "../../hooks/useContract";
+import {BigNumber} from "ethers";
 
 const balanceAtom = atom({
   key: "my:balance",
@@ -17,7 +18,7 @@ export const Park = () => {
   const {account} = useActiveWeb3React()
   const {balanceOf} = useYakYakRewards()
   const [balance, setBalance] = useRecoilState(balanceAtom)
-  const {nextSetID} = useYakYakClone()
+  const yaklon = useYakYakCloneContract()
   const [sets, setSets] = useState<number[]>([])
 
   const refresh = useCallback(async () => {
@@ -26,17 +27,23 @@ export const Park = () => {
     }
   }, [account, balanceOf, setBalance])
 
+  const fetchSets = useCallback(async (series: number)=>{
+    if (yaklon) {
+      const res = await yaklon.getSeriesSet(series)
+      const list = res.filter((setID: BigNumber)=> (!setID.eq(0))).map((setID: BigNumber)=>(
+        parseToBigNumber(setID).toNumber()
+      ))
+      setSets(list)
+    }
+  }, [yaklon])
+
+  useEffect(()=>{
+    fetchSets(1)
+  }, [fetchSets])
+
   useEffect(() => {
     refresh()
   }, [refresh])
-
-  useEffect(() => {
-    let arr = []
-    for (let i = 0; i < nextSetID; i++) {
-      arr[i] = i;
-    }
-    setSets(arr)
-  }, [nextSetID])
 
   const control = () => {
     return (
@@ -44,7 +51,7 @@ export const Park = () => {
              borderBottomWidth={"1px"} borderBottomColor={"divider"}>
         <Stack w={"full"} maxW={"1024px"} direction={"row"} alignItems={"center"} spacing={"60px"}>
           <Text fontSize={"14px"} fontWeight={"600"} color={"primary"}>YakYak Park</Text>
-          <Text fontSize={"14px"} fontWeight={"600"} _hover={{color: "primary"}}>Categories</Text>
+          <Text fontSize={"14px"} fontWeight={"600"} _hover={{color: "primary"}}>Series 1</Text>
           <Text fontSize={"14px"}>{balance} YKR </Text>
           <Spacer/>
           <Input w={"200px"} placeholder={"Search"}/>

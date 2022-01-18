@@ -37,7 +37,7 @@ const baseURIAtom = atom({
 const defaultSets: number[] = []
 
 const setsAtom = atom({
-  key: "",
+  key: "yaklon:sets",
   default: defaultSets
 })
 
@@ -76,9 +76,8 @@ export const useYakYakClone = () => {
     fetchState()
   }, [fetchState])
 
-  setInterval(fetchState, 3000)
-
   return {
+    fetchState,
     selectSeries,
     setSelectSeries,
     sets,

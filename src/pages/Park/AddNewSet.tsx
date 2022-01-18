@@ -64,7 +64,6 @@ export const AddNewSet = () => {
           </ModalBody>
         </ModalContent>
       </Modal>
-
     </>
   )
 }

@@ -23,9 +23,7 @@ export const AddNewSet = () => {
 
   return (
     <>
-      <Stack h={"40px"} w={"40px"}>
-        <IconButton aria-label={"add"} icon={<SmallAddIcon/>} onClick={onOpen}/>
-      </Stack>
+      <IconButton aria-label={"add"} variant={"ghost"} icon={<SmallAddIcon/>} onClick={onOpen}/>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay/>
         <ModalContent>

@@ -18,8 +18,6 @@ export const Button = {
       _active: null
     },
     ghost: {
-      border: "1px",
-      borderColor: "primary",
       height: "48px",
       _hover: null,
       _active: null

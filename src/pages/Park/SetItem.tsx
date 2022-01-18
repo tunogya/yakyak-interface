@@ -24,9 +24,10 @@ export const SetItem: FC<PeriodItemProps> = ({...props}) => {
   }, [fetch])
 
   return (
-    <Stack fontSize={"xs"} bg={locked ? "gray" : "white"} p={"20px"} borderRadius={"8px"} minW={"140px"}>
-      <Text>#{props.setID}</Text>
+    <Stack direction={"row"} fontSize={"xs"} bg={locked ? "gray" : "white"} p={"12px"} pb={"20px"}
+           fontWeight={"600"} borderRadius={"8px"} w={"120px"}>
       <Text>{name}</Text>
+      <Text color={"gray"}>#{props.setID}</Text>
     </Stack>
   )
 }

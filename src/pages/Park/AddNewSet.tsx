@@ -26,13 +26,13 @@ export const AddNewSet = () => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay/>
         <ModalContent>
-          <ModalHeader>Create new Set</ModalHeader>
+          <ModalHeader>Create new set</ModalHeader>
           <ModalCloseButton/>
           <ModalBody>
             <Stack spacing={"24px"} bg={"white"} pb={"24px"} px={"12px"} borderRadius={"8px"}>
               <FormControl>
-                <FormLabel>Next Set's ID: #{nextSetID}</FormLabel>
-                <Input placeholder={"Input Period Name"} onChange={(e) => setName(e.target.value)}/>
+                <FormLabel>The next set ID: #{nextSetID}</FormLabel>
+                <Input placeholder={"Input set name"} onChange={(e) => setName(e.target.value)}/>
               </FormControl>
               <Button
                 isLoading={state === PROCESSING}
@@ -58,7 +58,7 @@ export const AddNewSet = () => {
                   }
                   onClose()
                 }}
-              >Create new Set</Button>
+              >Create</Button>
             </Stack>
           </ModalBody>
         </ModalContent>

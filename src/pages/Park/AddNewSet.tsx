@@ -18,7 +18,7 @@ export const AddNewSet = () => {
   const {isOpen, onOpen, onClose} = useDisclosure()
   const [name, setName] = useState('')
   const [state, setState] = useState(IDLE)
-  const {nextSetID} = useYakYakClone()
+  const {nextSetID, fetchSets} = useYakYakClone()
 
   return (
     <>
@@ -44,16 +44,19 @@ export const AddNewSet = () => {
                     const res = await tx.wait()
                     if (res.status === 1) {
                       setState(SUCCESS)
+                      await fetchSets()
                       setTimeout(() => {
                         setState(IDLE)
                       }, IDLE_DELAY)
                     } else {
                       setState(ERROR)
+                      await fetchSets()
                       setTimeout(() => {
                         setState(IDLE)
                       }, IDLE_DELAY)
                     }
                   }
+                  onClose()
                 }}
               >Create new Set</Button>
             </Stack>

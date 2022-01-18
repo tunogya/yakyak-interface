@@ -2,12 +2,10 @@ import {Input, Select, Spacer, Stack, Text} from "@chakra-ui/react";
 import {useYakYakRewards} from "../../hooks/useYakYakRewards";
 import {useActiveWeb3React} from "../../hooks/web3";
 import {useCallback, useEffect, useState} from "react";
-import {formatNumber, parseToBigNumber} from "../../utils/bignumberUtil";
+import {formatNumber} from "../../utils/bignumberUtil";
 import {atom, useRecoilState} from "recoil";
 import {SetItem} from "./SetItem";
 import {AddNewSet} from "./AddNewSet";
-import {useYakYakCloneContract} from "../../hooks/useContract";
-import {BigNumber} from "ethers";
 import {useYakYakClone} from "../../hooks/useYakYakClone";
 
 const balanceAtom = atom({
@@ -19,10 +17,8 @@ export const Park = () => {
   const {account} = useActiveWeb3React()
   const {balanceOf} = useYakYakRewards()
   const [balance, setBalance] = useRecoilState(balanceAtom)
-  const yaklon = useYakYakCloneContract()
-  const {currentSeries} = useYakYakClone()
+  const {currentSeries, fetchSets, sets} = useYakYakClone()
   const [series, setSeries] = useState<number[]>([])
-  const [sets, setSets] = useState<number[]>([])
 
   useEffect(() => {
     let arr = []
@@ -38,18 +34,8 @@ export const Park = () => {
     }
   }, [account, balanceOf, setBalance])
 
-  const fetchSets = useCallback(async (series: number)=>{
-    if (yaklon) {
-      const res = await yaklon.getSeriesSet(series)
-      const list = res.filter((setID: BigNumber)=> (!setID.eq(0))).map((setID: BigNumber)=>(
-        parseToBigNumber(setID).toNumber()
-      ))
-      setSets(list)
-    }
-  }, [yaklon])
-
   useEffect(()=>{
-    fetchSets(1)
+    fetchSets()
   }, [fetchSets])
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import {
-  Button, FormControl, FormLabel,
+  Button, FormControl, FormLabel, IconButton,
   Input, Modal,
   ModalBody, ModalCloseButton,
   ModalContent,
@@ -12,6 +12,7 @@ import {useYakYakCloneContract} from "../../hooks/useContract";
 import {useState} from "react";
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/misc";
 import {useYakYakClone} from "../../hooks/useYakYakClone";
+import {SmallAddIcon} from "@chakra-ui/icons";
 
 export const AddNewSet = () => {
   const yaklone = useYakYakCloneContract()
@@ -22,7 +23,9 @@ export const AddNewSet = () => {
 
   return (
     <>
-      <Button onClick={onOpen} size={"sm"}>Add new Set</Button>
+      <Stack h={"40px"} w={"40px"}>
+        <IconButton aria-label={"add"} icon={<SmallAddIcon/>} onClick={onOpen}/>
+      </Stack>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay/>
         <ModalContent>

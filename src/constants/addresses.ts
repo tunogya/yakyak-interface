@@ -14,5 +14,5 @@ export const YAKYAK_BANK_ADDRESS: AddressMap = {
 
 export const YAKYAK_CLONE_ADDRESS: AddressMap = {
   [SupportedChainId.RINKEBY]: "0xb99B89b56FFaF1b71c646bC16D50705Eb1a40223",
-  [SupportedChainId.GANACHE]: "0x5274AD8f663406cFEb7b879Daf8b28D099F00455",
+  [SupportedChainId.GANACHE]: "0x9ebFeBf014Fc4fC254906EcB6ee43f47907D9704",
 }

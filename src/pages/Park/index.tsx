@@ -60,9 +60,9 @@ export const Park = () => {
     return (
       <Stack h={"60px"} bg={"white"} alignItems={"center"} justifyContent={"center"}
              borderBottomWidth={"1px"} borderBottomColor={"divider"}>
-        <Stack w={"full"} maxW={"1024px"} direction={"row"} alignItems={"center"} spacing={"60px"}>
-          <Text fontSize={"14px"} fontWeight={"600"} color={"primary"}>YakYak Park</Text>
-          <Select w={"120px"}>
+        <Stack w={"full"} maxW={"1024px"} direction={"row"} alignItems={"center"} spacing={"60px"} fontSize={"14px"}>
+          <Text fontWeight={"600"} color={"primary"}>YakYak Park</Text>
+          <Select w={"120px"} fontWeight={"400"} fontSize={"14px"} >
             { series.map((seriesID)=>(
               <option key={seriesID} value='series1'>Series {seriesID}</option>
             )) }

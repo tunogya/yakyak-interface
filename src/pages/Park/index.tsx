@@ -1,4 +1,4 @@
-import {Input, Spacer, Stack, Text} from "@chakra-ui/react";
+import {Input, Select, Spacer, Stack, Text} from "@chakra-ui/react";
 import {useYakYakRewards} from "../../hooks/useYakYakRewards";
 import {useActiveWeb3React} from "../../hooks/web3";
 import {useCallback, useEffect, useState} from "react";
@@ -8,6 +8,7 @@ import {SetItem} from "./SetItem";
 import {AddNewSet} from "./AddNewSet";
 import {useYakYakCloneContract} from "../../hooks/useContract";
 import {BigNumber} from "ethers";
+import {useYakYakClone} from "../../hooks/useYakYakClone";
 
 const balanceAtom = atom({
   key: "my:balance",
@@ -19,7 +20,17 @@ export const Park = () => {
   const {balanceOf} = useYakYakRewards()
   const [balance, setBalance] = useRecoilState(balanceAtom)
   const yaklon = useYakYakCloneContract()
+  const {currentSeries} = useYakYakClone()
+  const [series, setSeries] = useState<number[]>([])
   const [sets, setSets] = useState<number[]>([])
+
+  useEffect(() => {
+    let arr = []
+    for (let i = 1; i <= currentSeries; i++) {
+      arr[i] = i;
+    }
+    setSeries(arr)
+  }, [currentSeries])
 
   const refresh = useCallback(async () => {
     if (account) {
@@ -51,7 +62,11 @@ export const Park = () => {
              borderBottomWidth={"1px"} borderBottomColor={"divider"}>
         <Stack w={"full"} maxW={"1024px"} direction={"row"} alignItems={"center"} spacing={"60px"}>
           <Text fontSize={"14px"} fontWeight={"600"} color={"primary"}>YakYak Park</Text>
-          <Text fontSize={"14px"} fontWeight={"600"} _hover={{color: "primary"}}>Series 1</Text>
+          <Select w={"120px"}>
+            { series.map((seriesID)=>(
+              <option key={seriesID} value='series1'>Series {seriesID}</option>
+            )) }
+          </Select>
           <Text fontSize={"14px"}>{balance} YKR </Text>
           <Spacer/>
           <Input w={"200px"} placeholder={"Search"}/>

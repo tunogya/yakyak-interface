@@ -52,7 +52,7 @@ export const Park = () => {
   }, [fetchYakBalance])
   setInterval(fetchYakBalance, 3000)
 
-  const control = () => {
+  const getControl = () => {
     return (
       <Stack h={"60px"} bg={"white"} alignItems={"center"} justifyContent={"center"}
              borderBottomWidth={"1px"} borderBottomColor={"divider"}>
@@ -78,18 +78,24 @@ export const Park = () => {
     )
   }
 
+  const getSetList = () => {
+    return (
+      <Stack direction={"row"} alignItems={"center"} py={"8px"}>
+        <Stack direction={"row"} overflow={"scroll"} maxW={"1024px"}>
+          {sets.map((setID) => (
+            <SetItem key={setID} setID={setID}/>
+          ))}
+        </Stack>
+        <AddNewSet/>
+      </Stack>
+    )
+  }
+
   return (
     <Stack w={"full"}>
-      {control()}
+      {getControl()}
       <Stack alignItems={"center"}>
-        <Stack direction={"row"} alignItems={"center"} py={"8px"}>
-          <Stack direction={"row"} overflow={"scroll"} maxW={"1024px"}>
-            {sets.map((setID) => (
-              <SetItem key={setID} setID={setID}/>
-            ))}
-          </Stack>
-          <AddNewSet/>
-        </Stack>
+        {getSetList()}
       </Stack>
     </Stack>
   )

@@ -34,16 +34,21 @@ const baseURIAtom = atom({
   default: ""
 })
 
-const defaultSets: number[] = []
+const defaultNumberArray: number[] = []
 
 const setsAtom = atom({
   key: "yaklon:sets",
-  default: defaultSets
+  default: defaultNumberArray
 })
 
 const selectSetAtom = atom({
   key: "yaklon:selectSet",
   default: 1
+})
+
+const dnasAtom = atom({
+  key: "yaklon:dnas",
+  default: defaultNumberArray
 })
 
 export const useYakYakClone = () => {
@@ -55,6 +60,7 @@ export const useYakYakClone = () => {
   const [selectSetID, setSelectSetID] = useRecoilState(selectSetAtom)
   const [baseURI, setBaseURI] = useRecoilState(baseURIAtom)
   const [sets, setSets] = useRecoilState(setsAtom)
+  const [dnas, setDnas] = useRecoilState(dnasAtom)
   const yaklon = useYakYakCloneContract()
 
   const fetchState = useCallback(async ()=> {
@@ -74,9 +80,21 @@ export const useYakYakClone = () => {
     )))
   }, [selectSeries, setSets, yaklon])
 
+  const fetchDnas = useCallback(async ()=> {
+    if (!yaklon) return
+    const res = await yaklon.getDnasInSet(selectSetID)
+    setDnas(res.map((dnaID: BigNumber)=>(
+      parseToBigNumber(dnaID).toNumber()
+    )))
+  }, [selectSetID, setDnas, yaklon])
+
   useEffect(()=>{
     fetchSets()
-  }, [fetchSets, selectSeries])
+  }, [fetchSets])
+
+  useEffect(()=>{
+    fetchDnas()
+  }, [fetchDnas])
 
   useEffect(()=>{
     fetchState()
@@ -93,6 +111,7 @@ export const useYakYakClone = () => {
     selectSeries,
     setSelectSeries,
     sets,
+    dnas,
     fetchSets,
     baseURI,
     totalSupply,

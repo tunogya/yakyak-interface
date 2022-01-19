@@ -41,12 +41,18 @@ const setsAtom = atom({
   default: defaultSets
 })
 
+const selectSetAtom = atom({
+  key: "yaklon:selectSet",
+  default: 1
+})
+
 export const useYakYakClone = () => {
   const [totalSupply, setTotalSupply] = useRecoilState(totalSupplyAtom)
   const [nextDnaID, setNextDnaID] = useRecoilState(nextDnaIDAtom)
   const [nextSetID, setNextSetID] = useRecoilState(nextSetIDAtom)
   const [currentSeries, setCurrentSeries] = useRecoilState(currentSeriesAtom)
   const [selectSeries, setSelectSeries] = useRecoilState(selectSeriesAtom)
+  const [selectSetID, setSelectSetID] = useRecoilState(selectSetAtom)
   const [baseURI, setBaseURI] = useRecoilState(baseURIAtom)
   const [sets, setSets] = useRecoilState(setsAtom)
   const yaklon = useYakYakCloneContract()
@@ -76,7 +82,13 @@ export const useYakYakClone = () => {
     fetchState()
   }, [fetchState])
 
+  useEffect(()=>{
+    setSelectSetID(sets[0])
+  }, [setSelectSetID, sets])
+
   return {
+    selectSetID,
+    setSelectSetID,
     fetchState,
     selectSeries,
     setSelectSeries,

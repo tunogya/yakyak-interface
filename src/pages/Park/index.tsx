@@ -29,7 +29,7 @@ export const Park = () => {
     setSeries(arr)
   }, [currentSeries])
 
-  const refresh = useCallback(async () => {
+  const fetchYakBalance = useCallback(async () => {
     if (account) {
       setBalance(formatNumber(await balanceOf(account)))
     }
@@ -40,8 +40,9 @@ export const Park = () => {
   }, [fetchSets])
 
   useEffect(() => {
-    refresh()
-  }, [refresh])
+    fetchYakBalance()
+  }, [fetchYakBalance])
+  setInterval(fetchYakBalance, 3000)
 
   const control = () => {
     return (

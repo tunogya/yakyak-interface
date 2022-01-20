@@ -81,9 +81,10 @@ export const Park = () => {
   const getDnaList = () => {
     return (
       <Stack>
-        {dnas.map((dnaID) => (
-          <Text>DNA #{dnaID}</Text>
-        ))}
+        {/*{dnas.map((dnaID) => (*/}
+        {/*  <Text>DNA #{dnaID}</Text>*/}
+        {/*))}*/}
+
       </Stack>
     )
   }

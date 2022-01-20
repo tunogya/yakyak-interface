@@ -81,7 +81,7 @@ export const useYakYakClone = () => {
   }, [selectSeries, setSets, yaklon])
 
   const fetchDnas = useCallback(async ()=> {
-    if (!yaklon) return
+    if (!yaklon || !selectSetID) return
     const res = await yaklon.getDnasInSet(selectSetID)
     setDnas(res.map((dnaID: BigNumber)=>(
       parseToBigNumber(dnaID).toNumber()

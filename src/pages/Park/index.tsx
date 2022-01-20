@@ -1,4 +1,4 @@
-import {Input, Select, Spacer, Stack, Text} from "@chakra-ui/react";
+import {Select, Spacer, Stack, Text, Wrap} from "@chakra-ui/react";
 import {useYakYakRewards} from "../../hooks/useYakYakRewards";
 import {useActiveWeb3React} from "../../hooks/web3";
 import {useCallback, useEffect, useState} from "react";
@@ -8,6 +8,8 @@ import {SetItem} from "./SetItem";
 import {AddNewSet} from "./AddNewSet";
 import {useYakYakClone} from "../../hooks/useYakYakClone";
 import {StartNewSeries} from "./StartNewSeries";
+import {AddNewDna} from "./AddNewDna";
+import {AllDnas} from "./AllDnas";
 
 const balanceAtom = atom({
   key: "my:balance",
@@ -18,7 +20,7 @@ export const Park = () => {
   const {account} = useActiveWeb3React()
   const {balanceOf} = useYakYakRewards()
   const [balance, setBalance] = useRecoilState(balanceAtom)
-  const {currentSeries, sets, setSelectSeries, dnas} = useYakYakClone()
+  const {currentSeries, sets, setSelectSeries} = useYakYakClone()
   const [series, setSeries] = useState<number[]>([])
 
   useEffect(() => {
@@ -57,9 +59,9 @@ export const Park = () => {
             </Select>
             <StartNewSeries/>
           </Stack>
-          <Text fontSize={"14px"}>{balance} YKR </Text>
+          <Text fontSize={"14px"}>{balance} YKR</Text>
           <Spacer/>
-          <Input w={"200px"} placeholder={"Search"}/>
+          <AllDnas />
         </Stack>
       </Stack>
     )
@@ -67,24 +69,26 @@ export const Park = () => {
 
   const getSetList = () => {
     return (
-      <Stack direction={"row"} alignItems={"center"} py={"8px"}>
-        <Stack direction={"row"} overflow={"scroll"} maxW={"1024px"}>
+      <Stack w={"full"} direction={"row"} alignItems={"center"} py={"8px"} maxW={"1024px"}>
+        <AddNewSet/>
+        <Stack direction={"row"} overflow={"scroll"}>
           {sets.map((setID) => (
             <SetItem key={setID} setID={setID}/>
           ))}
         </Stack>
-        <AddNewSet/>
       </Stack>
     )
   }
 
   const getDnaList = () => {
     return (
-      <Stack>
-        {/*{dnas.map((dnaID) => (*/}
-        {/*  <Text>DNA #{dnaID}</Text>*/}
-        {/*))}*/}
-
+      <Stack w={"full"} maxW={"1024px"}>
+        <Wrap justify={"start"}>
+          <AddNewDna/>
+          {/*{dnas.map((dnaID) => (*/}
+          {/*  <Text>DNA #{dnaID}</Text>*/}
+          {/*))}*/}
+        </Wrap>
       </Stack>
     )
   }

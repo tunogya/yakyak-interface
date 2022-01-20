@@ -27,7 +27,7 @@ export const SetItem: FC<PeriodItemProps> = ({...props}) => {
 
   return (
     <Stack direction={"row"} fontSize={"xs"} p={"12px"} pb={"20px"} bg={selectSetID === props.setID ? "primary" : "white"}
-           fontWeight={"600"} borderRadius={"8px"} w={"120px"} color={selectSetID === props.setID ? "white" : "black"}
+           fontWeight={"600"} borderRadius={"8px"} minW={"120px"} color={selectSetID === props.setID ? "white" : "black"}
            cursor={"pointer"}
            onClick={() => {
              setSelectSetID(props.setID)

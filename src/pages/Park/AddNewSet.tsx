@@ -23,7 +23,8 @@ export const AddNewSet = () => {
 
   return (
     <>
-      <IconButton aria-label={"add"} variant={"ghost"} icon={<SmallAddIcon/>} onClick={onOpen}/>
+      <IconButton aria-label={"add"} variant={"outline"} borderRadius={"8px"} icon={<SmallAddIcon/>} onClick={onOpen}
+                  color={"gray"}/>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay/>
         <ModalContent>

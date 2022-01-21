@@ -32,7 +32,7 @@ export const SetItem: FC<PeriodItemProps> = ({...props}) => {
            onClick={() => {
              setSelectSetID(props.setID)
            }}>
-      <Text>{name}</Text>
+      <Text>{name} {locked ? ", locked" : ""}</Text>
       <Text color={selectSetID === props.setID ? "white" : "gray"}>#{props.setID}</Text>
     </Stack>
   )

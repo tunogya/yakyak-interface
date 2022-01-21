@@ -5,13 +5,25 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  Input,
+  Input,Text,
   Drawer, useDisclosure, Wrap, Stack
 } from "@chakra-ui/react";
 import {AddNewDna} from "./AddNewDna";
+import {useEffect, useState} from "react";
+import {useYakYakClone} from "../../hooks/useYakYakClone";
 
 export const AllDnas = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { nextDnaID } = useYakYakClone()
+  const [dnas, setDnas] = useState<number[]>([])
+
+  useEffect(() => {
+    let arr = []
+    for (let i = 1; i < nextDnaID; i++) {
+      arr[i-1] = i;
+    }
+    setDnas(arr)
+  }, [nextDnaID])
 
   return (
     <>
@@ -33,9 +45,9 @@ export const AllDnas = () => {
               <Input placeholder='Search...' />
               <Wrap justify={"start"}>
                 <AddNewDna/>
-                {/*{dnas.map((dnaID) => (*/}
-                {/*  <Text>DNA #{dnaID}</Text>*/}
-                {/*))}*/}
+                {dnas.map((dnaID) => (
+                  <Text key={dnaID}>DNA #{dnaID}</Text>
+                ))}
               </Wrap>
             </Stack>
           </DrawerBody>

@@ -52,7 +52,7 @@ export const AddNewDna = () => {
                 onClick={async () => {
                   setState(PROCESSING)
                   if (yaklone) {
-                    const tx = await yaklone.createSet(metadata)
+                    const tx = await yaklone.createDna(metadata)
                     const res = await tx.wait()
                     if (res.status === 1) {
                       setState(SUCCESS)

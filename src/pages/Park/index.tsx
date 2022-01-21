@@ -8,7 +8,6 @@ import {SetItem} from "./SetItem";
 import {AddNewSet} from "./AddNewSet";
 import {useYakYakClone} from "../../hooks/useYakYakClone";
 import {StartNewSeries} from "./StartNewSeries";
-import {AddNewDna} from "./AddNewDna";
 import {AllDnas} from "./AllDnas";
 
 const balanceAtom = atom({
@@ -20,7 +19,7 @@ export const Park = () => {
   const {account} = useActiveWeb3React()
   const {balanceOf} = useYakYakRewards()
   const [balance, setBalance] = useRecoilState(balanceAtom)
-  const {currentSeries, sets, setSelectSeries} = useYakYakClone()
+  const {currentSeries, sets, setSelectSeries, dnas} = useYakYakClone()
   const [series, setSeries] = useState<number[]>([])
 
   useEffect(() => {
@@ -84,10 +83,9 @@ export const Park = () => {
     return (
       <Stack w={"full"} maxW={"1024px"}>
         <Wrap justify={"start"}>
-          <AddNewDna/>
-          {/*{dnas.map((dnaID) => (*/}
-          {/*  <Text>DNA #{dnaID}</Text>*/}
-          {/*))}*/}
+          {dnas.map((dnaID) => (
+            <Text>DNA #{dnaID}</Text>
+          ))}
         </Wrap>
       </Stack>
     )

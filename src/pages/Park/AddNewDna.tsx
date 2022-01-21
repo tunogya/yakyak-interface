@@ -1,7 +1,7 @@
 import {
   Button,
   FormControl, FormLabel,
-  IconButton, Input,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -9,7 +9,6 @@ import {
   ModalHeader,
   ModalOverlay, Stack, useDisclosure
 } from "@chakra-ui/react";
-import {SmallAddIcon} from "@chakra-ui/icons";
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/misc";
 import {useYakYakClone} from "../../hooks/useYakYakClone";
 import {useState} from "react";
@@ -19,22 +18,14 @@ export const AddNewDna = () => {
   const {isOpen, onOpen, onClose} = useDisclosure()
   const [state, setState] = useState(IDLE)
   const [metadata, setMetadata] = useState("")
-  const {nextDnaID} = useYakYakClone()
+  const {nextDnaID, fetchState} = useYakYakClone()
   const yaklone = useYakYakCloneContract()
-
 
   return (
     <>
-      <IconButton
-        aria-label={"add"}
-        variant={"outline"}
-        borderRadius={"8px"}
-        icon={<SmallAddIcon/>}
-        onClick={onOpen}
-        minW={"200px"}
-        minH={"300px"}
-        color={"gray"}
-      />
+      <Button borderRadius={"8px"} onClick={onOpen} maxH={"40px"}>
+        + DNA
+      </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay/>
         <ModalContent>
@@ -56,11 +47,13 @@ export const AddNewDna = () => {
                     const res = await tx.wait()
                     if (res.status === 1) {
                       setState(SUCCESS)
+                      await fetchState()
                       setTimeout(() => {
                         setState(IDLE)
                       }, IDLE_DELAY)
                     } else {
                       setState(ERROR)
+                      await fetchState()
                       setTimeout(() => {
                         setState(IDLE)
                       }, IDLE_DELAY)

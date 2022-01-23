@@ -1,4 +1,4 @@
-import {Button, Select, Spacer, Stack, Text, Wrap, WrapItem} from "@chakra-ui/react";
+import {Button, Input, Select, Spacer, Stack, Text, Wrap, WrapItem} from "@chakra-ui/react";
 import {useYakYakRewards} from "../../hooks/useYakYakRewards";
 import {useActiveWeb3React} from "../../hooks/web3";
 import {FC, useCallback, useEffect, useState} from "react";
@@ -112,6 +112,7 @@ type ItemProps = {
 export const Item: FC<ItemProps> = ({...props}) => {
   const [state, setState] = useState(IDLE)
   const yakyak = useYakYakCloneContract()
+  const [count, setCount] = useState(0)
 
   return (
     <WrapItem>
@@ -138,6 +139,32 @@ export const Item: FC<ItemProps> = ({...props}) => {
               }, IDLE_DELAY)
             }
           }}>Clone</Button>
+        <Input onChange={(e)=> {
+          setCount(Number(e.target.value))
+        }} />
+        <Button
+          isLoading={state === PROCESSING}
+          onClick={async ()=>{
+            if (!yakyak) return
+            setState(PROCESSING)
+            const tx = await yakyak.batchCloning(props.setID, props.dnaID, count, {
+              value: parseToBigNumber(0.01).shiftedBy(18).multipliedBy(count).toFixed(0)
+            })
+            const res = await tx.wait()
+            if (res.status === 1) {
+              setState(SUCCESS)
+              setTimeout(() => {
+                setState(IDLE)
+              }, IDLE_DELAY)
+            } else {
+              setState(ERROR)
+              setTimeout(() => {
+                setState(IDLE)
+              }, IDLE_DELAY)
+            }
+          }}>
+          Batch Clone
+        </Button>
       </Stack>
     </WrapItem>
   )

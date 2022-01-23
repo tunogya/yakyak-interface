@@ -100,10 +100,6 @@ export const useYakYakClone = () => {
     fetchState()
   }, [fetchState])
 
-  useEffect(()=>{
-    setSelectSetID(sets[0])
-  }, [setSelectSetID, sets])
-
   return {
     selectSetID,
     setSelectSetID,

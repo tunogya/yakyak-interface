@@ -1,14 +1,16 @@
-import {Select, Spacer, Stack, Text, Wrap} from "@chakra-ui/react";
+import {Button, Select, Spacer, Stack, Text, Wrap, WrapItem} from "@chakra-ui/react";
 import {useYakYakRewards} from "../../hooks/useYakYakRewards";
 import {useActiveWeb3React} from "../../hooks/web3";
-import {useCallback, useEffect, useState} from "react";
-import {formatNumber} from "../../utils/bignumberUtil";
+import {FC, useCallback, useEffect, useState} from "react";
+import {formatNumber, parseToBigNumber} from "../../utils/bignumberUtil";
 import {atom, useRecoilState} from "recoil";
 import {SetItem} from "./SetItem";
 import {AddNewSet} from "./AddNewSet";
 import {useYakYakClone} from "../../hooks/useYakYakClone";
 import {StartNewSeries} from "./StartNewSeries";
 import {AllDnas} from "./AllDnas";
+import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/misc";
+import {useYakYakCloneContract} from "../../hooks/useContract";
 
 const balanceAtom = atom({
   key: "my:balance",
@@ -19,7 +21,7 @@ export const Park = () => {
   const {account} = useActiveWeb3React()
   const {balanceOf} = useYakYakRewards()
   const [balance, setBalance] = useRecoilState(balanceAtom)
-  const {currentSeries, sets, setSelectSeries, dnas} = useYakYakClone()
+  const {currentSeries, sets, setSelectSeries, dnas, selectSetID} = useYakYakClone()
   const [series, setSeries] = useState<number[]>([])
 
   useEffect(() => {
@@ -60,7 +62,7 @@ export const Park = () => {
           </Stack>
           <Text fontSize={"14px"}>{balance} YKR</Text>
           <Spacer/>
-          <AllDnas />
+          <AllDnas/>
         </Stack>
       </Stack>
     )
@@ -84,7 +86,7 @@ export const Park = () => {
       <Stack w={"full"} maxW={"1024px"}>
         <Wrap justify={"start"}>
           {dnas.map((dnaID) => (
-            <Text>DNA #{dnaID}</Text>
+            <Item setID={selectSetID} dnaID={dnaID} key={dnaID}/>
           ))}
         </Wrap>
       </Stack>
@@ -99,6 +101,45 @@ export const Park = () => {
         {getDnaList()}
       </Stack>
     </Stack>
+  )
+}
+
+type ItemProps = {
+  setID: number
+  dnaID: number
+}
+
+export const Item: FC<ItemProps> = ({...props}) => {
+  const [state, setState] = useState(IDLE)
+  const yakyak = useYakYakCloneContract()
+
+  return (
+    <WrapItem>
+      <Stack boxShadow={"xs"} p={"12px"} w={"200px"} h={"300px"} borderRadius={"8px"}>
+        <Text>DNA #{props.dnaID}</Text>
+        <Button
+          isLoading={state === PROCESSING}
+          onClick={async () => {
+            if (!yakyak) return
+            setState(PROCESSING)
+            const tx = await yakyak.cloning(props.setID, props.dnaID, {
+              value: parseToBigNumber(0.01).shiftedBy(18).toFixed(0),
+            })
+            const res = await tx.wait()
+            if (res.status === 1) {
+              setState(SUCCESS)
+              setTimeout(() => {
+                setState(IDLE)
+              }, IDLE_DELAY)
+            } else {
+              setState(ERROR)
+              setTimeout(() => {
+                setState(IDLE)
+              }, IDLE_DELAY)
+            }
+          }}>Clone</Button>
+      </Stack>
+    </WrapItem>
   )
 }
 

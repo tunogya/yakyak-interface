@@ -21,7 +21,7 @@ export const Park = () => {
   const {account} = useActiveWeb3React()
   const {balanceOf} = useYakYakRewards()
   const [balance, setBalance] = useRecoilState(balanceAtom)
-  const {currentSeries, sets, setSelectSeries, dnas, selectSetID} = useYakYakClone()
+  const {currentSeries, sets, setSelectSeries, dnas, selectSetID, totalSupply} = useYakYakClone()
   const [series, setSeries] = useState<number[]>([])
 
   useEffect(() => {
@@ -61,6 +61,7 @@ export const Park = () => {
             <StartNewSeries/>
           </Stack>
           <Text fontSize={"14px"}>{balance} YKR</Text>
+          <Text>{totalSupply}</Text>
           <Spacer/>
           <AllDnas/>
         </Stack>
@@ -113,6 +114,7 @@ export const Item: FC<ItemProps> = ({...props}) => {
   const [state, setState] = useState(IDLE)
   const yakyak = useYakYakCloneContract()
   const [count, setCount] = useState(0)
+  const { fetchState } = useYakYakClone()
 
   return (
     <WrapItem>
@@ -153,11 +155,13 @@ export const Item: FC<ItemProps> = ({...props}) => {
             const res = await tx.wait()
             if (res.status === 1) {
               setState(SUCCESS)
+              await fetchState()
               setTimeout(() => {
                 setState(IDLE)
               }, IDLE_DELAY)
             } else {
               setState(ERROR)
+              await fetchState()
               setTimeout(() => {
                 setState(IDLE)
               }, IDLE_DELAY)

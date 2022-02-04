@@ -34,7 +34,9 @@ const Content = () => {
         <Route path="/transfer" element={<Transfer/>}>
           <Route path=":action" element={<Transfer/>}/>
         </Route>
-        <Route path="/shopping" element={<Park/>}/>
+        <Route path="/shopping" element={<Park/>}>
+          <Route path=":action" element={<Park/>}/>
+        </Route>
         <Route path="/transactions" element={<Transactions/>}/>
         <Route
           path="*"

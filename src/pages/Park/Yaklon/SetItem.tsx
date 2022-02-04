@@ -1,7 +1,7 @@
 import {FC, useCallback, useEffect, useState} from "react";
 import {Stack, Text} from "@chakra-ui/react";
-import {useYakYakCloneContract} from "../../hooks/useContract";
-import {useYakYakClone} from "../../hooks/useYakYakClone";
+import {useYakYakCloneContract} from "../../../hooks/useContract";
+import {useYakYakClone} from "../../../hooks/useYakYakClone";
 
 type PeriodItemProps = {
   setID: number

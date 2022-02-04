@@ -13,6 +13,6 @@ export const YAKYAK_BANK_ADDRESS: AddressMap = {
 }
 
 export const YAKYAK_CLONE_ADDRESS: AddressMap = {
-  [SupportedChainId.RINKEBY]: "0xb99B89b56FFaF1b71c646bC16D50705Eb1a40223",
+  [SupportedChainId.RINKEBY]: "0xC603802a2625d86b08f1171F209a4FF05BbCe05B",
   [SupportedChainId.GANACHE]: "0x9ebFeBf014Fc4fC254906EcB6ee43f47907D9704",
 }

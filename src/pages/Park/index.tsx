@@ -5,10 +5,7 @@ import {FC, useCallback, useEffect, useState} from "react";
 import {formatNumber, parseToBigNumber} from "../../utils/bignumberUtil";
 import {atom, useRecoilState} from "recoil";
 import {SetItem} from "./SetItem";
-import {AddNewSet} from "./AddNewSet";
 import {useYakYakClone} from "../../hooks/useYakYakClone";
-import {StartNewSeries} from "./StartNewSeries";
-import {AllDnas} from "./AllDnas";
 import {ERROR, IDLE, IDLE_DELAY, PROCESSING, SUCCESS} from "../../constants/misc";
 import {useYakYakCloneContract} from "../../hooks/useContract";
 
@@ -58,12 +55,10 @@ export const Park = () => {
                 <option key={seriesID} value={seriesID}>Series {seriesID}</option>
               ))}
             </Select>
-            <StartNewSeries/>
           </Stack>
           <Text fontSize={"14px"}>{balance} YKR</Text>
           <Text>{totalSupply}</Text>
           <Spacer/>
-          <AllDnas/>
         </Stack>
       </Stack>
     )
@@ -72,7 +67,6 @@ export const Park = () => {
   const getSetList = () => {
     return (
       <Stack w={"full"} direction={"row"} alignItems={"center"} py={"8px"} maxW={"1024px"}>
-        <AddNewSet/>
         <Stack direction={"row"} overflow={"scroll"}>
           {sets.map((setID) => (
             <SetItem key={setID} setID={setID}/>

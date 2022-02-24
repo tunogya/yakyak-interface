@@ -57,7 +57,7 @@ export default function PendingView({
               size={"lg"}
               id={`connect-${key}`}
               key={key}
-              icon={option.iconURL}
+              // icon={option.iconURL}
               disabled={!error}
               onClick={() => {
                 setPendingError(false)

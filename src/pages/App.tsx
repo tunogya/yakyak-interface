@@ -2,25 +2,17 @@ import React from "react"
 import {Route, Routes} from "react-router-dom"
 import {Stack} from "@chakra-ui/react"
 import Header from "../components/Header"
-import Web3ReactManager from "../components/Web3ReactManager"
-import Summary from "./Summary";
-import Transfer from "./Transfer";
-import Park from "./Park";
-import Transactions from "./Transactions";
-import {GoogleAnalyticsReporter} from "../components/analytics/GoogleAnalyticsReporter";
 
 function App() {
   return (
-    <Web3ReactManager>
-      <Stack spacing={0} h={"full"}>
-        <Stack position={"fixed"} w={"full"} zIndex={"docked"}>
-          <Header/>
-        </Stack>
-        <Stack w={"full"}>
-          <Content/>
-        </Stack>
+    <Stack spacing={0} h={"100vh"} bg={"primary"} color={"white"}>
+      <Stack position={"fixed"} w={"full"} zIndex={"docked"}>
+        <Header/>
       </Stack>
-    </Web3ReactManager>
+      <Stack w={"full"}>
+        <Content/>
+      </Stack>
+    </Stack>
   )
 }
 
@@ -28,16 +20,6 @@ const Content = () => {
   return (
     <Stack alignItems={"center"} pt={"96px"}>
       <Routes>
-        <Route element={<GoogleAnalyticsReporter/>}/>
-        <Route path="/" element={<Summary/>}/>
-        <Route path="/summary" element={<Summary/>}/>
-        <Route path="/transfer" element={<Transfer/>}>
-          <Route path=":action" element={<Transfer/>}/>
-        </Route>
-        <Route path="/shopping" element={<Park/>}>
-          <Route path=":action" element={<Park/>}/>
-        </Route>
-        <Route path="/transactions" element={<Transactions/>}/>
         <Route
           path="*"
           element={

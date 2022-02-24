@@ -1,51 +1,49 @@
-import {Button, Heading, Spacer, Stack} from "@chakra-ui/react"
+import {Button, Heading, Spacer, Stack, Tab, TabList, TabPanel, TabPanels, Tabs} from "@chakra-ui/react"
 import {useNavigate, useLocation} from "react-router-dom"
 import Web3Status from "../Web3Status"
+import {t} from "@lingui/macro"
 
 export const Header = () => {
   const links = [
-    {path: "/summary", label: "Dashboard"},
-    {path: "/transfer", label: "Rewards"},
-    {path: "/shopping", label: "Deals"},
-    {path: "/transactions", label: "Activity"}
+    {path: "/deposit", label: "Deposit"},
+    {path: "/adoption", label: "Adoption"},
+    {path: "/account", label: "Account"},
   ]
   const navigate = useNavigate()
   const location = useLocation()
 
+  const handleTabsChange = (index: number) => {
+    navigate(`${links[index].path}`)
+  }
+
   return (
-    <Stack alignItems={"center"} bg={"primary"} color={"white"}>
+    <Stack alignItems={"center"}>
       <Stack
         direction={"row"}
         alignItems={"center"}
+        justifyContent={"space-between"}
         h={"96px"}
         w={"full"}
         maxW={"1024px"}
       >
-        <Stack direction={"row"} alignItems={"center"} spacing={"24px"}>
-          <Heading fontSize={"md"} fontWeight={"bold"} fontStyle={"italic"} whiteSpace={"nowrap"}>
-            YakYak Club
+        <Stack direction={"row"} alignItems={"center"} spacing={"24px"} w={"200px"}>
+          <Heading fontSize={"md"} whiteSpace={"nowrap"}>
+            YakYak
           </Heading>
-          <Stack direction={"row"} id={"menu"}>
-            {links.map((link, index) => (
-              <Button
-                key={index}
-                color={"white"}
-                border={"2px"}
-                borderColor={location.pathname === '/' ? (link.path === "/summary" ? "white" : "primary") : (location.pathname.includes(link.path) ? "white" : "primary")}
-                fontWeight={"bold"}
-                _hover={{borderColor: "white"}}
-                onClick={() => {
-                  navigate(link.path)
-                }}
-                cursor={"pointer"}
-              >
-                {link.label}
-              </Button>
-            ))}
-          </Stack>
         </Stack>
-        <Spacer/>
-        <Stack direction={"row"} alignItems={"center"}>
+        <Stack direction={"row"} justifyContent={"center"} bg={"white"} borderRadius={"xl"} p={"2px"}>
+          <Tabs variant='soft-rounded' isLazy onChange={handleTabsChange}>
+            <TabList>
+              { links.map((item, index)=>(
+                <Tab
+                  key={index}
+                  style={{ borderRadius: '12px' }}
+                >{t`${item.label}`}</Tab>
+              )) }
+            </TabList>
+          </Tabs>
+        </Stack>
+        <Stack direction={"row"} alignItems={"center"} w={"200px"} justifyContent={"flex-end"}>
           <Web3Status/>
         </Stack>
       </Stack>

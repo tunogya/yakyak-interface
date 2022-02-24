@@ -1,26 +1,28 @@
 export const Button = {
   baseStyle: {
-    borderRadius: "full",
+    borderRadius: "8px",
     fontFamily: "Nunito",
   },
   variants: {
     outline: {
-      border: "1px",
-      height: "48px",
-      _hover: null,
+      border: "2px",
+      height: "44px",
+      borderColor: 'primary',
+      _hover: {
+        bg: 'primary',
+        color: 'white'
+      },
       _active: null
     },
     solid: {
       bg: "primary",
       color: "white",
-      height: "48px",
+      height: "44px",
       _hover: null,
       _active: null
     },
     ghost: {
-      height: "48px",
-      _hover: null,
-      _active: null
+      height: "44px",
     },
   },
 }

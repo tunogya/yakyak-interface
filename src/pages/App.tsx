@@ -2,6 +2,9 @@ import React from "react"
 import {Route, Routes} from "react-router-dom"
 import {Stack} from "@chakra-ui/react"
 import Header from "../components/Header"
+import Deposit from "./Deposit";
+import Adoption from "./Adoption";
+import Account from "./Account";
 
 function App() {
   return (
@@ -20,6 +23,10 @@ const Content = () => {
   return (
     <Stack alignItems={"center"} pt={"96px"}>
       <Routes>
+        <Route path={'/'} element={<Deposit />}/>
+        <Route path={'/deposit'} element={<Deposit />}/>
+        <Route path={'/adoption'} element={<Adoption />}/>
+        <Route path={'/account'} element={<Account />}/>
         <Route
           path="*"
           element={

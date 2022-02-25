@@ -43,7 +43,7 @@ export const Controller: FC<ControllerProps> = ({...props}) => {
           <Web3Status/>
         </Stack>
       </Stack>
-      <Stack h={"full"}>
+      <Stack h={"full"} w={"full"} pt={"80px"}>
         {props.content}
       </Stack>
       <BottomMenu>

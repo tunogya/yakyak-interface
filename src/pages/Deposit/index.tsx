@@ -17,7 +17,7 @@ export const Deposit = () => {
           <Trans>Deposit</Trans>
         </Text>
       </Stack>
-      <Input height={'100px'}/>
+      <Input variant='filled' height={'100px'}/>
       <Stack spacing={0}>
         <Button onClick={onToggle} variant={"ghost"} isActive={isOpen}>
           <Stack direction={"row"} w={"full"}>

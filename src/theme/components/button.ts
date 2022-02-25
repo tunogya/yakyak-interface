@@ -23,6 +23,12 @@ export const Button = {
     },
     ghost: {
       height: "44px",
+      _hover: {
+        bg: 'gray.100'
+      },
+      _active: {
+        bg: 'gray.100'
+      }
     },
   },
 }

@@ -12,7 +12,7 @@ export const Menu = () => {
 
   const navigate = useNavigate()
   const location = useLocation()
-  const [tabIndex, setTabIndex] = useState(links.findIndex(({pathname}) => (pathname === location.pathname)))
+  const [tabIndex, setTabIndex] = useState(location.pathname === '/' ? 0 : links.findIndex(({pathname}) => (pathname === location.pathname)))
 
   const handleTabsChange = (index: number) => {
     setTabIndex(index)

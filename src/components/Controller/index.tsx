@@ -32,7 +32,7 @@ export const Controller: FC<ControllerProps> = ({...props}) => {
         w={"full"}
       >
         <Stack direction={"row"} alignItems={"center"} spacing={"24px"} w={"200px"}>
-          <Heading fontSize={"md"} whiteSpace={"nowrap"}>
+          <Heading whiteSpace={"nowrap"}>
             YakYak
           </Heading>
         </Stack>

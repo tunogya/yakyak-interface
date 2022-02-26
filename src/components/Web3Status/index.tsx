@@ -128,7 +128,7 @@ export const WalletModal = () => {
     }
 
     return (
-      <Button onClick={onOpen} variant={"outline"}>
+      <Button onClick={onOpen} variant={"outline"} borderColor={'white'} _hover={{ bg: "white", color: 'primary' }}>
         <Trans>Connect Wallet</Trans>
       </Button>
     )

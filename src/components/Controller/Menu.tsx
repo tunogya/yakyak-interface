@@ -26,6 +26,7 @@ export const Menu = () => {
             <Tab
               key={index}
               style={{borderRadius: '12px'}}
+              _selected={{ color: "white", bg: "primary" }}
             >{item.label}</Tab>
           ))}
         </TabList>

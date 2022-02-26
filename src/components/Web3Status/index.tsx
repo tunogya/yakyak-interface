@@ -111,8 +111,7 @@ export const WalletModal = () => {
   const getWeb3Status = () => {
     if (account) {
       return (
-        <Button onClick={onOpen} variant={"outline"} fontWeight={"bold"} borderColor={'white'}
-                _hover={{ bg: 'white', color: 'primary' }}>
+        <Button onClick={onOpen} variant={"outline"} fontWeight={"bold"}>
           <Text>{shortenAddress(account)}</Text>
         </Button>
       )
@@ -128,7 +127,7 @@ export const WalletModal = () => {
     }
 
     return (
-      <Button onClick={onOpen} variant={"outline"} borderColor={'white'} _hover={{ bg: "white", color: 'primary' }}>
+      <Button onClick={onOpen}>
         <Trans>Connect Wallet</Trans>
       </Button>
     )

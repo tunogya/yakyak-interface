@@ -17,17 +17,23 @@ export const Deposit = () => {
           <Text fontWeight={'bold'}>
             <Trans>Deposit</Trans>
           </Text>
+          <Text fontStyle={'italic'} cursor={"pointer"}>
+            <Trans>Tether USD</Trans>
+          </Text>
           <Spacer />
           <InfoOutlineIcon />
         </Stack>
         <InputGroup h={24}>
           <InputLeftElement children={
-            <Select variant='filled' size={'lg'} fontWeight={"bold"}>
-              <option value='tether'>Tether</option>
-              {/*<option value='usdc'>USDC</option>*/}
-            </Select>
-          } h={24} w={32} pl={3}/>
-          <Input placeholder='0.0' h={24} pl={36} textAlign={"right"} fontSize={'4xl'} fontWeight={"bold"}/>
+            <Stack direction={"row"} alignItems={"center"}>
+              <Select variant='filled' size={'lg'} fontWeight={"bold"}>
+                <option value='ethereum'>Ethereum</option>
+                <option value='polygon'>Polygon</option>
+              </Select>
+              <Text fontSize={'2xl'}>$</Text>
+            </Stack>
+          } h={24} w={40} pl={3}/>
+          <Input placeholder='0.0' h={24} pl={44} textAlign={"right"} fontSize={'4xl'} fontWeight={"bold"}/>
         </InputGroup>
         <Stack spacing={0}>
           <Button onClick={onToggle} variant={"ghost"} isActive={isOpen}>
@@ -49,13 +55,13 @@ export const Deposit = () => {
         </Button>
       </Stack>
       <Stack direction={"row"} justifyContent={"space-around"}>
-        <Button>
+        <Button textDecoration={'underline'}>
           Swap tokens
         </Button>
-        <Button>
+        <Button textDecoration={'underline'}>
          Help
         </Button>
-        <Button>
+        <Button textDecoration={'underline'}>
           Bridge tokens
         </Button>
       </Stack>

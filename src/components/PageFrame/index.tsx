@@ -22,9 +22,9 @@ const BottomMenu = styled.div`
   }
 `
 
-export const Controller: FC<ControllerProps> = ({...props}) => {
+export const PageFrame: FC<ControllerProps> = ({...props}) => {
   return (
-    <Stack alignItems={"center"} h={"100vh"} bg={"primary"} color={"white"} p={"18px"}>
+    <Stack alignItems={"center"} h={"100vh"} color={"white"} p={"18px"} bgGradient='linear(primary 60%, secondary)'>
       <Stack
         direction={"row"}
         alignItems={"center"}
@@ -53,4 +53,4 @@ export const Controller: FC<ControllerProps> = ({...props}) => {
   )
 }
 
-export default Controller
+export default PageFrame

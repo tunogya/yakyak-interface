@@ -55,15 +55,15 @@ export const Deposit = () => {
         </Button>
       </Stack>
       <Stack direction={"row"} justifyContent={"space-around"}>
-        <Button textDecoration={'underline'}>
+        <Text textDecoration={'underline'} cursor={'pointer'}>
           Swap tokens
-        </Button>
-        <Button textDecoration={'underline'}>
+        </Text>
+        <Text textDecoration={'underline'} cursor={'pointer'}>
          Help
-        </Button>
-        <Button textDecoration={'underline'}>
+        </Text>
+        <Text textDecoration={'underline'} cursor={'pointer'}>
           Bridge tokens
-        </Button>
+        </Text>
       </Stack>
     </Stack>
 

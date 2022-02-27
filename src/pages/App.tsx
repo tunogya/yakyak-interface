@@ -1,14 +1,14 @@
 import React from "react"
 import {Route, Routes} from "react-router-dom"
 import {Stack} from "@chakra-ui/react"
-import Controller from "../components/Controller"
+import PageFrame from "../components/PageFrame"
 import Deposit from "./Deposit";
 import Adoption from "./Adoption";
 import Account from "./Account";
 
 function App() {
   return (
-    <Controller content={<Content/>}/>
+    <PageFrame content={<Content/>}/>
   )
 }
 

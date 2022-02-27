@@ -26,10 +26,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Movavi Grotesque';
     src: url(${MovaviGrotesque}) format('woff2');
   }
-
-  body {
-    background: #F5F7FA;
-  }
 `
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)

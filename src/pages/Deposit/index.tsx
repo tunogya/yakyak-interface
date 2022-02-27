@@ -32,7 +32,7 @@ export const Deposit = () => {
               </Select>
               <Text fontSize={'2xl'}>$</Text>
             </Stack>
-          } h={24} w={40} pl={3}/>
+          } h={24} w={44} pl={3}/>
           <Input placeholder='0.0' h={24} pl={44} textAlign={"right"} fontSize={'4xl'} fontWeight={"bold"}/>
         </InputGroup>
         <Stack spacing={0}>

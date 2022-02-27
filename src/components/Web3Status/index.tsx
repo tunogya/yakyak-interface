@@ -203,8 +203,8 @@ export const WalletModal = () => {
         !isMobile &&
         !option.mobileOnly && (
           <Button
-            isFullWidth={true}
             variant={"outline"}
+            minH={'100px'}
             id={`connect-${key}`}
             onClick={() => {
               option.connector === connector
@@ -213,7 +213,7 @@ export const WalletModal = () => {
             }}
             key={key}
           >
-            <Stack direction={"row"} w={"100%"} alignItems={"center"}>
+            <Stack alignItems={"center"}>
               <Text>{option.name}</Text>
               <Spacer />
               <IconWrapper>
@@ -260,7 +260,7 @@ export const WalletModal = () => {
       <>
         <ModalOverlay />
         <ModalContent padding={"20px"}>
-          <ModalHeader fontFamily={"Nunito"}>
+          <ModalHeader>
             <Trans>Connect Wallet</Trans>
           </ModalHeader>
           <ModalBody>

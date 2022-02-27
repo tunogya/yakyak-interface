@@ -3,7 +3,6 @@ import { SUPPORTED_WALLETS } from "../../constants/wallet"
 import { injected } from "../../connectors"
 import { Trans } from "@lingui/macro"
 import { Button, Spacer, Stack, Text } from "@chakra-ui/react"
-import { RepeatIcon } from "@chakra-ui/icons"
 import styled from "styled-components"
 
 const IconWrapper = styled.div<{ size?: number | null }>`
@@ -54,19 +53,18 @@ export default function PendingView({
           return (
             <Button
               isFullWidth={true}
-              size={"lg"}
               id={`connect-${key}`}
+              minH={'100px'}
+              variant={'outline'}
               key={key}
-              // icon={option.iconURL}
               disabled={!error}
               onClick={() => {
                 setPendingError(false)
                 connector && tryActivation(connector)
               }}
             >
-              <Stack direction={"row"} w={"100%"} alignItems={"center"}>
-                {error && <RepeatIcon color={option.color} />}
-                <Text color={option.color}>{option.name}</Text>
+              <Stack alignItems={"center"}>
+                <Text>{option.name}</Text>
                 <Spacer />
                 <IconWrapper>
                   <img src={option.iconURL} alt={"Icon"} />

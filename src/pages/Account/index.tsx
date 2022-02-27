@@ -10,7 +10,7 @@ export const Account = () => {
         <RepeatIcon/>
       </Stack>
 
-      <Stack bg={"white"} borderRadius={'md'} px={2} py={6}>
+      <Stack bg={"white"} borderRadius={'xl'} px={2} py={6}>
         <Button variant={"outline"} color={'black'} borderColor={'gray.200'} border={'1px solid'}>
           <Stack direction={"row"} w={"full"} alignItems={"center"}>
             <Text fontWeight={'bold'}>Ethereum</Text>
